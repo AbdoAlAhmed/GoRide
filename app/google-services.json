@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "263246991647",
+    "project_id": "goride-1",
+    "storage_bucket": "goride-1.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:263246991647:android:a1c1e69b8046753245202a",
+        "android_client_info": {
+          "package_name": "com.theideal.goride"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "263246991647-bbgngg80ca1ns0q984t3sb0nc995ov8q.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBzAOC8id0Kd8qt1COI1c21mEV-I_Kiz7Y"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "263246991647-bbgngg80ca1ns0q984t3sb0nc995ov8q.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
