@@ -6,22 +6,23 @@ import com.google.firebase.auth.AuthResult
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.SetOptions
+import kotlinx.coroutines.tasks.await
 
 class FirebaseModel : ViewModel() {
     private val db = FirebaseFirestore.getInstance()
     private val auth = FirebaseAuth.getInstance()
 
-    fun createAccountAndSaveDataRider(rider: Rider): Task<Boolean> {
+    fun createAccountAndSaveDataRider(user: User): Task<Boolean> {
         val rideInfoRef = db.collection("users").document()
         return db.runTransaction { transaction ->
-            transaction.set(rideInfoRef, rider)
-            val authResult = auth.createUserWithEmailAndPassword(rider.email, rider.getPassword())
+            transaction.set(rideInfoRef, user)
+            val authResult = auth.createUserWithEmailAndPassword(user.email, user.getPassword())
             if (authResult.isSuccessful) {
                 val user = authResult.result?.user
                 user?.let {
                     val userInfo = hashMapOf(
-                        "id" to user.uid,
-                        "userType" to "rider"
+                        user.uid to "id",
+                        "rider" to "userType"
                     )
                     transaction.set(rideInfoRef, userInfo, SetOptions.merge())
                     return@runTransaction true
@@ -32,41 +33,28 @@ class FirebaseModel : ViewModel() {
         }
     }
 
-    fun createAccountAndSaveDataDriver(driver: Driver): Task<Boolean> {
-        val driverInfoRef = db.collection("users").document()
-        return db.runTransaction { transaction ->
-            transaction.set(driverInfoRef, driver)
-            val authResult = auth.createUserWithEmailAndPassword(driver.email, driver.getPassword())
-            if (authResult.isSuccessful) {
-                val user = authResult.result?.user
-                user?.let {
-                    val userInfo = hashMapOf(
-                        "id" to user.uid,
-                        "userType" to "driver"
-                    )
-                    transaction.set(driverInfoRef, userInfo, SetOptions.merge())
-                    return@runTransaction true
-                } ?: return@runTransaction true
-            } else {
-                return@runTransaction false
-            }
-        }
+    suspend fun createAccountAndSaveData(user: User) {
+        val authResult = auth.createUserWithEmailAndPassword(user.email, user.getPassword()).await()
+        val userR  = authResult.user!!
+        db.collection("users").document(userR.uid).set(user)
+        verifyEmail()
+
     }
 
-    fun getUserData(id: String,callback:(String?)->Unit) {
+    fun getUserData(id: String, callback: (String?) -> Unit) {
         db.collection("users").document(id).get().addOnSuccessListener {
             callback(it.getString("userType"))
         }
 
     }
 
-    fun sigInDriver(driver: Driver): Task<AuthResult> {
-        return auth.signInWithEmailAndPassword(driver.email, driver.getPassword())
+    fun sigIn(user: User): Task<AuthResult> {
+        return auth.signInWithEmailAndPassword(user.email, user.getPassword())
 
     }
 
-    fun sigInRider(rider: Rider): Task<AuthResult> {
-        return auth.signInWithEmailAndPassword(rider.email, rider.getPassword())
+    fun verifyEmail() {
+        auth.currentUser?.sendEmailVerification()!!
     }
 
     fun signOut() {

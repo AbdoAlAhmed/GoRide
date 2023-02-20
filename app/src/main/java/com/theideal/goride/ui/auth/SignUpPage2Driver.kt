@@ -7,9 +7,13 @@ import android.view.View
 import android.view.ViewGroup
 import com.theideal.goride.R
 
+// TODO: Rename parameter arguments, choose names that match
+// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
+private const val ARG_PARAM1 = "param1"
+private const val ARG_PARAM2 = "param2"
 
 
-class ForgetPasswordFragment : Fragment() {
+class SignUpPage2Driver : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -21,7 +25,7 @@ class ForgetPasswordFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_forget_password, container, false)
+        return inflater.inflate(R.layout.fragment_sign_up_page2_driver, container, false)
     }
 
 }

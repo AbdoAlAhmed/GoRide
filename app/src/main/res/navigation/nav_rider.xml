@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_rider"
+    app:startDestination="@id/homeRiderFragment">
+
+    <fragment
+        android:id="@+id/homeRiderFragment"
+        android:name="com.theideal.goride.ui.rider.HomeRiderFragment"
+        android:label="fragment_home_rider"
+        tools:layout="@layout/fragment_home_rider" />
+</navigation>

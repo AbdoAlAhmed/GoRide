@@ -1,6 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/nav_auth">
-
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_auth"
+    app:startDestination="@id/signInFragment2">
+    <fragment
+        android:id="@+id/signInFragment2"
+        android:name="com.theideal.goride.ui.auth.SignInFragment"
+        android:label="SignInFragment" >
+        <action
+            android:id="@+id/action_signInFragment2_to_signUpFragmentDriver"
+            app:destination="@id/signUpFragmentDriver" />
+    </fragment>
+    <fragment
+        android:id="@+id/signUpFragmentDriver"
+        android:name="com.theideal.goride.ui.auth.SignUpFragment"
+        android:label="fragment_sign_up"
+        tools:layout="@layout/fragment_sign_up" >
+        <action
+            android:id="@+id/action_signUpFragmentDriver_to_signUpPage2Driver"
+            app:destination="@id/signUpPage2Driver" />
+    </fragment>
+    <fragment
+        android:id="@+id/signUpPage2Driver"
+        android:name="com.theideal.goride.ui.auth.SignUpPage2Driver"
+        android:label="fragment_sign_up_page2_driver"
+        tools:layout="@layout/fragment_sign_up_page2_driver" />
 </navigation>
