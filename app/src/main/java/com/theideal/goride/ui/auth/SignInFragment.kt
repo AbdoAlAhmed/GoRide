@@ -8,10 +8,10 @@ import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.theideal.goride.databinding.FragmentSigninBinding
-import com.theideal.goride.model.FirebaseModel
+import com.theideal.goride.model.FirebaseAuthModel
 import com.theideal.goride.model.User
-import com.theideal.goride.viewmodel.AuthenticationViewModel
-import com.theideal.goride.viewmodel.AuthenticationViewModelFactory
+import com.theideal.goride.viewmodel.auth.AuthenticationViewModel
+import com.theideal.goride.viewmodel.auth.AuthenticationViewModelFactory
 
 
 class SignInFragment : Fragment() {
@@ -30,7 +30,7 @@ class SignInFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         binding = FragmentSigninBinding.inflate(inflater, container, false)
-        val viewModelFactory = AuthenticationViewModelFactory(FirebaseModel())
+        val viewModelFactory = AuthenticationViewModelFactory(FirebaseAuthModel())
         viewModel = ViewModelProvider(
             requireActivity(),
             viewModelFactory

@@ -1,14 +1,14 @@
-package com.theideal.goride.viewmodel
+package com.theideal.goride.viewmodel.auth
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.theideal.goride.model.FirebaseModel
+import com.theideal.goride.model.FirebaseAuthModel
 import com.theideal.goride.model.User
 import kotlinx.coroutines.launch
 
-class AuthenticationViewModel(private val firebaseModel: FirebaseModel) : ViewModel() {
+class AuthenticationViewModel(private val firebaseAuthModel: FirebaseAuthModel) : ViewModel() {
 
     private val _isSignInDriver = MutableLiveData<Boolean>()
     val isSignInDriver: LiveData<Boolean>
@@ -62,7 +62,7 @@ class AuthenticationViewModel(private val firebaseModel: FirebaseModel) : ViewMo
 
     fun createAnAccount(user: User) {
         viewModelScope.launch {
-        firebaseModel.createAccountAndSaveData(user)
+        firebaseAuthModel.createAccountAndSaveData(user)
         }
     }
 
@@ -71,8 +71,8 @@ class AuthenticationViewModel(private val firebaseModel: FirebaseModel) : ViewMo
 //    }
 
     fun signIn(user: User) {
-        val driver = firebaseModel.sigIn(user)
-        firebaseModel.getUserData(driver.result.user!!.uid){
+        val driver = firebaseAuthModel.sigIn(user)
+        firebaseAuthModel.getUserData(driver.result.user!!.uid){
             if (it == "driver"){
                 _isSignInDriver.value = true
                 _isSignInRider.value = false
@@ -85,7 +85,7 @@ class AuthenticationViewModel(private val firebaseModel: FirebaseModel) : ViewMo
     }
 
     fun signOut() {
-        firebaseModel.signOut()
+        firebaseAuthModel.signOut()
     }
 
     fun showDialog(){
@@ -111,7 +111,7 @@ class AuthenticationViewModel(private val firebaseModel: FirebaseModel) : ViewMo
     }
 
     fun signUpRiderComplete(user: User){
-        val authResult = firebaseModel.createAccountAndSaveDataRider(user)
+        val authResult = firebaseAuthModel.createAccountAndSaveDataRider(user)
         _isSignUpRider.value = true
     }
 }

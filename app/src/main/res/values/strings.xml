@@ -20,4 +20,13 @@
     <string name="age">Age</string>
     <string name="age_helper">write your age Like 21</string>
     <string name="gays_are_not_allowed">Gays are not allowed</string>
+    <string name="profile">Profile</string>
+    <string name="services">Services</string>
+    <string name="home">Home</string>
+    <string name="start">Start</string>
+    <string name="title">Title</string>
+    <string name="subtitle">Subtitle</string>
+    <string name="test">test</string>
+    <string name="start_destination">Pick Up Destination</string>
+    <string name="end_destination">End Destination</string>
 </resources>

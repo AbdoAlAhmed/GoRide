@@ -12,13 +12,11 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.theideal.goride.R
 import com.theideal.goride.databinding.FragmentSignUpBinding
-import com.theideal.goride.model.Driver
-import com.theideal.goride.model.FirebaseModel
-import com.theideal.goride.model.Rider
+import com.theideal.goride.model.FirebaseAuthModel
 import com.theideal.goride.model.User
 import com.theideal.goride.ui.rider.HomeRiderActivity
-import com.theideal.goride.viewmodel.AuthenticationViewModel
-import com.theideal.goride.viewmodel.AuthenticationViewModelFactory
+import com.theideal.goride.viewmodel.auth.AuthenticationViewModel
+import com.theideal.goride.viewmodel.auth.AuthenticationViewModelFactory
 
 class SignUpFragment : Fragment() {
     private lateinit var binding: FragmentSignUpBinding
@@ -35,7 +33,7 @@ class SignUpFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         binding = FragmentSignUpBinding.inflate(inflater, container, false)
-        val viewModelFactory = AuthenticationViewModelFactory(FirebaseModel())
+        val viewModelFactory = AuthenticationViewModelFactory(FirebaseAuthModel())
         viewModel = ViewModelProvider(this, viewModelFactory)[AuthenticationViewModel::class.java]
         binding.viewModel = viewModel
         binding.lifecycleOwner = this
