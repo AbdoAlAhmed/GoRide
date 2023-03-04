@@ -1,5 +1,6 @@
 package com.theideal.goride.ui.auth
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -10,6 +11,7 @@ import androidx.navigation.fragment.findNavController
 import com.theideal.goride.databinding.FragmentSigninBinding
 import com.theideal.goride.model.FirebaseAuthModel
 import com.theideal.goride.model.User
+import com.theideal.goride.ui.rider.RiderActivity
 import com.theideal.goride.viewmodel.auth.AuthenticationViewModel
 import com.theideal.goride.viewmodel.auth.AuthenticationViewModelFactory
 
@@ -40,12 +42,20 @@ class SignInFragment : Fragment() {
         binding.user = user
 
 
-        viewModel.navToSignUp.observe(viewLifecycleOwner){
-            if (it){
+        viewModel.isSignIn()
+
+        viewModel.navToSignUp.observe(viewLifecycleOwner) {
+            if (it) {
                 findNavController().navigate(SignInFragmentDirections.actionSignInFragment2ToSignUpFragmentDriver())
                 viewModel.doneNavToSignUp()
             }
         }
+        viewModel.isSignInRider.observe(viewLifecycleOwner) {
+            if (it) {
+                startActivity(Intent(requireContext(), RiderActivity::class.java))
+            }
+        }
+
 
         return binding.root
     }

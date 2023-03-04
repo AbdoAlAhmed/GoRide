@@ -7,7 +7,7 @@ import androidx.navigation.ui.setupWithNavController
 import com.theideal.goride.R
 import com.theideal.goride.databinding.ActivityHomeRiderBinding
 
-class HomeRiderActivity : AppCompatActivity() {
+class RiderActivity : AppCompatActivity() {
     private lateinit var binding: ActivityHomeRiderBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

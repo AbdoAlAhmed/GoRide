@@ -6,11 +6,11 @@ data class Rider(
     val riderHistory: RiderHistory = RiderHistory("", Location(0.0, 0.0), null, null, null, Driver(), ""),
     val profilePicture: String = "",
     val rating: RatingRider = RatingRider(0, ""),
+    var userType: String = "rider",
     val user: User = User()
-) {
+){
 
 }
-
 data class RiderHistory(
     val ratingStars: String,
     val pickUpLocation: Location,

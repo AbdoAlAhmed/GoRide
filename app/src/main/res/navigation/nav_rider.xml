@@ -19,18 +19,6 @@
         <action
             android:id="@+id/action_homeRiderFragment_to_profileFragment"
             app:destination="@id/profileFragment" />
-        <action
-            android:id="@+id/action_homeRiderFragment_to_availableTripFragment"
-            app:destination="@id/availableTripFragment" />
-        <action
-            android:id="@+id/action_homeRiderFragment_to_errorFragment"
-            app:destination="@id/errorFragment" />
-        <action
-            android:id="@+id/action_homeRiderFragment_to_tripSuggestionsFragment"
-            app:destination="@id/tripSuggestionsFragment" />
-        <action
-            android:id="@+id/action_homeRiderFragment_to_rideRequestFragment"
-            app:destination="@id/rideRequestFragment" />
     </fragment>
     <fragment
         android:id="@+id/profileFragment"
@@ -56,20 +44,4 @@
             android:id="@+id/action_servicesFragment_to_homeRiderFragment"
             app:destination="@id/homeRiderFragment" />
     </fragment>
-    <fragment
-        android:id="@+id/errorFragment"
-        android:name="com.theideal.goride.ui.rider.home.services.ErrorFragment"
-        android:label="ErrorFragment" />
-    <fragment
-        android:id="@+id/tripSuggestionsFragment"
-        android:name="com.theideal.goride.ui.rider.home.services.TripSuggestionsFragment"
-        android:label="TripSuggestionsFragment" />
-    <fragment
-        android:id="@+id/rideRequestFragment"
-        android:name="com.theideal.goride.ui.rider.home.services.RideRequestFragment"
-        android:label="RideRequestFragment" />
-    <fragment
-        android:id="@+id/availableTripFragment"
-        android:name="com.theideal.goride.ui.rider.home.services.AvailableTripFragment"
-        android:label="AvailableTripFragment" />
 </navigation>

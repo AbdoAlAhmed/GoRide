@@ -29,4 +29,11 @@
     <string name="test">test</string>
     <string name="start_destination">Pick Up Destination</string>
     <string name="end_destination">End Destination</string>
+    <array name="simple_items">
+        <item>Taxi</item>
+        <item>Bus</item>
+        <item>MicroBus</item>
+        <item>MiniBus</item>
+        <item>TyneBus</item>
+    </array>
 </resources>

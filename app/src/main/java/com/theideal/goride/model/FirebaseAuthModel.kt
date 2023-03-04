@@ -1,5 +1,6 @@
 package com.theideal.goride.model
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.AuthResult
@@ -12,38 +13,32 @@ class FirebaseAuthModel : ViewModel() {
     private val db = FirebaseFirestore.getInstance()
     private val auth = FirebaseAuth.getInstance()
 
-    fun createAccountAndSaveDataRider(user: User): Task<Boolean> {
+    fun createAccountAndSaveDataRider(user: User) {
         val rideInfoRef = db.collection("users").document()
-        return db.runTransaction { transaction ->
+
+
+        db.runTransaction { transaction ->
             transaction.set(rideInfoRef, user)
-            val authResult = auth.createUserWithEmailAndPassword(user.email, user.getPassword())
+            val authResult =
+                auth.createUserWithEmailAndPassword(user.email, user.getPassword())
             if (authResult.isSuccessful) {
-                val user = authResult.result?.user
-                user?.let {
-                    val userInfo = hashMapOf(
-                        user.uid to "id",
-                        "rider" to "userType"
-                    )
-                    transaction.set(rideInfoRef, userInfo, SetOptions.merge())
-                    return@runTransaction true
-                } ?: return@runTransaction true
-            } else {
-                return@runTransaction false
+                transaction.set(rideInfoRef, user)
             }
         }
     }
 
     suspend fun createAccountAndSaveData(user: User) {
         val authResult = auth.createUserWithEmailAndPassword(user.email, user.getPassword()).await()
-        val userR  = authResult.user!!
+        val userR = authResult.user!!
         db.collection("users").document(userR.uid).set(user)
         verifyEmail()
 
     }
 
-    fun getUserData(id: String, callback: (String?) -> Unit) {
-        db.collection("users").document(id).get().addOnSuccessListener {
-            callback(it.getString("userType"))
+    fun getUserData(callback: (String?) -> Unit) {
+        db.collection("users").document().get().addOnSuccessListener {
+            val cast = it.toObject(User::class.java)
+            callback(cast?.userType)
         }
 
     }
@@ -53,12 +48,20 @@ class FirebaseAuthModel : ViewModel() {
 
     }
 
-    fun verifyEmail() {
+    private fun verifyEmail() {
         auth.currentUser?.sendEmailVerification()!!
     }
 
     fun signOut() {
         auth.signOut()
+    }
+
+    fun checkUserAuth(currentUser: (Boolean) -> Unit) {
+        if (auth.currentUser != null) {
+            currentUser(true)
+        } else {
+            currentUser(false)
+        }
     }
 
 }

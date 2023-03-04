@@ -7,12 +7,10 @@ data class Driver(
     var rating: RatingDriver = RatingDriver(0, "", 0),
     var availabilityStatus: AvailabilityStatus = AvailabilityStatus.Available,
     var profilePicture: String = "",
-    var driverHistory: DriverHistory = DriverHistory("", "", Location(0.0, 0.0), null, null, null, Driver(), ""),
+    var userType: String = "driver",
+    var driverHistory: String = "",
     var user: User = User()
     ) {
-
-
-
 }
 
 data class DriverHistory(

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/nav_rider_home_services"
+    app:startDestination="@id/rideRequestFragment">
+
+    <fragment
+        android:id="@+id/rideRequestFragment"
+        android:name="com.theideal.goride.ui.rider.home.services.request.RideRequestFragment"
+        android:label="RideRequestFragment" />
+</navigation>

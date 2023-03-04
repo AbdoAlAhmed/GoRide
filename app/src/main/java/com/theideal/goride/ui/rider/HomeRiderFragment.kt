@@ -1,17 +1,19 @@
 package com.theideal.goride.ui.rider
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.fragment.findNavController
 import com.google.android.gms.maps.GoogleMap
 import com.theideal.goride.databinding.FragmentHomeRiderBinding
 import com.theideal.goride.model.CardViewData
 import com.theideal.goride.ui.rider.adatper.CardViewAdapter
+import com.theideal.goride.ui.rider.home.services.request.RiderRequestActivity
 import com.theideal.goride.viewmodel.rider.RiderViewModel
+import timber.log.Timber
 
 
 class HomeRiderFragment : Fragment() {
@@ -41,30 +43,22 @@ class HomeRiderFragment : Fragment() {
         binding.rideServices.adapter = CardViewAdapter(CardViewAdapter.OnClick {
             viewModel.navTo(it)
         })
-        viewModel.navToAvailableTrip.observe(viewLifecycleOwner) {
-            if (it) {
-                findNavController().navigate(HomeRiderFragmentDirections.actionHomeRiderFragmentToAvailableTripFragment())
-                viewModel.doneNavToAvailableTrip()
+        viewModel.navTo.observe(viewLifecycleOwner) {
+            when (it) {
+
+                RiderViewModel.HomeServicesFragment.Request -> startActivity(
+                    Intent(
+                        requireContext(),
+                        RiderRequestActivity::class.java
+                    )
+                )
+
+                else -> {
+                    Timber.i("else")
+                }
             }
         }
-        viewModel.navToRideRequest.observe(viewLifecycleOwner) {
-            if (it) {
-                findNavController().navigate(HomeRiderFragmentDirections.actionHomeRiderFragmentToRideRequestFragment())
-                viewModel.doneNavToRideRequest()
-            }
-        }
-        viewModel.navToTripSuggestions.observe(viewLifecycleOwner) {
-            if (it) {
-                findNavController().navigate(HomeRiderFragmentDirections.actionHomeRiderFragmentToTripSuggestionsFragment())
-                viewModel.doneNavToTripSuggestions()
-            }
-        }
-        viewModel.navToFragmentError.observe(viewLifecycleOwner) {
-            if (it) {
-                findNavController().navigate(HomeRiderFragmentDirections.actionHomeRiderFragmentToErrorFragment())
-                viewModel.doneNavToErrorFragment()
-            }
-        }
+
 
         return binding.root
     }

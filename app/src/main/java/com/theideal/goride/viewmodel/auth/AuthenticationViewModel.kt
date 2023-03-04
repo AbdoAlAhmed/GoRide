@@ -1,10 +1,12 @@
 package com.theideal.goride.viewmodel.auth
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.theideal.goride.model.FirebaseAuthModel
+import com.theideal.goride.model.Rider
 import com.theideal.goride.model.User
 import kotlinx.coroutines.launch
 
@@ -62,7 +64,7 @@ class AuthenticationViewModel(private val firebaseAuthModel: FirebaseAuthModel) 
 
     fun createAnAccount(user: User) {
         viewModelScope.launch {
-        firebaseAuthModel.createAccountAndSaveData(user)
+            firebaseAuthModel.createAccountAndSaveData(user)
         }
     }
 
@@ -72,11 +74,11 @@ class AuthenticationViewModel(private val firebaseAuthModel: FirebaseAuthModel) 
 
     fun signIn(user: User) {
         val driver = firebaseAuthModel.sigIn(user)
-        firebaseAuthModel.getUserData(driver.result.user!!.uid){
-            if (it == "driver"){
+        firebaseAuthModel.getUserData {
+            if (it == "rider") {
                 _isSignInDriver.value = true
                 _isSignInRider.value = false
-            }else{
+            } else {
                 _isSignInDriver.value = false
                 _isSignInRider.value = true
             }
@@ -88,17 +90,19 @@ class AuthenticationViewModel(private val firebaseAuthModel: FirebaseAuthModel) 
         firebaseAuthModel.signOut()
     }
 
-    fun showDialog(){
+    fun showDialog() {
         _showDialog.value = true
     }
 
     fun navToSignUpPage2Driver() {
         _navToSignUpPage2Driver.value = true
     }
-    fun doneNavToSignUpPage2Driver(){
+
+    fun doneNavToSignUpPage2Driver() {
         _navToSignUpPage2Driver.value = false
     }
-    fun doneNavToSignUp(){
+
+    fun doneNavToSignUp() {
         _navToSignUp.value = false
     }
 
@@ -110,8 +114,15 @@ class AuthenticationViewModel(private val firebaseAuthModel: FirebaseAuthModel) 
         _navToForgetPassword.value = true
     }
 
-    fun signUpRiderComplete(user: User){
-        val authResult = firebaseAuthModel.createAccountAndSaveDataRider(user)
+    fun signUpRiderComplete(user: User) {
+        firebaseAuthModel.createAccountAndSaveDataRider(user)
         _isSignUpRider.value = true
+    }
+
+    fun isSignIn() {
+        firebaseAuthModel.checkUserAuth {
+            Log.i("checkUser", it.toString())
+            _isSignInRider.value = it
+        }
     }
 }

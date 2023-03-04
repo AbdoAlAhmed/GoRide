@@ -12,9 +12,11 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.theideal.goride.R
 import com.theideal.goride.databinding.FragmentSignUpBinding
+import com.theideal.goride.model.Driver
 import com.theideal.goride.model.FirebaseAuthModel
+import com.theideal.goride.model.Rider
 import com.theideal.goride.model.User
-import com.theideal.goride.ui.rider.HomeRiderActivity
+import com.theideal.goride.ui.rider.RiderActivity
 import com.theideal.goride.viewmodel.auth.AuthenticationViewModel
 import com.theideal.goride.viewmodel.auth.AuthenticationViewModelFactory
 
@@ -22,6 +24,8 @@ class SignUpFragment : Fragment() {
     private lateinit var binding: FragmentSignUpBinding
     private lateinit var viewModel: AuthenticationViewModel
     private val user = User()
+    private val _rider = Rider()
+    private val _driver = Driver()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -45,7 +49,7 @@ class SignUpFragment : Fragment() {
         }
         viewModel.isSignUpRider.observe(viewLifecycleOwner) {
             if (it) {
-                startActivity(Intent(activity, HomeRiderActivity::class.java))
+                findNavController().popBackStack()
             }
         }
         viewModel.navToSignUpPage2Driver.observe(viewLifecycleOwner) {

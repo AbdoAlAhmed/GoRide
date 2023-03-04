@@ -6,8 +6,10 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.theideal.goride.model.CardViewData
 import com.theideal.goride.model.FirebaseRiderModel
+import timber.log.Timber
 
 class RiderViewModel : ViewModel() {
+    enum class HomeServicesFragment { Available, Suggest, Request, Error }
 
     val data = FirebaseRiderModel()
 
@@ -15,24 +17,13 @@ class RiderViewModel : ViewModel() {
     val rideServicesData: LiveData<ArrayList<CardViewData>>
         get() = _rideServicesData
 
-    private val _navToAvailableTrip = MutableLiveData<Boolean>()
-    val navToAvailableTrip: LiveData<Boolean>
-        get() = _navToAvailableTrip
-    private val _navToRideRequest = MutableLiveData<Boolean>()
-    val navToRideRequest: LiveData<Boolean>
-        get() = _navToRideRequest
-    private val _navToTripSuggestions = MutableLiveData<Boolean>()
-    val navToTripSuggestions: LiveData<Boolean>
-        get() = _navToTripSuggestions
-    private val _navToErrorFragment = MutableLiveData<Boolean>()
-    val navToFragmentError: LiveData<Boolean>
-        get() = _navToErrorFragment
+
+    private val _navTo = MutableLiveData<HomeServicesFragment>()
+    val navTo: LiveData<HomeServicesFragment>
+        get() = _navTo
 
     init {
-        _navToAvailableTrip.value = false
-        _navToRideRequest.value = false
-        _navToTripSuggestions.value = false
-        _navToErrorFragment.value = false
+
     }
 
     fun getRideServicesHome() {
@@ -42,36 +33,20 @@ class RiderViewModel : ViewModel() {
     }
 
     fun navTo(card: CardViewData?) {
-        Log.i("TAG", "card!!.title")
+        Timber.i(card?.title)
         when (card!!.title) {
             "Available Trips" -> {
-                _navToAvailableTrip.value = true
-                Log.i("TAG", card.title)
+                _navTo.value = HomeServicesFragment.Available
             }
             "Ride Request" -> {
-                _navToRideRequest.value = true
+                _navTo.value = HomeServicesFragment.Request
             }
             "Trip Suggestions" -> {
-                _navToTripSuggestions.value = true
+                _navTo.value = HomeServicesFragment.Suggest
             }
-            else -> _navToErrorFragment.value = true
+            else -> _navTo.value = HomeServicesFragment.Error
         }
 
     }
 
-    fun doneNavToAvailableTrip() {
-        _navToAvailableTrip.value = false
-    }
-
-    fun doneNavToRideRequest() {
-        _navToRideRequest.value = false
-    }
-
-    fun doneNavToTripSuggestions() {
-        _navToTripSuggestions.value = false
-    }
-
-    fun doneNavToErrorFragment() {
-        _navToErrorFragment.value = false
-    }
 }
