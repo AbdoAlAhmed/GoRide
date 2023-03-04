@@ -15,26 +15,13 @@ import com.theideal.goride.viewmodel.auth.AuthenticationViewModelFactory
 
 @SuppressLint("CustomSplashScreen")
 class SplashScreenActivity : AppCompatActivity() {
-    private lateinit var viewModel: AuthenticationViewModel
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splach_screen)
-        val viewModelFactory = AuthenticationViewModelFactory(FirebaseAuthModel())
-        viewModel = ViewModelProvider(
-            this,
-            viewModelFactory
-        )[AuthenticationViewModel::class.java]
-        viewModel.isSignIn()
+
         Handler().postDelayed(Runnable { //This method will be executed once the timer is over
             // Start your app main activity
-
-            viewModel.isSignInRider.observe(this) {
-                if (it) {
-                    startActivity(Intent(this, RiderActivity::class.java))
-                } else {
-                    startActivity(Intent(this, AuthenticationActivity::class.java))
-                }
-            }
+            startActivity(Intent(this, AuthenticationActivity::class.java))
 
             // close this activity
             finish()

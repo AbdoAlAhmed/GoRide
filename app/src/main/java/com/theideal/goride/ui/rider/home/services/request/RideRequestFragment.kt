@@ -46,9 +46,6 @@ class RideRequestFragment : Fragment(), OnMapReadyCallback {
         )[RiderRequestViewModel::class.java]
 
 
-        val mapFragment =
-            childFragmentManager.findFragmentById(R.id.map_fragment) as SupportMapFragment
-        mapFragment.getMapAsync(this)
 
 
         viewModel.checkPermission(
@@ -67,6 +64,10 @@ class RideRequestFragment : Fragment(), OnMapReadyCallback {
             }
         }
 
+
+        val mapFragment =
+            childFragmentManager.findFragmentById(R.id.map_fragment) as SupportMapFragment
+        mapFragment.getMapAsync(this)
 
 
         binding.tvStartDestination.addTextChangedListener(object : TextWatcher {

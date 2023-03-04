@@ -50,11 +50,7 @@ class SignInFragment : Fragment() {
                 viewModel.doneNavToSignUp()
             }
         }
-        viewModel.isSignInRider.observe(viewLifecycleOwner) {
-            if (it) {
-                startActivity(Intent(requireContext(), RiderActivity::class.java))
-            }
-        }
+
 
 
         return binding.root

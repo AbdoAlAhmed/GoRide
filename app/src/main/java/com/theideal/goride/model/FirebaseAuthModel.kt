@@ -7,7 +7,9 @@ import com.google.firebase.auth.AuthResult
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.SetOptions
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.tasks.await
+import kotlinx.coroutines.withContext
 
 class FirebaseAuthModel : ViewModel() {
     private val db = FirebaseFirestore.getInstance()
@@ -35,17 +37,20 @@ class FirebaseAuthModel : ViewModel() {
 
     }
 
-    fun getUserData(callback: (String?) -> Unit) {
-        db.collection("users").document().get().addOnSuccessListener {
-            val cast = it.toObject(User::class.java)
-            callback(cast?.userType)
+    suspend fun getUserData(callback: (String?) -> Unit) {
+        withContext(Dispatchers.IO) {
+            db.collection("users").document().get().addOnSuccessListener {
+                val cast = it.toObject(User::class.java)
+                callback(cast?.userType)
+            }
         }
 
     }
 
-    fun sigIn(user: User): Task<AuthResult> {
-        return auth.signInWithEmailAndPassword(user.email, user.getPassword())
-
+    suspend fun sigIn(user: User): AuthResult? {
+        val result = auth.signInWithEmailAndPassword(user.email, user.getPassword()).await()
+        Log.i("AuthenticationViewModel", result.toString())
+        return result
     }
 
     private fun verifyEmail() {

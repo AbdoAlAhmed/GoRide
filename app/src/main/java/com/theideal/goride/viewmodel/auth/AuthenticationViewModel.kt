@@ -9,6 +9,7 @@ import com.theideal.goride.model.FirebaseAuthModel
 import com.theideal.goride.model.Rider
 import com.theideal.goride.model.User
 import kotlinx.coroutines.launch
+import timber.log.Timber
 
 class AuthenticationViewModel(private val firebaseAuthModel: FirebaseAuthModel) : ViewModel() {
 
@@ -51,7 +52,6 @@ class AuthenticationViewModel(private val firebaseAuthModel: FirebaseAuthModel) 
 
     init {
         _isSignInDriver.value = false
-        _isSignInRider.value = false
         _navToForgetPassword.value = false
         _navToSignUpPage2Driver.value = false
         _navToSignUp.value = false
@@ -73,15 +73,25 @@ class AuthenticationViewModel(private val firebaseAuthModel: FirebaseAuthModel) 
 //    }
 
     fun signIn(user: User) {
-        val driver = firebaseAuthModel.sigIn(user)
-        firebaseAuthModel.getUserData {
-            if (it == "rider") {
-                _isSignInDriver.value = true
-                _isSignInRider.value = false
-            } else {
-                _isSignInDriver.value = false
-                _isSignInRider.value = true
+        viewModelScope.launch {
+
+            val signInResult = firebaseAuthModel.sigIn(user)
+            if (signInResult!!.user!!.email != null) {
+                firebaseAuthModel.getUserData {
+                    when (it) {
+                        "rider" -> {
+                            _isSignInRider.value = true
+                            Log.i("AuthenticationViewModel", _isSignInRider.value.toString())
+                        }
+                        "driver" -> _isSignInDriver.value = true
+                        else -> {
+                            _isSignInRider.value = false
+                            _isSignInDriver.value = false
+                        }
+                    }
+                }
             }
+
         }
 
     }
