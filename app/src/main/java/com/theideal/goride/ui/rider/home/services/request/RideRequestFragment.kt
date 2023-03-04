@@ -1,34 +1,32 @@
 package com.theideal.goride.ui.rider.home.services.request
 
-import android.app.Application
+import android.Manifest
+import android.annotation.SuppressLint
+import android.content.pm.PackageManager
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
-import androidx.core.widget.addTextChangedListener
+import androidx.core.app.ActivityCompat
 import androidx.lifecycle.ViewModelProvider
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.MapStyleOptions
-import com.google.android.libraries.places.api.Places
 import com.theideal.goride.R
-import com.theideal.goride.api_Key
 import com.theideal.goride.databinding.FragmentRideRequestBinding
-import com.theideal.goride.viewmodel.rider.RiderViewModel
 import timber.log.Timber
-import java.util.Objects
 
 
 class RideRequestFragment : Fragment(), OnMapReadyCallback {
     private lateinit var binding: FragmentRideRequestBinding
     private lateinit var viewModel: RiderRequestViewModel
     private lateinit var googleMap: GoogleMap
+    private val REQUEST_CODE = 101
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -46,9 +44,30 @@ class RideRequestFragment : Fragment(), OnMapReadyCallback {
             requireActivity(),
             ViewModelProvider.AndroidViewModelFactory(requireActivity().application)
         )[RiderRequestViewModel::class.java]
+
+
         val mapFragment =
             childFragmentManager.findFragmentById(R.id.map_fragment) as SupportMapFragment
         mapFragment.getMapAsync(this)
+
+
+        viewModel.checkPermission(
+            requireContext().applicationContext,
+            Manifest.permission.ACCESS_FINE_LOCATION
+        )
+        val permissions = arrayOf(
+            Manifest.permission.ACCESS_FINE_LOCATION,
+            Manifest.permission.ACCESS_COARSE_LOCATION
+        )
+        viewModel.permissionGranted.observe(viewLifecycleOwner) {
+            if (it) {
+                Timber.i("permission Granted")
+            } else {
+                viewModel.requestPermission(requireActivity(), permissions, REQUEST_CODE)
+            }
+        }
+
+
 
         binding.tvStartDestination.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
@@ -77,9 +96,11 @@ class RideRequestFragment : Fragment(), OnMapReadyCallback {
         return binding.root
     }
 
+    @SuppressLint("MissingPermission")
     override fun onMapReady(map: GoogleMap) {
         googleMap = map
         setMapStyle(map)
+        googleMap.isMyLocationEnabled = true
     }
 
     private fun setMapStyle(googleMap: GoogleMap) {
@@ -93,6 +114,20 @@ class RideRequestFragment : Fragment(), OnMapReadyCallback {
 
         } catch (ex: Exception) {
             Timber.i(ex.message.toString())
+        }
+    }
+
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+
+        if (requestCode != null && requestCode == REQUEST_CODE) {
+            viewModel.setPermissionGranted()
+        } else {
+            viewModel.setPermissionDenied()
         }
     }
 
