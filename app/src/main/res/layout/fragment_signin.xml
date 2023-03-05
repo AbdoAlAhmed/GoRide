@@ -7,7 +7,7 @@
 
         <variable
             name="viewModel"
-            type="com.theideal.goride.viewmodel.auth.AuthenticationViewModel" />
+            type="com.theideal.goride.ui.auth.AuthenticationViewModel" />
 
         <variable
             name="user"
@@ -31,6 +31,9 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
+            app:helperTextEnabled="true"
+            app:helperText=""
+            app:helperTextTextColor="@color/red"
             app:startIconDrawable="@drawable/vc_email">
 
             <com.google.android.material.textfield.TextInputEditText
@@ -60,6 +63,9 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/et_email_sign_in"
+            app:helperTextEnabled="true"
+            app:helperText=""
+            app:helperTextTextColor="@color/red"
             app:startIconDrawable="@drawable/vc_lock">
 
             <com.google.android.material.textfield.TextInputEditText

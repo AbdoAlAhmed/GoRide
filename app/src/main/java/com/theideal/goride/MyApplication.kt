@@ -1,11 +1,7 @@
 package com.theideal.goride
 
 import android.app.Application
-import androidx.lifecycle.ViewModelProvider
 import com.google.android.libraries.places.api.Places
-import com.theideal.goride.model.FirebaseAuthModel
-import com.theideal.goride.viewmodel.auth.AuthenticationViewModel
-import com.theideal.goride.viewmodel.auth.AuthenticationViewModelFactory
 import timber.log.Timber
 import java.util.*
 

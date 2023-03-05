@@ -5,13 +5,8 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
-import androidx.lifecycle.ViewModelProvider
 import com.theideal.goride.R
-import com.theideal.goride.model.FirebaseAuthModel
 import com.theideal.goride.ui.auth.AuthenticationActivity
-import com.theideal.goride.ui.rider.RiderActivity
-import com.theideal.goride.viewmodel.auth.AuthenticationViewModel
-import com.theideal.goride.viewmodel.auth.AuthenticationViewModelFactory
 
 @SuppressLint("CustomSplashScreen")
 class SplashScreenActivity : AppCompatActivity() {

@@ -5,12 +5,9 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.lifecycle.ViewModelProvider
 import com.theideal.goride.R
-import com.theideal.goride.databinding.FragmentSigninBinding
 import com.theideal.goride.model.FirebaseAuthModel
 import com.theideal.goride.ui.driver.DriverActivity
 import com.theideal.goride.ui.rider.RiderActivity
-import com.theideal.goride.viewmodel.auth.AuthenticationViewModel
-import com.theideal.goride.viewmodel.auth.AuthenticationViewModelFactory
 import timber.log.Timber
 
 class AuthenticationActivity : AppCompatActivity() {

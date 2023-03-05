@@ -7,7 +7,7 @@
 
             <variable
                 name="viewModel"
-                type="com.theideal.goride.viewmodel.rider.RiderViewModel" />
+                type="com.theideal.goride.ui.rider.RiderViewModel" />
         <variable
             name="card"
             type="com.theideal.goride.model.CardViewData" />

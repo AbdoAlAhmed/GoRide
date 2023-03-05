@@ -1,4 +1,4 @@
-package com.theideal.goride.viewmodel.auth
+package com.theideal.goride.ui.auth
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider

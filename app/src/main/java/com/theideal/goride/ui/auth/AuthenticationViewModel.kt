@@ -1,4 +1,4 @@
-package com.theideal.goride.viewmodel.auth
+package com.theideal.goride.ui.auth
 
 import android.util.Log
 import androidx.lifecycle.LiveData
@@ -13,6 +13,7 @@ import timber.log.Timber
 class AuthenticationViewModel(private val firebaseAuthModel: FirebaseAuthModel) : ViewModel() {
 
 
+    // sign in
     private val _isSignInDriver = MutableLiveData<Boolean>()
     val isSignInDriver: LiveData<Boolean>
         get() = _isSignInDriver
@@ -29,6 +30,8 @@ class AuthenticationViewModel(private val firebaseAuthModel: FirebaseAuthModel) 
     val signWithGoogle: LiveData<Boolean>
         get() = _signWithGoogle
 
+
+    // nav
     private val _showDialog = MutableLiveData<Boolean>()
     val showDialog: LiveData<Boolean>
         get() = _showDialog
@@ -45,9 +48,14 @@ class AuthenticationViewModel(private val firebaseAuthModel: FirebaseAuthModel) 
     val navToForgetPassword: LiveData<Boolean>
         get() = _navToForgetPassword
 
+    // progress
     private val _progressBar = MutableLiveData<Boolean>()
     val progressBar: LiveData<Boolean>
         get() = _progressBar
+
+    // validate
+    private val email = MutableLiveData<String>()
+    private val password = MutableLiveData<String>()
 
 
     init {
@@ -61,16 +69,21 @@ class AuthenticationViewModel(private val firebaseAuthModel: FirebaseAuthModel) 
         _isSignUpRider.value = false
     }
 
+    // validate
+    fun emailOnTextChange (c: CharSequence){
+        email.value = c.toString()
+    }
+
+    fun passwordOnTextChange (c:CharSequence){
+        password.value = c.toString()
+    }
+
 
     fun createAnAccount(user: User) {
         viewModelScope.launch {
             firebaseAuthModel.createAccountAndSaveData(user)
         }
     }
-
-//    fun createAnAccountRider(rider: Rider) {
-//        val authResult = firebaseModel.createAccountAndSaveDataRider(rider)
-//    }
 
     fun signIn(user: User) {
         _progressBar.value = true
@@ -134,9 +147,22 @@ class AuthenticationViewModel(private val firebaseAuthModel: FirebaseAuthModel) 
     }
 
     fun isSignIn() {
-        firebaseAuthModel.checkUserAuth {
-            Log.i("checkUser", it.toString())
-            _isSignInRider.value = it
+        firebaseAuthModel.checkUserAuth { checkUser, userType ->
+
+            if (checkUser) {
+                when (userType) {
+                    "rider" -> _isSignInRider.value = true
+                    "driver" -> _isSignInDriver.value = true
+                    else -> {
+                        _isSignInRider.value = false
+                        _isSignInDriver.value = false
+                    }
+                }
+            } else {
+                _isSignInRider.value = false
+                _isSignInDriver.value = false
+            }
+
         }
     }
 }

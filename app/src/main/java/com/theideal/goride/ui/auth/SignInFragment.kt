@@ -13,8 +13,6 @@ import com.theideal.goride.model.FirebaseAuthModel
 import com.theideal.goride.model.User
 import com.theideal.goride.ui.driver.DriverActivity
 import com.theideal.goride.ui.rider.RiderActivity
-import com.theideal.goride.viewmodel.auth.AuthenticationViewModel
-import com.theideal.goride.viewmodel.auth.AuthenticationViewModelFactory
 
 
 class SignInFragment : Fragment() {

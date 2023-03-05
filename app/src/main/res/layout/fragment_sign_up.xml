@@ -10,7 +10,7 @@
             type="com.theideal.goride.model.User" />
         <variable
             name="viewModel"
-            type="com.theideal.goride.viewmodel.auth.AuthenticationViewModel" />
+            type="com.theideal.goride.ui.auth.AuthenticationViewModel" />
 
     </data>
 

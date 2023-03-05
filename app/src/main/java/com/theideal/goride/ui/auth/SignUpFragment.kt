@@ -1,7 +1,6 @@
 package com.theideal.goride.ui.auth
 
 import android.app.AlertDialog
-import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -16,9 +15,6 @@ import com.theideal.goride.model.Driver
 import com.theideal.goride.model.FirebaseAuthModel
 import com.theideal.goride.model.Rider
 import com.theideal.goride.model.User
-import com.theideal.goride.ui.rider.RiderActivity
-import com.theideal.goride.viewmodel.auth.AuthenticationViewModel
-import com.theideal.goride.viewmodel.auth.AuthenticationViewModelFactory
 
 class SignUpFragment : Fragment() {
     private lateinit var binding: FragmentSignUpBinding

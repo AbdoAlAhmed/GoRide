@@ -12,7 +12,6 @@ import com.theideal.goride.databinding.FragmentHomeRiderBinding
 import com.theideal.goride.model.CardViewData
 import com.theideal.goride.ui.rider.adatper.CardViewAdapter
 import com.theideal.goride.ui.rider.home.services.request.RiderRequestActivity
-import com.theideal.goride.viewmodel.rider.RiderViewModel
 import timber.log.Timber
 
 

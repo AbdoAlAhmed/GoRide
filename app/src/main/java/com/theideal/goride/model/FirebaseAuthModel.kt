@@ -15,6 +15,7 @@ import timber.log.Timber
 class FirebaseAuthModel : ViewModel() {
     private val db = FirebaseFirestore.getInstance()
     private val auth = FirebaseAuth.getInstance()
+    private val dbRef = db.collection("users")
 
     fun createAccountAndSaveDataRider(user: User) {
         val rideInfoRef = db.collection("users").document()
@@ -52,7 +53,7 @@ class FirebaseAuthModel : ViewModel() {
 
     suspend fun sigIn(user: User, callback: (String?) -> Unit) {
         withContext(Dispatchers.IO) {
-            val dbRef = db.collection("users")
+
             val auth = auth.signInWithEmailAndPassword(user.email, user.getPassword()).await()
             auth.user.let {
                 dbRef.document(it!!.uid).get().addOnSuccessListener { it ->
@@ -74,12 +75,17 @@ class FirebaseAuthModel : ViewModel() {
         auth.signOut()
     }
 
-    fun checkUserAuth(currentUser: (Boolean) -> Unit) {
+    fun checkUserAuth(currentUser: (Boolean, String) -> Unit) {
         if (auth.currentUser != null) {
-            currentUser(true)
+            dbRef.document(auth.currentUser!!.uid).get().addOnSuccessListener {
+                val data = it.data?.get("userType")
+                currentUser(true, data.toString())
+            }
         } else {
-            currentUser(false)
+            currentUser(false,"null")
         }
     }
+
+    // credentials
 
 }

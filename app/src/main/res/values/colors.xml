@@ -15,5 +15,6 @@
     <color name="zomp">#3F979B</color>
     <color name="dark_slate_gray">#205E61</color>\
     <color name="electric_blue">#8BF5FA</color>
+    <color name="red">#ff0000</color>
 
 </resources>
