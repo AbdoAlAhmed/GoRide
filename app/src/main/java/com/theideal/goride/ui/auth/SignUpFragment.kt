@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import android.widget.Button
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import com.google.android.material.snackbar.Snackbar
 import com.theideal.goride.R
 import com.theideal.goride.databinding.FragmentSignUpBinding
 import com.theideal.goride.model.Driver
@@ -20,8 +21,6 @@ class SignUpFragment : Fragment() {
     private lateinit var binding: FragmentSignUpBinding
     private lateinit var viewModel: AuthenticationViewModel
     private val user = User()
-    private val _rider = Rider()
-    private val _driver = Driver()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -50,8 +49,23 @@ class SignUpFragment : Fragment() {
         }
         viewModel.navToSignUpPage2Driver.observe(viewLifecycleOwner) {
             if (it) {
-                findNavController().navigate(SignUpFragmentDirections.actionSignUpFragmentDriverToSignUpPage2Driver())
+                findNavController().navigate(
+                    SignUpFragmentDirections.actionSignUpFragmentDriverToSignUpPage2Driver(
+                        user
+                    )
+                )
                 viewModel.doneNavToSignUpPage2Driver()
+            }
+        }
+        viewModel.snackBar.observe(viewLifecycleOwner) {
+            if (it) {
+                val snackBar = Snackbar.make(
+                    binding.root,
+                    "Error Occurred",
+                    Snackbar.LENGTH_LONG
+                )
+                snackBar.show()
+                viewModel.doneSnackBar()
             }
         }
 

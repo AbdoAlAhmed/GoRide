@@ -80,6 +80,7 @@ class SignInFragment : Fragment() {
         viewModel.snackBar.observe(viewLifecycleOwner) {
             if (it) {
                 Snackbar.make(binding.root, "Error , call support ", Snackbar.LENGTH_SHORT).show()
+                viewModel.doneSnackBar()
             }
         }
 

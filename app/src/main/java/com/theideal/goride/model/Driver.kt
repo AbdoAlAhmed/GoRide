@@ -1,7 +1,7 @@
 package com.theideal.goride.model
 
 data class Driver(
-    var vehicleInfo: VehicleInfo = VehicleInfo("", CarType.Taxi),
+    var vehicleInfo: VehicleInfo = VehicleInfo("", CarType.Taxi, "",""),
     var DriverLicenseImg: String = "",
     var paymentInfo: String = "",
     var rating: RatingDriver = RatingDriver(0, "", 0),
@@ -10,7 +10,7 @@ data class Driver(
     var userType: String = "driver",
     var driverHistory: String = "",
     var user: User = User()
-    ) {
+) {
 }
 
 data class DriverHistory(
@@ -26,6 +26,12 @@ data class DriverHistory(
 
 data class RatingDriver(val driverStars: Int, val comment: String, val carStars: Int)
 enum class AvailabilityStatus { Available, NotAvailable, RideSharing }
-data class VehicleInfo(val carImg: String, val carType: CarType)
+data class VehicleInfo(
+    val carImg: String,
+    val carType: CarType,
+    val numberRiders: String,
+    val vehicleLicences: String
+)
+
 enum class CarType { Taxi, MicroBus, MiniBus, Bus, TinyVan }
 

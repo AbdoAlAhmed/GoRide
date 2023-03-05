@@ -22,13 +22,18 @@
         tools:layout="@layout/fragment_sign_up" >
         <action
             android:id="@+id/action_signUpFragmentDriver_to_signUpPage2Driver"
-            app:destination="@id/signUpPage2Driver" />
+            app:destination="@id/signUpPage2Driver"
+            />
     </fragment>
     <fragment
         android:id="@+id/signUpPage2Driver"
         android:name="com.theideal.goride.ui.auth.SignUpPage2Driver"
         android:label="fragment_sign_up_page2_driver"
-        tools:layout="@layout/fragment_sign_up_page2_driver" />
+        tools:layout="@layout/fragment_sign_up_page2_driver" >
+        <argument
+            android:name="user"
+            app:argType="com.theideal.goride.model.User" />
+    </fragment>
     <fragment
         android:id="@+id/forgetPasswordFragment"
         android:name="com.theideal.goride.ui.auth.ForgetPasswordFragment"

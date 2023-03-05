@@ -1,10 +1,13 @@
 package com.theideal.goride
 
+import android.view.View
+import android.widget.Button
 import android.widget.ImageView
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.theideal.goride.model.CardViewData
+import com.theideal.goride.model.User
 import com.theideal.goride.ui.rider.adatper.CardViewAdapter
 
 
@@ -21,5 +24,14 @@ fun setImage(view: ImageView, card: CardViewData?) {
         .centerCrop()
         .placeholder(R.drawable.vc_error)
         .into(view)
+}
+
+@BindingAdapter("validate_email_password")
+fun validateEmailPassword(view: Button, user: User) {
+    if (user.email.isNotEmpty() && user.getPassword().isNotEmpty()) {
+        view.isEnabled = true
+    } else {
+        view.isEnabled = false
+    }
 }
 

@@ -47,7 +47,6 @@ class RiderRequestViewModel(private val application: Application) : AndroidViewM
 
 
     fun checkPermission(context: Context, permission: String) {
-
         _permissionGranted.value = ContextCompat.checkSelfPermission(
             context,
             permission
