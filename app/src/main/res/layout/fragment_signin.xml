@@ -32,7 +32,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:helperTextEnabled="true"
-            app:helperText=""
+            app:helperText="@{viewModel.emailHelper}"
             app:helperTextTextColor="@color/red"
             app:startIconDrawable="@drawable/vc_email">
 
@@ -64,7 +64,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/et_email_sign_in"
             app:helperTextEnabled="true"
-            app:helperText=""
+            app:helperText="@{viewModel.passwordHelper}"
             app:helperTextTextColor="@color/red"
             app:startIconDrawable="@drawable/vc_lock">
 

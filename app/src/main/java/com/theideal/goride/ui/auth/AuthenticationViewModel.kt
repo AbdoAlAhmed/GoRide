@@ -1,14 +1,17 @@
 package com.theideal.goride.ui.auth
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.google.firebase.FirebaseException
+import com.google.firebase.auth.FirebaseAuthEmailException
+import com.google.firebase.auth.FirebaseAuthException
+import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException
+import com.google.firebase.auth.FirebaseAuthInvalidUserException
 import com.theideal.goride.model.FirebaseAuthModel
 import com.theideal.goride.model.User
 import kotlinx.coroutines.launch
-import timber.log.Timber
 
 class AuthenticationViewModel(private val firebaseAuthModel: FirebaseAuthModel) : ViewModel() {
 
@@ -25,6 +28,7 @@ class AuthenticationViewModel(private val firebaseAuthModel: FirebaseAuthModel) 
     private val _isSignUpRider = MutableLiveData<Boolean>()
     val isSignUpRider: LiveData<Boolean>
         get() = _isSignUpRider
+
 
     private val _signWithGoogle = MutableLiveData<Boolean>()
     val signWithGoogle: LiveData<Boolean>
@@ -48,14 +52,18 @@ class AuthenticationViewModel(private val firebaseAuthModel: FirebaseAuthModel) 
     val navToForgetPassword: LiveData<Boolean>
         get() = _navToForgetPassword
 
-    // progress
+    // progress and snackBar
     private val _progressBar = MutableLiveData<Boolean>()
     val progressBar: LiveData<Boolean>
         get() = _progressBar
 
+    private val _snackBar = MutableLiveData<Boolean>()
+    val snackBar: LiveData<Boolean>
+        get() = _snackBar
+
     // validate
-    private val email = MutableLiveData<String>()
-    private val password = MutableLiveData<String>()
+    val emailHelper = MutableLiveData<String>()
+    val passwordHelper = MutableLiveData<String>()
 
 
     init {
@@ -70,13 +78,6 @@ class AuthenticationViewModel(private val firebaseAuthModel: FirebaseAuthModel) 
     }
 
     // validate
-    fun emailOnTextChange (c: CharSequence){
-        email.value = c.toString()
-    }
-
-    fun passwordOnTextChange (c:CharSequence){
-        password.value = c.toString()
-    }
 
 
     fun createAnAccount(user: User) {
@@ -88,23 +89,44 @@ class AuthenticationViewModel(private val firebaseAuthModel: FirebaseAuthModel) 
     fun signIn(user: User) {
         _progressBar.value = true
         viewModelScope.launch {
-            firebaseAuthModel.sigIn(user) {
-                when (it) {
-                    "rider" -> {
-                        _isSignInRider.value = true
-                        _progressBar.value = false
-                    }
-                    "driver" -> {
-                        _isSignInDriver.value = true
-                        _progressBar.value = false
-                    }
-                    else -> {
-                        _isSignInRider.value = false
-                        _isSignInDriver.value = false
-                        _progressBar.value = false
+            try {
+
+                firebaseAuthModel.sigIn(user) {
+                    when (it) {
+                        "rider" -> {
+                            _isSignInRider.value = true
+                            _progressBar.value = false
+                        }
+                        "driver" -> {
+                            _isSignInDriver.value = true
+                            _progressBar.value = false
+                        }
+                        else -> {
+                            _isSignInRider.value = false
+                            _isSignInDriver.value = false
+                            _progressBar.value = false
+                        }
                     }
                 }
+            } catch (ex: FirebaseAuthInvalidCredentialsException) {
+                _progressBar.value = false
+                passwordHelper.value = "password is wrong or invalid email"
+                emailHelper.value = "invalid email or password is wrong"
+            } catch (ex: FirebaseAuthInvalidUserException) {
+                _progressBar.value = false
+                emailHelper.value = "user not found or disable"
+            } catch (ex: FirebaseAuthException) {
+                _progressBar.value = false
+                emailHelper.value = "Error"
+                passwordHelper.value = "Error"
+            } catch (ex: FirebaseAuthEmailException) {
+                _progressBar.value = false
+                emailHelper.value = "Error"
+                passwordHelper.value = "Error"
+            } catch (ex: FirebaseException) {
+                _snackBar.value = true
             }
+
         }
     }
 

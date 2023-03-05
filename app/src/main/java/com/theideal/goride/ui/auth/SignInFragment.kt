@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import com.google.android.material.snackbar.Snackbar
 import com.theideal.goride.databinding.FragmentSigninBinding
 import com.theideal.goride.model.FirebaseAuthModel
 import com.theideal.goride.model.User
@@ -73,6 +74,12 @@ class SignInFragment : Fragment() {
             if (it) {
                 findNavController().navigate(SignInFragmentDirections.actionSignInFragment2ToForgetPasswordFragment())
                 viewModel.doneNavToForgetPassword()
+            }
+        }
+
+        viewModel.snackBar.observe(viewLifecycleOwner) {
+            if (it) {
+                Snackbar.make(binding.root, "Error , call support ", Snackbar.LENGTH_SHORT).show()
             }
         }
 

@@ -55,6 +55,7 @@ class FirebaseAuthModel : ViewModel() {
         withContext(Dispatchers.IO) {
 
             val auth = auth.signInWithEmailAndPassword(user.email, user.getPassword()).await()
+
             auth.user.let {
                 dbRef.document(it!!.uid).get().addOnSuccessListener { it ->
                     val data = it.data?.get("userType")
@@ -82,10 +83,13 @@ class FirebaseAuthModel : ViewModel() {
                 currentUser(true, data.toString())
             }
         } else {
-            currentUser(false,"null")
+            currentUser(false, "null")
         }
     }
 
     // credentials
+    fun credential() {
+
+    }
 
 }
