@@ -11,6 +11,7 @@ import androidx.navigation.fragment.findNavController
 import com.theideal.goride.databinding.FragmentSigninBinding
 import com.theideal.goride.model.FirebaseAuthModel
 import com.theideal.goride.model.User
+import com.theideal.goride.ui.driver.DriverActivity
 import com.theideal.goride.ui.rider.RiderActivity
 import com.theideal.goride.viewmodel.auth.AuthenticationViewModel
 import com.theideal.goride.viewmodel.auth.AuthenticationViewModelFactory
@@ -50,6 +51,33 @@ class SignInFragment : Fragment() {
                 viewModel.doneNavToSignUp()
             }
         }
+        viewModel.isSignInRider.observe(viewLifecycleOwner) {
+            if (it) {
+                startActivity(
+                    Intent(
+                        requireActivity(), RiderActivity::class.java
+                    )
+                )
+            }
+        }
+        viewModel.isSignInDriver.observe(viewLifecycleOwner) {
+            if (it) {
+                startActivity(
+                    Intent(
+                        requireActivity(),
+                        DriverActivity::class.java
+                    )
+                )
+
+            }
+        }
+        viewModel.navToForgetPassword.observe(viewLifecycleOwner) {
+            if (it) {
+                findNavController().navigate(SignInFragmentDirections.actionSignInFragment2ToForgetPasswordFragment())
+                viewModel.doneNavToForgetPassword()
+            }
+        }
+
 
 
 

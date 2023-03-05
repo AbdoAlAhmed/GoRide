@@ -11,6 +11,9 @@
         <action
             android:id="@+id/action_signInFragment2_to_signUpFragmentDriver"
             app:destination="@id/signUpFragmentDriver" />
+        <action
+            android:id="@+id/action_signInFragment2_to_forgetPasswordFragment"
+            app:destination="@id/forgetPasswordFragment" />
     </fragment>
     <fragment
         android:id="@+id/signUpFragmentDriver"
@@ -26,4 +29,9 @@
         android:name="com.theideal.goride.ui.auth.SignUpPage2Driver"
         android:label="fragment_sign_up_page2_driver"
         tools:layout="@layout/fragment_sign_up_page2_driver" />
+    <fragment
+        android:id="@+id/forgetPasswordFragment"
+        android:name="com.theideal.goride.ui.auth.ForgetPasswordFragment"
+        android:label="fragment_forget_password"
+        tools:layout="@layout/fragment_forget_password" />
 </navigation>

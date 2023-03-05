@@ -10,6 +10,7 @@ import com.google.firebase.firestore.SetOptions
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.tasks.await
 import kotlinx.coroutines.withContext
+import timber.log.Timber
 
 class FirebaseAuthModel : ViewModel() {
     private val db = FirebaseFirestore.getInstance()
@@ -37,20 +38,32 @@ class FirebaseAuthModel : ViewModel() {
 
     }
 
-    suspend fun getUserData(callback: (String?) -> Unit) {
+    suspend fun getUserData(uid: String, callback: (String?) -> Unit) {
         withContext(Dispatchers.IO) {
-            db.collection("users").document().get().addOnSuccessListener {
-                val cast = it.toObject(User::class.java)
-                callback(cast?.userType)
+            db.collection("users").document(uid).get().addOnSuccessListener {
+                val userType = it.getString("userType")
+                callback(userType)
+            }.addOnFailureListener {
+                callback(it.toString())
             }
         }
 
     }
 
-    suspend fun sigIn(user: User): AuthResult? {
-        val result = auth.signInWithEmailAndPassword(user.email, user.getPassword()).await()
-        Log.i("AuthenticationViewModel", result.toString())
-        return result
+    suspend fun sigIn(user: User, callback: (String?) -> Unit) {
+        withContext(Dispatchers.IO) {
+            val dbRef = db.collection("users")
+            val auth = auth.signInWithEmailAndPassword(user.email, user.getPassword()).await()
+            auth.user.let {
+                dbRef.document(it!!.uid).get().addOnSuccessListener { it ->
+                    val data = it.data?.get("userType")
+                    Timber.i(data.toString())
+                    callback(data.toString())
+
+                }
+            }
+        }
+
     }
 
     private fun verifyEmail() {

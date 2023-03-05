@@ -15,10 +15,11 @@ fun bindRecyclerView(recyclerView: RecyclerView, data: List<CardViewData>?) {
 }
 
 @BindingAdapter("set_image")
-fun setImage (view: ImageView, card:CardViewData?){
+fun setImage(view: ImageView, card: CardViewData?) {
     Glide.with(view.context)
         .load(card!!.image)
         .centerCrop()
         .placeholder(R.drawable.vc_error)
         .into(view)
 }
+

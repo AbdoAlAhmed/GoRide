@@ -7,9 +7,11 @@ import androidx.lifecycle.ViewModelProvider
 import com.theideal.goride.R
 import com.theideal.goride.databinding.FragmentSigninBinding
 import com.theideal.goride.model.FirebaseAuthModel
+import com.theideal.goride.ui.driver.DriverActivity
 import com.theideal.goride.ui.rider.RiderActivity
 import com.theideal.goride.viewmodel.auth.AuthenticationViewModel
 import com.theideal.goride.viewmodel.auth.AuthenticationViewModelFactory
+import timber.log.Timber
 
 class AuthenticationActivity : AppCompatActivity() {
     private lateinit var viewModel: AuthenticationViewModel
@@ -22,12 +24,23 @@ class AuthenticationActivity : AppCompatActivity() {
             this,
             viewModelFactory
         )[AuthenticationViewModel::class.java]
-
+        viewModel.isSignIn()
         viewModel.isSignInRider.observe(this) {
-            if (it) {
-                startActivity(Intent(this, RiderActivity::class.java))
-                finish()
+            Timber.i(it.toString())
 
+            if (it) {
+                runOnUiThread {
+                    startActivity(Intent(this, RiderActivity::class.java))
+                    finish()
+                }
+            }
+        }
+        viewModel.isSignInDriver.observe(this) {
+            if (it) {
+                runOnUiThread {
+                    startActivity(Intent(this, DriverActivity::class.java))
+                    finish()
+                }
             }
         }
 

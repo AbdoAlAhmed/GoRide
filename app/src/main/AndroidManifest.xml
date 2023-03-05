@@ -31,7 +31,7 @@
             android:name=".ui.rider.RiderActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.driver.HomeDriverActivity"
+            android:name=".ui.driver.DriverActivity"
             android:exported="false" />
         <activity
             android:name=".ui.splachscreen.SplashScreenActivity"

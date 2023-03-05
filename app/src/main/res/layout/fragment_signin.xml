@@ -13,6 +13,8 @@
             name="user"
             type="com.theideal.goride.model.User" />
 
+        <import type="android.view.View"/>
+
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -36,6 +38,15 @@
                 android:layout_height="wrap_content"
                 android:text="@={user.email}" />
         </com.google.android.material.textfield.TextInputLayout>
+        <ProgressBar
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:id="@+id/progress_bar_sign_in"
+            android:visibility="@{viewModel.progressBar ? View.VISIBLE : View.GONE}"
+            app:layout_constraintTop_toBottomOf="@id/et_email_sign_in"
+            />
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/et_password_sign_in"
@@ -76,6 +87,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/btn_sign_in"
+            android:onClick="@{() -> viewModel.navToForgetPassword()}"
             android:text="@string/forget_password"
             android:id="@+id/tv_forget_password"
             android:layout_marginTop="@dimen/margin_top_forget_password"
@@ -95,23 +107,22 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tv_forget_password" />
 
-        <com.google.android.gms.common.SignInButton
-            android:id="@+id/btn_sign_in_with_google"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_margin="16dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/btn_sign_up" />
-        <com.facebook.login.widget.LoginButton
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/btn_sign_in_with_google"
-            android:id="@+id/btn_sign_in_with_facebook"
-            android:layout_margin="16dp"
-            />
+<!--        <com.google.android.gms.common.SignInButton-->
+<!--            android:id="@+id/btn_sign_in_with_google"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            app:layout_constraintEnd_toEndOf="parent"-->
+<!--            app:layout_constraintStart_toStartOf="parent"-->
+<!--            app:layout_constraintTop_toBottomOf="@+id/btn_sign_up" />-->
+<!--        <com.facebook.login.widget.LoginButton-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            app:layout_constraintEnd_toEndOf="parent"-->
+<!--            app:layout_constraintStart_toStartOf="parent"-->
+<!--            app:layout_constraintTop_toBottomOf="@+id/btn_sign_in_with_google"-->
+<!--            android:id="@+id/btn_sign_in_with_facebook"-->
+<!--            android:layout_margin="16dp"-->
+<!--            />-->
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
