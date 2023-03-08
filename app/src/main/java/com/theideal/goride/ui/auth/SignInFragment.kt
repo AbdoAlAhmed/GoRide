@@ -78,17 +78,12 @@ class SignInFragment : Fragment() {
         }
 
         viewModel.snackBar.observe(viewLifecycleOwner) {
-            if (it) {
-                Snackbar.make(binding.root, "Error , call support ", Snackbar.LENGTH_SHORT).show()
+            if (it.isNotEmpty()) {
+                Snackbar.make(binding.root, it, Snackbar.LENGTH_LONG).show()
                 viewModel.doneSnackBar()
             }
         }
 
-
-
-
         return binding.root
     }
-
-
 }

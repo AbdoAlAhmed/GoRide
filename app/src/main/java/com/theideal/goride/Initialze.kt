@@ -1,3 +1,3 @@
 package com.theideal.goride
 
- const val api_Key= "AIzaSyAEu90XS_BIRbnhk3LDqbrp1RzuNIKOxuA"
+ const val api_Key= "AIzaSyCzeCigMhYFV9wx6kQuHmuuZhmm7aD487Y"

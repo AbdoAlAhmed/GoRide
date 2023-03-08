@@ -1,28 +1,30 @@
 package com.theideal.goride.ui.auth
 
 import android.Manifest
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
+import com.github.dhaval2404.imagepicker.ImagePicker
+import com.google.android.material.snackbar.Snackbar
 import com.theideal.goride.databinding.FragmentSignUpPage2DriverBinding
 import com.theideal.goride.model.Driver
 import com.theideal.goride.model.FirebaseAuthModel
-import com.theideal.goride.model.User
-
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
+import com.theideal.goride.model.ImageName
 
 
 class SignUpPage2Driver : Fragment() {
     private lateinit var viewModel: AuthenticationViewModel
     private lateinit var binding: FragmentSignUpPage2DriverBinding
-    private var RequestCode = 101
+    private var RequestCodePermission = 101
+    private val RequestCodeImage = 102
     private val driver = Driver()
+    private val imageNameClass = ImageName()
+    private lateinit var imageName: String
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -44,6 +46,7 @@ class SignUpPage2Driver : Fragment() {
         binding.driver = driver
         val user = SignUpPage2DriverArgs.fromBundle(requireArguments()).user
         binding.user = user
+        binding.imageName = imageNameClass
         // permission
         viewModel.checkPermission(
             requireContext().applicationContext,
@@ -54,10 +57,37 @@ class SignUpPage2Driver : Fragment() {
             Manifest.permission.WRITE_EXTERNAL_STORAGE,
             Manifest.permission.CAMERA
         )
-        viewModel.requestPermission(requireActivity(), permissions, RequestCode)
+        viewModel.requestPermission(requireActivity(), permissions, RequestCodePermission)
+
+        viewModel.snackBar.observe(viewLifecycleOwner) {
+            if (it.isNotEmpty()) {
+                Snackbar.make(binding.root, it, Snackbar.LENGTH_LONG).show()
+                viewModel.doneSnackBar()
+            }
+        }
+        viewModel.imageUpload.observe(viewLifecycleOwner) {
+            if (it.isNotEmpty()) {
+                imageName = it
+                imagePicker()
+            }
+        }
+        viewModel.isSignUpDriver.observe(viewLifecycleOwner) {
+            if (it) {
+                findNavController().popBackStack()
+            }
+        }
+
 
 
         return binding.root
+    }
+
+    private fun imagePicker() {
+        ImagePicker.with(this)
+            .crop()
+            .compress(1024)
+            .maxResultSize(480, 480)
+            .start(RequestCodeImage)
     }
 
     override fun onRequestPermissionsResult(
@@ -66,10 +96,25 @@ class SignUpPage2Driver : Fragment() {
         grantResults: IntArray
     ) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-        if (requestCode != null && requestCode == RequestCode) {
+        if (requestCode != null && requestCode == RequestCodePermission) {
             viewModel.setPermissionGranted()
         } else {
             viewModel.setPermissionDenied()
+        }
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == RequestCodeImage) {
+            val fileUri = data?.data
+
+            viewModel.uploadImage(fileUri!!, imageName)
+            viewModel.setSnackBar("Image Uploaded + $imageName")
+            viewModel.downloadImage(imageName)
+        } else if (resultCode == ImagePicker.RESULT_ERROR) {
+            viewModel.setSnackBar(ImagePicker.getError(data)!!)
+        } else {
+            viewModel.setSnackBar("Task Cancelled")
         }
     }
 }

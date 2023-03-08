@@ -1,5 +1,6 @@
 package com.theideal.goride.model
 
+import android.net.Uri
 import android.os.Parcelable
 import kotlinx.android.parcel.Parcelize
 
@@ -14,7 +15,8 @@ data class User(
     var phone: String = "",
     var age: String = "",
     var gender: Gender = Gender.Male,
-    var userType: String = "rider"
+    var userType: String = "",
+    var profileImage: String = ""
 ): Parcelable {
     fun getPassword() = password
     fun setPassword(newPassword: String){

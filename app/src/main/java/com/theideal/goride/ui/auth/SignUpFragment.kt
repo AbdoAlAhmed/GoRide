@@ -37,11 +37,7 @@ class SignUpFragment : Fragment() {
         binding.viewModel = viewModel
         binding.lifecycleOwner = this
         binding.user = user
-        viewModel.showDialog.observe(viewLifecycleOwner) {
-            if (it) {
-                showDialog()
-            }
-        }
+
         viewModel.isSignUpRider.observe(viewLifecycleOwner) {
             if (it) {
                 findNavController().popBackStack()
@@ -58,10 +54,10 @@ class SignUpFragment : Fragment() {
             }
         }
         viewModel.snackBar.observe(viewLifecycleOwner) {
-            if (it) {
+            if (it.isNotEmpty()) {
                 val snackBar = Snackbar.make(
                     binding.root,
-                    "Error Occurred",
+                    it,
                     Snackbar.LENGTH_LONG
                 )
                 snackBar.show()
@@ -72,24 +68,6 @@ class SignUpFragment : Fragment() {
         return binding.root
     }
 
-    private fun showDialog() {
-        val builder = AlertDialog.Builder(activity)
-        val layout = LayoutInflater.from(activity).inflate(R.layout.dialog_choose, null)
-        val dialog = builder.create()
-        val driver = layout.findViewById<Button>(R.id.sign_up_driver)
-        dialog.setTitle(R.string.choose)
-        dialog.setView(layout)
-        dialog.show()
-        driver.setOnClickListener {
-            viewModel.navToSignUpPage2Driver()
-            dialog.dismiss()
-        }
-        val rider = layout.findViewById<Button>(R.id.sign_up_rider)
-        rider.setOnClickListener {
-            viewModel.signUpRiderComplete(user)
-            dialog.dismiss()
-        }
-    }
 
 
 }

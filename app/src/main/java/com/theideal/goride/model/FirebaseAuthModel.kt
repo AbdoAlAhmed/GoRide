@@ -6,6 +6,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
+import com.google.firebase.storage.ktx.storage
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.tasks.await
 import kotlinx.coroutines.withContext
@@ -15,12 +16,13 @@ class FirebaseAuthModel : ViewModel() {
     private val db = FirebaseFirestore.getInstance()
     private val dbRef = db.collection("users")
     private val auth = FirebaseAuth.getInstance()
-    private val store = Firebase.firestore
+    private val storage = Firebase.storage.reference
 
 
     fun createAccountAndSaveDataRider(user: User) {
         auth.createUserWithEmailAndPassword(user.email, user.getPassword()).addOnSuccessListener {
             dbRef.document(it.user!!.uid).set(user)
+            dbRef.document(it.user!!.uid).update("id", it.user!!.uid)
             verifyEmail()
         }.addOnFailureListener {
             Timber.i(it.toString())
@@ -28,13 +30,26 @@ class FirebaseAuthModel : ViewModel() {
     }
 
 
-    fun createAccountAndSaveDataDriver(user: User, driver: Driver) {
-        auth.createUserWithEmailAndPassword(user.email, user.getPassword()).addOnSuccessListener {
-            dbRef.document(it.user!!.uid).set(driver)
+    fun createAccountAndSaveDataDriver(user: User, callback: (Boolean) -> Unit) {
+        val auth = auth.createUserWithEmailAndPassword(user.email, user.getPassword())
+        auth.addOnSuccessListener {
+            dbRef.document(it.user!!.uid).set(user)
+            dbRef.document(it.user!!.uid).update("id", it.user!!.uid)
             verifyEmail()
+            callback(true)
         }.addOnFailureListener {
             Timber.i(it.toString())
+            callback(false)
         }
+
+    }
+
+    fun completeDriverInfo(driver: Driver) {
+        val data = hashMapOf(
+            "carType" to driver.carType,
+            "disksNumber" to driver.disksNumber
+        )
+        dbRef.document(auth.currentUser!!.uid).update(data as Map<String, Any>)
 
     }
 
@@ -75,12 +90,11 @@ class FirebaseAuthModel : ViewModel() {
         }
     }
 
-    fun uploadImage(uri: Uri, callback: (Boolean) -> Unit) {
+    fun uploadImage(uri: Uri, imageName: String, callback: (Boolean) -> Unit) {
         val user = auth.currentUser
         val storageRef =
-            store.collection("users").document(user!!.uid)
-                .collection("images").document("profile")
-        storageRef.set(uri).addOnSuccessListener {
+            storage.child("users/${user!!.uid}/images/$imageName")
+        storageRef.putFile(uri).addOnSuccessListener {
             Timber.i("Success")
             callback(true)
         }.addOnFailureListener {
@@ -88,6 +102,14 @@ class FirebaseAuthModel : ViewModel() {
             callback(false)
         }
 
+    }
+
+    fun downloadImage(imageName: String): Uri {
+        val user = auth.currentUser
+        val storageRef =
+            storage.child("users/${user!!.uid}/images/$imageName")
+        val uri = storageRef.downloadUrl
+        return uri.result!!
     }
 
     fun forgetPassword(user: User, callback: (Boolean) -> Unit) {
@@ -133,8 +155,6 @@ class FirebaseAuthModel : ViewModel() {
             callback(false)
         }
     }
-
-
 
 
 }

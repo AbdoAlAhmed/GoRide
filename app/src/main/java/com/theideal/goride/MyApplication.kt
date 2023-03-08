@@ -13,6 +13,8 @@ class MyApplication : Application() {
 
         if (!Places.isInitialized()) {
             Places.initialize(applicationContext, api_Key, Locale.getDefault())
+            Places.createClient(this)
+
         }
         if (BuildConfig.DEBUG) {
             Timber.plant(Timber.DebugTree())

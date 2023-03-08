@@ -29,11 +29,29 @@
     <string name="test">test</string>
     <string name="start_destination">Pick Up Destination</string>
     <string name="end_destination">End Destination</string>
-    <array name="simple_items">
+    <string name="rider_or_driver">Rider or Driver</string>
+    <string name="send_email">send email</string>
+    <string name="additional_information">Additional Information</string>
+    <string name="upload_image">upload image</string>
+    <string name="profile_image">profile image</string>
+    <string name="national_id_front">national id front</string>
+    <string name="national_id_back">national id back</string>
+    <string name="driving_license_front">driving license front</string>
+    <string name="driving_license_back">driving license back</string>
+    <string name="vehicle_registration">vehicle registration</string>
+    <string name="vehicleimage">vehicleImage</string>
+    <string name="car_type">car type</string>
+    <string name="disks_number">disks number</string>
+    <string name="done">Done</string>
+    <array name="vehicle_type">
         <item>Taxi</item>
         <item>Bus</item>
         <item>MicroBus</item>
         <item>MiniBus</item>
         <item>TyneBus</item>
+    </array>
+    <array name="user_type">
+        <item>Rider</item>
+        <item>Driver</item>
     </array>
 </resources>

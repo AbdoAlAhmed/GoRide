@@ -16,6 +16,10 @@
         <variable
             name="viewModel"
             type="com.theideal.goride.ui.auth.AuthenticationViewModel" />
+
+        <variable
+            name="imageName"
+            type="com.theideal.goride.model.ImageName" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -23,15 +27,194 @@
         android:layout_height="match_parent"
         tools:context=".ui.auth.SignUpPage2Driver">
 
-        <Button
-            android:id="@+id/button2"
-            android:layout_width="0dp"
+        <TextView
+            android:id="@+id/tv_additional_information"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="325dp"
-            android:onClick="@{() -> viewModel.singUpDriverComplete(user, driver)}"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginBottom="20dp"
+            android:gravity="center"
+            android:text="@string/additional_information"
+            android:textColor="@color/black"
+            android:textSize="24sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
+
+        <Button
+            android:id="@+id/btn_upload_image_profile"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginBottom="20dp"
+            android:enabled="true"
+            android:gravity="center"
+            android:onClick="@{() -> viewModel.startUploadImage(imageName.profileImage)}"
+            android:text="@string/profile_image"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_additional_information" />
+
+        <Button
+            android:id="@+id/btn_upload_national_id_front"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="20dp"
+            android:layout_marginBottom="20dp"
+            android:enabled="true"
+            android:gravity="center"
+            android:onClick="@{() -> viewModel.startUploadImage(imageName.nationalIdImageFromFront)}"
+            android:text="@string/national_id_front"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/btn_upload_image_profile" />
+
+        <Button
+            android:id="@+id/btn_upload_national_id_back"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="20dp"
+            android:layout_marginBottom="20dp"
+            android:enabled="true"
+            android:gravity="center"
+            android:onClick="@{() -> viewModel.startUploadImage(imageName.nationalIdImageFromBack)}"
+            android:text="@string/national_id_back"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/btn_upload_national_id_front" />
+
+        <Button
+            android:id="@+id/btn_upload_driving_license_front"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="20dp"
+            android:layout_marginBottom="20dp"
+            android:enabled="true"
+            android:gravity="center"
+            android:onClick="@{() -> viewModel.startUploadImage(imageName.drivingLicenseImageFromFront)}"
+            android:text="@string/driving_license_front"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/btn_upload_national_id_back" />
+
+        <Button
+            android:id="@+id/btn_upload_driving_license_back"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="20dp"
+            android:layout_marginBottom="20dp"
+            android:enabled="true"
+            android:gravity="center"
+            android:onClick="@{() -> viewModel.startUploadImage(imageName.drivingLicenseImageFromBack)}"
+            android:text="@string/driving_license_back"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/btn_upload_driving_license_front" />
+
+        <Button
+            android:id="@+id/btn_upload_vehicle_registration"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="20dp"
+            android:layout_marginBottom="20dp"
+            android:enabled="true"
+            android:gravity="center"
+            android:onClick="@{() -> viewModel.startUploadImage(imageName.vehicleRegistrationImage)}"
+            android:text="@string/vehicle_registration"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/btn_upload_driving_license_back" />
+
+        <Button
+            android:id="@+id/btn_upload_car_image"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="20dp"
+            android:layout_marginBottom="20dp"
+            android:enabled="true"
+            android:gravity="center"
+            android:onClick="@{() -> viewModel.startUploadImage(imageName.vehicleImage)}"
+            android:text="@string/vehicleimage"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/btn_upload_vehicle_registration" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/et_car_type"
+            style="?attr/textInputOutlinedExposedDropdownMenuStyle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:gravity="center"
+            android:hint="@string/car_type"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/btn_upload_car_image">
+
+            <AutoCompleteTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="none"
+                app:set_vehicle_type="@{driver}"
+                app:simpleItems="@array/vehicle_type" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/et_disk_number"
+            style="?attr/textInputOutlinedStyle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:gravity="center"
+            android:hint="@string/disks_number"
+            app:helperText="@{viewModel.diskNumberHelper }"
+            app:helperTextEnabled="true"
+            app:helperTextTextColor="@color/red"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/et_car_type">
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="number"
+                android:text="@={driver.disksNumber}"
+                />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <Button
+            android:id="@+id/btn_upload"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="20dp"
+            android:layout_marginBottom="20dp"
+            android:enabled="true"
+            android:gravity="center"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            android:text="@string/done"
+            android:onClick="@{() -> viewModel.completeDriverInfo(driver)}"
+            app:layout_constraintEnd_toEndOf="parent"
+             app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/et_disk_number" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

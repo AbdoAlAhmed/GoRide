@@ -2,27 +2,30 @@ package com.theideal.goride.ui.rider.home.services.request
 
 import android.Manifest
 import android.annotation.SuppressLint
-import android.content.pm.PackageManager
 import android.os.Bundle
-import android.text.Editable
-import android.text.TextWatcher
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ArrayAdapter
-import androidx.core.app.ActivityCompat
 import androidx.lifecycle.ViewModelProvider
+import com.google.android.gms.common.api.Status
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.MapStyleOptions
+import com.google.android.libraries.places.api.Places
+import com.google.android.libraries.places.api.model.Place
+import com.google.android.libraries.places.api.net.PlacesClient
+import com.google.android.libraries.places.widget.AutocompleteSupportFragment
+import com.google.android.libraries.places.widget.listener.PlaceSelectionListener
 import com.theideal.goride.R
+import com.theideal.goride.api_Key
 import com.theideal.goride.databinding.FragmentRideRequestBinding
 import timber.log.Timber
+import java.util.*
 
 
-class RideRequestFragment : Fragment(), OnMapReadyCallback {
+class RideRequestFragment : Fragment(), PlaceSelectionListener, OnMapReadyCallback {
     private lateinit var binding: FragmentRideRequestBinding
     private lateinit var viewModel: RiderRequestViewModel
     private lateinit var googleMap: GoogleMap
@@ -64,35 +67,28 @@ class RideRequestFragment : Fragment(), OnMapReadyCallback {
             }
         }
 
+        try {
+
+        val autocompleteFragment =
+            childFragmentManager.findFragmentById(R.id.map_fragment_auto_complete) as AutocompleteSupportFragment
+
+        autocompleteFragment.setOnPlaceSelectedListener(this)
+        autocompleteFragment.setPlaceFields(
+            listOf(
+                Place.Field.ID,
+                Place.Field.NAME,
+                Place.Field.LAT_LNG
+            )
+        )
+        }catch (ex:Exception){
+            Timber.i(ex.message.toString())
+        }
 
         val mapFragment =
             childFragmentManager.findFragmentById(R.id.map_fragment) as SupportMapFragment
         mapFragment.getMapAsync(this)
 
 
-        binding.tvStartDestination.addTextChangedListener(object : TextWatcher {
-            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-
-            }
-
-            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-
-                viewModel.getQuery(p0.toString())
-            }
-
-            override fun afterTextChanged(p0: Editable?) {
-
-            }
-
-        })
-
-        viewModel.getAutoCompletePrediction(
-            viewModel.query.toString()
-        ).observe(viewLifecycleOwner) {
-            val adapter =
-                ArrayAdapter(requireContext(), android.R.layout.simple_dropdown_item_1line, it)
-            binding.tvStartDestination.setAdapter(adapter)
-        }
 
         return binding.root
     }
@@ -118,6 +114,7 @@ class RideRequestFragment : Fragment(), OnMapReadyCallback {
         }
     }
 
+
     override fun onRequestPermissionsResult(
         requestCode: Int,
         permissions: Array<out String>,
@@ -130,6 +127,14 @@ class RideRequestFragment : Fragment(), OnMapReadyCallback {
         } else {
             viewModel.setPermissionDenied()
         }
+    }
+
+    override fun onPlaceSelected(p0: Place) {
+        Timber.i(p0.name.toString())
+    }
+
+    override fun onError(p0: Status) {
+        Timber.i(p0.statusMessage.toString())
     }
 
 }

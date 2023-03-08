@@ -8,9 +8,12 @@
         <variable
             name="user"
             type="com.theideal.goride.model.User" />
+
         <variable
             name="viewModel"
             type="com.theideal.goride.ui.auth.AuthenticationViewModel" />
+
+        <import type="android.view.View" />
 
     </data>
 
@@ -25,7 +28,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="5dp"
-            android:layout_marginTop="100dp"
+            android:layout_marginTop="60dp"
             android:layout_marginEnd="5dp"
             android:gravity="center"
             android:hint="@string/first_name"
@@ -124,11 +127,11 @@
             android:layout_margin="5dp"
             android:gravity="center"
             android:hint="@string/phone"
-            app:helperText="@{viewModel.phoneNumber}"
             app:counterEnabled="true"
+            app:counterMaxLength="11"
+            app:helperText="@{viewModel.phoneNumber}"
             app:helperTextEnabled="true"
             app:helperTextTextColor="@color/red"
-            app:counterMaxLength="11"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/et_password"
@@ -141,6 +144,7 @@
                 android:text="@={user.phone}" />
 
         </com.google.android.material.textfield.TextInputLayout>
+
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/et_age"
             style="?attr/textInputOutlinedStyle"
@@ -149,11 +153,11 @@
             android:layout_margin="5dp"
             android:gravity="center"
             android:hint="@string/age"
-            app:helperText="@{viewModel.age}"
             app:counterEnabled="true"
-            app:helperTextTextColor="@color/red"
-            app:helperTextEnabled="true"
             app:counterMaxLength="2"
+            app:helperText="@{viewModel.age}"
+            app:helperTextEnabled="true"
+            app:helperTextTextColor="@color/red"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/et_phone"
@@ -167,59 +171,82 @@
 
         </com.google.android.material.textfield.TextInputLayout>
 
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/et_user_type"
+            style="?attr/textInputOutlinedExposedDropdownMenuStyle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:gravity="center"
+            android:hint="@string/rider_or_driver"
+            app:helperText="@{viewModel.userType }"
+            app:helperTextEnabled="true"
+            app:helperTextTextColor="@color/red"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/et_age">
+
+            <AutoCompleteTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="none"
+                app:set_user_type="@{user}"
+                app:simpleItems="@array/user_type" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
 
         <RadioGroup
             android:id="@+id/radio_group_gender"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="horizontal"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/et_age"
-            android:orientation="horizontal"
-            android:gravity="center"
-            >
+            app:layout_constraintTop_toBottomOf="@+id/et_user_type">
+
             <RadioButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/male"
+                android:layout_margin="5dp"
                 android:checked="true"
                 android:drawableStart="@drawable/vc_man"
-                android:layout_margin="5dp"
-                />
+                android:text="@string/male" />
+
             <RadioButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/female"
                 android:layout_margin="5dp"
                 android:drawableStart="@drawable/vc_woman"
-                />
+                android:text="@string/female" />
+
             <RadioButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/gays_are_not_allowed"
                 android:layout_margin="5dp"
                 android:enabled="false"
-                />
+                android:text="@string/gays_are_not_allowed" />
         </RadioGroup>
+
         <TextView
             android:id="@+id/tv_terms_and_conditions"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/radio_group_gender"
             android:text="@string/by_signing_up_you_agree_to_our_terms_and_conditions"
-            />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/radio_group_gender" />
+
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
+            android:onClick="@{() ->  viewModel.validateText(user) ? viewModel.checkUserType(user) : null}"
             android:text="@string/sign_up"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            android:onClick="@{() -> viewModel.validateText(user) ? viewModel.showDialog() : null}"
-            app:layout_constraintTop_toBottomOf="@+id/tv_terms_and_conditions"
-            />
+            app:layout_constraintTop_toBottomOf="@+id/tv_terms_and_conditions" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

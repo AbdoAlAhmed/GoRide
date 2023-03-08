@@ -4,6 +4,7 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.lifecycle.ViewModelProvider
+import com.google.android.libraries.places.widget.AutocompleteSupportFragment
 import com.theideal.goride.R
 import com.theideal.goride.model.FirebaseAuthModel
 import com.theideal.goride.ui.driver.DriverActivity

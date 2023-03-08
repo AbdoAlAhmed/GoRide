@@ -3,6 +3,7 @@ package com.theideal.goride.ui.auth
 import android.app.Activity
 import android.content.Context
 import android.content.pm.PackageManager
+import android.net.Uri
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.LiveData
@@ -17,9 +18,11 @@ import com.theideal.goride.model.Driver
 import com.theideal.goride.model.FirebaseAuthModel
 import com.theideal.goride.model.User
 import kotlinx.coroutines.launch
+import timber.log.Timber
 
 class AuthenticationViewModel(private val firebaseAuthModel: FirebaseAuthModel) : ViewModel() {
 
+    val array = arrayOf("Rider", "Driver", "Admin")
 
     // sign in
     private val _isSignInDriver = MutableLiveData<Boolean>()
@@ -34,6 +37,10 @@ class AuthenticationViewModel(private val firebaseAuthModel: FirebaseAuthModel) 
     val isSignUpRider: LiveData<Boolean>
         get() = _isSignUpRider
 
+    private val _isSignUpDriver = MutableLiveData<Boolean>()
+    val isSignUpDriver: LiveData<Boolean>
+        get() = _isSignUpDriver
+
 
     private val _signWithGoogle = MutableLiveData<Boolean>()
     val signWithGoogle: LiveData<Boolean>
@@ -41,9 +48,7 @@ class AuthenticationViewModel(private val firebaseAuthModel: FirebaseAuthModel) 
 
 
     // nav
-    private val _showDialog = MutableLiveData<Boolean>()
-    val showDialog: LiveData<Boolean>
-        get() = _showDialog
+
 
     private val _navToSignUpPage2Driver = MutableLiveData<Boolean>()
     val navToSignUpPage2Driver: LiveData<Boolean>
@@ -67,8 +72,8 @@ class AuthenticationViewModel(private val firebaseAuthModel: FirebaseAuthModel) 
     val progressBar: LiveData<Boolean>
         get() = _progressBar
 
-    private val _snackBar = MutableLiveData<Boolean>()
-    val snackBar: LiveData<Boolean>
+    private val _snackBar = MutableLiveData<String>()
+    val snackBar: LiveData<String>
         get() = _snackBar
 
     // validate
@@ -78,6 +83,17 @@ class AuthenticationViewModel(private val firebaseAuthModel: FirebaseAuthModel) 
     val passwordHelper = MutableLiveData<String>()
     val phoneNumber = MutableLiveData<String>()
     val age = MutableLiveData<String>()
+    val userType = MutableLiveData<String>()
+
+    val diskNumberHelper = MutableLiveData<String>()
+
+    private val _imageUpload = MutableLiveData<String>()
+    val imageUpload: LiveData<String>
+        get() = _imageUpload
+
+//    private val _imageName = MutableLiveData<String>()
+//    val imageName: LiveData<String>
+//        get() = _imageName
 
 
     init {
@@ -87,12 +103,12 @@ class AuthenticationViewModel(private val firebaseAuthModel: FirebaseAuthModel) 
         _navToSignUp.value = false
         _progressBar.value = false
         _signWithGoogle.value = false
-        _showDialog.value = false
         _isSignUpRider.value = false
 
     }
 
-    // validate email and password
+    // validate
+
     fun validateEmailAndPassword(user: User): Boolean {
         if (user.email.isEmpty()) {
             emailHelper.value = "email is required"
@@ -112,6 +128,19 @@ class AuthenticationViewModel(private val firebaseAuthModel: FirebaseAuthModel) 
             return false
         } else {
             passwordHelper.value = ""
+        }
+        return true
+    }
+
+    fun validateEmail(user: User): Boolean {
+        if (user.email.isEmpty()) {
+            emailHelper.value = "email is required"
+            return false
+        } else if (!android.util.Patterns.EMAIL_ADDRESS.matcher(user.email).matches()) {
+            emailHelper.value = "invalid email"
+            return false
+        } else {
+            emailHelper.value = ""
         }
         return true
     }
@@ -178,6 +207,13 @@ class AuthenticationViewModel(private val firebaseAuthModel: FirebaseAuthModel) 
             age.value = ""
         }
 
+        if (user.userType.isEmpty()) {
+            userType.value = "user type is required"
+            return false
+        } else {
+            userType.value = ""
+        }
+
         return true
     }
 
@@ -201,10 +237,61 @@ class AuthenticationViewModel(private val firebaseAuthModel: FirebaseAuthModel) 
         _requestPermission.value = false
     }
 
+    // sign in and sign up
+    fun singUpDriver(user: User): Boolean {
+        try {
+            firebaseAuthModel.createAccountAndSaveDataDriver(user) {
+                if (it) {
+                    _navToSignUpPage2Driver.value = true
+                } else {
+                    _snackBar.value = "error"
+                }
+            }
+        } catch (e: FirebaseAuthWeakPasswordException) {
+            passwordHelper.value = "password is weak"
+        } catch (e: FirebaseAuthInvalidCredentialsException) {
+            emailHelper.value = "Invalid email"
+        } catch (e: FirebaseAuthUserCollisionException) {
+            emailHelper.value = "User already exists"
+        } catch (e: FirebaseAuthException) {
+            _snackBar.value = "Error"
+        } catch (e: FirebaseNetworkException) {
+            _snackBar.value = "No internet connection"
+        } catch (e: FirebaseFirestoreException) {
+            _snackBar.value = "Error"
+        } catch (e: Exception) {
+            _snackBar.value = "Error"
+        }
 
-    fun singUpDriverComplete(user: User, driver: Driver) {
-            firebaseAuthModel.createAccountAndSaveDataDriver(user, driver)
+        return true
 
+    }
+
+    fun completeDriverInfo(driver: Driver) {
+        try {
+            firebaseAuthModel.completeDriverInfo(driver)
+            _isSignUpDriver.value = true
+        } catch (e: FirebaseFirestoreException) {
+            _snackBar.value = "Error"
+        } catch (e: Exception) {
+            _snackBar.value = "Error"
+        }
+    }
+
+    fun checkUserType(user: User) {
+        when (user.userType) {
+            "Rider" -> {
+                signUpRiderComplete(user)
+
+            }
+            "Driver" -> {
+                singUpDriver(user)
+
+            }
+            else -> {
+                _snackBar.value = "Rider or Driver"
+            }
+        }
     }
 
     fun signIn(user: User) {
@@ -214,11 +301,11 @@ class AuthenticationViewModel(private val firebaseAuthModel: FirebaseAuthModel) 
 
                 firebaseAuthModel.sigIn(user) {
                     when (it) {
-                        "rider" -> {
+                        "Rider" -> {
                             _isSignInRider.value = true
                             _progressBar.value = false
                         }
-                        "driver" -> {
+                        "Driver" -> {
                             _isSignInDriver.value = true
                             _progressBar.value = false
                         }
@@ -245,7 +332,7 @@ class AuthenticationViewModel(private val firebaseAuthModel: FirebaseAuthModel) 
                 emailHelper.value = "Error"
                 passwordHelper.value = "Error"
             } catch (ex: FirebaseException) {
-                _snackBar.value = true
+                _snackBar.value = "Error"
             } catch (ex: Exception) {
                 _progressBar.value = false
                 emailHelper.value = "Error"
@@ -255,13 +342,8 @@ class AuthenticationViewModel(private val firebaseAuthModel: FirebaseAuthModel) 
         }
     }
 
-
     fun signOut() {
         firebaseAuthModel.signOut()
-    }
-
-    fun showDialog() {
-        _showDialog.value = true
     }
 
     fun navToSignUpPage2Driver() {
@@ -289,7 +371,11 @@ class AuthenticationViewModel(private val firebaseAuthModel: FirebaseAuthModel) 
     }
 
     fun doneSnackBar() {
-        _snackBar.value = false
+        _snackBar.value = ""
+    }
+
+    fun setSnackBar(message: String) {
+        _snackBar.value = message
     }
 
     fun signUpRiderComplete(user: User) {
@@ -302,24 +388,23 @@ class AuthenticationViewModel(private val firebaseAuthModel: FirebaseAuthModel) 
         } catch (e: FirebaseAuthUserCollisionException) {
             emailHelper.value = "User already exists"
         } catch (e: FirebaseAuthException) {
-            _snackBar.value = true
+            _snackBar.value = "Error"
         } catch (e: FirebaseNetworkException) {
-            _snackBar.value = true
+            _snackBar.value = "No internet connection"
         } catch (e: FirebaseFirestoreException) {
-            _snackBar.value = true
+            _snackBar.value = "Error"
         } catch (e: Exception) {
-            _snackBar.value = true
+            _snackBar.value = "Error"
         }
         _isSignUpRider.value = true
     }
 
     fun isSignIn() {
         firebaseAuthModel.checkUserAuth { checkUser, userType ->
-
             if (checkUser) {
                 when (userType) {
-                    "rider" -> _isSignInRider.value = true
-                    "driver" -> _isSignInDriver.value = true
+                    "Rider" -> _isSignInRider.value = true
+                    "Driver" -> _isSignInDriver.value = true
                     else -> {
                         _isSignInRider.value = false
                         _isSignInDriver.value = false
@@ -332,4 +417,28 @@ class AuthenticationViewModel(private val firebaseAuthModel: FirebaseAuthModel) 
 
         }
     }
+
+    fun forgetPassword(user: User) {
+        firebaseAuthModel.forgetPassword(user) {
+            _snackBar.value =
+                if (it) "Email sent successfully" else "Error"
+        }
+    }
+
+    fun uploadImage(uri: Uri, imageName: String) {
+        firebaseAuthModel.uploadImage(uri, imageName) {
+
+            Timber.i("image url $it")
+        }
+    }
+
+    fun downloadImage(imageName: String): Uri? {
+        return firebaseAuthModel.downloadImage(imageName)
+    }
+
+
+    fun startUploadImage(imageName: String) {
+        _imageUpload.value = imageName
+    }
+
 }
