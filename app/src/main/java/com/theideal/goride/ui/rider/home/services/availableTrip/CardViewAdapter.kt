@@ -1,4 +1,4 @@
-package com.theideal.goride.ui.rider.adatper
+package com.theideal.goride.ui.rider.home.services.availableTrip
 
 import android.view.LayoutInflater
 import android.view.ViewGroup

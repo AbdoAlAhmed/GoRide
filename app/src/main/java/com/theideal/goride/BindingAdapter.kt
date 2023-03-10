@@ -1,17 +1,14 @@
 package com.theideal.goride
 
-import android.util.Log
-import android.view.View
 import android.widget.ArrayAdapter
 import android.widget.AutoCompleteTextView
-import android.widget.Button
 import android.widget.ImageView
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.theideal.goride.model.*
-import com.theideal.goride.ui.rider.adatper.CardViewAdapter
-import timber.log.Timber
+import com.theideal.goride.ui.rider.home.services.availableTrip.AvailableTripAdapter
+import com.theideal.goride.ui.rider.home.services.availableTrip.CardViewAdapter
 
 
 @BindingAdapter("list_data")
@@ -19,6 +16,12 @@ fun bindRecyclerView(recyclerView: RecyclerView, data: List<CardViewData>?) {
     val adapter = recyclerView.adapter as CardViewAdapter
     adapter.submitList(data)
 }
+@BindingAdapter("list_data_available_trip")
+fun bindRecyclerView1(recyclerView: RecyclerView, data: List<Trip>?) {
+    val adapter = recyclerView.adapter as AvailableTripAdapter
+    adapter.submitList(data)
+}
+
 
 @BindingAdapter("set_image")
 fun setImage(view: ImageView, card: CardViewData?) {

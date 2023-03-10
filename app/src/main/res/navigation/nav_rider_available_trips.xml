@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/nav_rider_available_trips"
+    app:startDestination="@id/availableTripFragment">
+
+    <fragment
+        android:id="@+id/availableTripFragment"
+        android:name="com.theideal.goride.ui.rider.home.services.availableTrip.AvailableTripFragment"
+        android:label="AvailableTripFragment" />
+</navigation>

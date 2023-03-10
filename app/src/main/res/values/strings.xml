@@ -43,6 +43,8 @@
     <string name="car_type">car type</string>
     <string name="disks_number">disks number</string>
     <string name="done">Done</string>
+    <string name="available_trips">Available Trips</string>
+    <string name="pick_up_location">pick up location $location </string>
     <array name="vehicle_type">
         <item>Taxi</item>
         <item>Bus</item>

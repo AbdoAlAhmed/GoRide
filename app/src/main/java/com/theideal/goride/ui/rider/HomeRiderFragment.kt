@@ -10,7 +10,8 @@ import androidx.lifecycle.ViewModelProvider
 import com.google.android.gms.maps.GoogleMap
 import com.theideal.goride.databinding.FragmentHomeRiderBinding
 import com.theideal.goride.model.CardViewData
-import com.theideal.goride.ui.rider.adatper.CardViewAdapter
+import com.theideal.goride.ui.rider.home.services.availableTrip.AvailableTripsActivity
+import com.theideal.goride.ui.rider.home.services.availableTrip.CardViewAdapter
 import com.theideal.goride.ui.rider.home.services.request.RiderRequestActivity
 import timber.log.Timber
 
@@ -51,6 +52,14 @@ class HomeRiderFragment : Fragment() {
                         RiderRequestActivity::class.java
                     )
                 )
+                RiderViewModel.HomeServicesFragment.Available -> {
+                    startActivity(
+                        Intent(
+                            requireContext(),
+                            AvailableTripsActivity::class.java
+                        )
+                    )
+                }
 
                 else -> {
                     Timber.i("else")

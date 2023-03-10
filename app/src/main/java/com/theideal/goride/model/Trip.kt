@@ -1,6 +1,5 @@
 package com.theideal.goride.model
 
-import java.util.Date
 
 data class Trip(
     var id: Int = 0 ,
@@ -8,8 +7,10 @@ data class Trip(
     var endDestination: String = "",
     var duration: String = "",
     var fare : Double = 0.0 ,
-    var date: Date ,
-    var distances : String ,
+    var date: String =  "" ,
+    var distances : String = "",
     var rider: Rider ,
     var driver: Driver
-)
+){
+    constructor() : this(0, "", "", "", 0.0, "", "", Rider(), Driver())
+}
