@@ -25,7 +25,6 @@ class AuthenticationActivity : AppCompatActivity() {
         viewModel.isSignIn()
         viewModel.isSignInRider.observe(this) {
             Timber.i(it.toString())
-
             if (it) {
                 runOnUiThread {
                     startActivity(Intent(this, RiderActivity::class.java))
