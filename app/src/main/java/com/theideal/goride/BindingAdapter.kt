@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.theideal.goride.model.*
 import com.theideal.goride.ui.rider.home.services.availableTrip.AvailableTripAdapter
-import com.theideal.goride.ui.rider.home.services.availableTrip.CardViewAdapter
+import com.theideal.goride.ui.rider.CardViewAdapter
 
 
 @BindingAdapter("list_data")

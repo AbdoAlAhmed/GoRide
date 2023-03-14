@@ -23,5 +23,4 @@ data class RiderHistory(
 
 enum class Gender { Female, Male }
 data class RatingRider(val stars: Int, val comment: String)
-data class Location(val latitude: Double, val longitude: Double)
 enum class RideStatus { InProgress, Completed, Cancelled }

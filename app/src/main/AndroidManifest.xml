@@ -29,7 +29,7 @@
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyCzeCigMhYFV9wx6kQuHmuuZhmm7aD487Y" />
+            android:value="AIzaSyAR4w7IabWvGHVleCvraHfqu99g8ttiOZc" />
 
         <activity
             android:name=".ui.rider.RiderActivity"
@@ -49,6 +49,15 @@
         <activity
             android:name=".ui.auth.AuthenticationActivity"
             android:exported="true" />
+
+        <receiver
+            android:name=".ui.rider.home.services.availableTrip.BroadCastReceiverTrip"
+            android:enabled="true"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="com.theideal.goride.ui.rider.home.services.availableTrip.BroadCastReceiverTrip" />
+            </intent-filter>
+        </receiver>
     </application>
 
 </manifest>

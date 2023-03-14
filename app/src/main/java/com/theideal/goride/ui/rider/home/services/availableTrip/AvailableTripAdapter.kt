@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.theideal.goride.databinding.CardAvailableTripsBinding
 import com.theideal.goride.model.Trip
 
-class AvailableTripAdapter: ListAdapter<Trip , AvailableTripAdapter.ViewHolder>(DiffCallBack) {
+class AvailableTripAdapter(val onClickListener: OnClick): ListAdapter<Trip , AvailableTripAdapter.ViewHolder>(DiffCallBack) {
     object DiffCallBack: DiffUtil.ItemCallback<Trip>() {
         override fun areItemsTheSame(oldItem: Trip, newItem: Trip): Boolean {
             return oldItem == newItem
@@ -41,6 +41,13 @@ class AvailableTripAdapter: ListAdapter<Trip , AvailableTripAdapter.ViewHolder>(
     override fun onBindViewHolder(holder: AvailableTripAdapter.ViewHolder, position: Int) {
         val trip = getItem(position)
         holder.bind(trip)
+        holder.itemView.setOnClickListener {
+            onClickListener.onClick(trip)
+        }
+    }
+
+    class OnClick(private val clickListener: (trip: Trip) -> Unit){
+        fun onClick (trip: Trip) = clickListener(trip)
     }
 
 }

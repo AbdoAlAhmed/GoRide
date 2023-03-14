@@ -8,7 +8,7 @@ import com.theideal.goride.model.FirebaseRiderModel
 import timber.log.Timber
 
 class RiderViewModel : ViewModel() {
-    enum class HomeServicesFragment { Available, Suggest, Request, Error }
+    enum class HomeServicesFragment { Available, Suggest, Request, Error,DoneNav }
 
     val data = FirebaseRiderModel()
 
@@ -46,6 +46,9 @@ class RiderViewModel : ViewModel() {
             else -> _navTo.value = HomeServicesFragment.Error
         }
 
+    }
+    fun doneNavTo(){
+        _navTo.value = HomeServicesFragment.DoneNav
     }
 
 }
