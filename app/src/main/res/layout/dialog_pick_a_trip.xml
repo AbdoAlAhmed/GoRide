@@ -1,53 +1,63 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    app:cardCornerRadius="12dp"
-    app:cardElevation="8dp"
-    app:cardUseCompatPadding="true"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
-    <LinearLayout
+
+    <data>
+        <variable
+            name="TripsLine"
+            type="com.theideal.goride.model.TripsLine" />
+
+    </data>
+
+    <com.google.android.material.card.MaterialCardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:clickable="false"
-        android:padding="16dp">
+        app:cardCornerRadius="12dp"
+        app:cardElevation="8dp"
+        app:cardUseCompatPadding="true">
 
-        <com.google.android.material.textfield.TextInputLayout
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            style="?attr/textInputOutlinedDenseStyle"
-            android:hint="@string/home_many_riders"
-            >
-            <AutoCompleteTextView
-                android:id="@+id/many"
+            android:orientation="vertical"
+            android:clickable="false"
+            android:padding="8dp">
+
+            <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="number"
-                />
-        </com.google.android.material.textfield.TextInputLayout>
+                style="?attr/textInputOutlinedStyle"
+                android:hint="@string/home_many_riders">
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            style="?attr/textInputOutlinedExposedDropdownMenuStyle"
-            android:hint="@string/when"
-            >
-            <AutoCompleteTextView
-                android:id="@+id/when"
+                <AutoCompleteTextView
+                    android:id="@+id/many"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="number" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="none"
-                />
-        </com.google.android.material.textfield.TextInputLayout>
+                style="?attr/textInputOutlinedExposedDropdownMenuStyle"
+                android:hint="@string/when">
 
-        <Button
-            android:id="@+id/click"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/click"
-            />
+                <AutoCompleteTextView
+                    android:id="@+id/when"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="none" />
+            </com.google.android.material.textfield.TextInputLayout>
 
-    </LinearLayout>
+            <Button
+                android:id="@+id/click"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/click"
+                app:set_when_to_ride="@{TripsLine}"
+                app:simpleItems="@array/when_to_ride" />
 
-</com.google.android.material.card.MaterialCardView>
+        </LinearLayout>
+
+    </com.google.android.material.card.MaterialCardView>
+</layout>

@@ -3,6 +3,7 @@ package com.theideal.goride.model
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.ktx.toObject
 import timber.log.Timber
 
 class FirebaseRiderModel : ViewModel() {
@@ -48,6 +49,24 @@ class FirebaseRiderModel : ViewModel() {
                 }
             }.addOnFailureListener { exception ->
                 Timber.d(exception, "get failed with ")
+            }
+    }
+
+    fun getDriver(callback: (ArrayList<DriverStatus>) -> Unit) {
+        val listOfDriver = ArrayList<DriverStatus>()
+        db.collection("driver")
+            .whereNotEqualTo("status","NotAvailable")
+            .get()
+            .addOnSuccessListener {
+                for (document in it) {
+                    val data = document.toObject(DriverStatus::class.java)
+                    listOfDriver.add(data)
+                    callback(listOfDriver)
+                }
+            }
+            .addOnFailureListener { exception ->
+                Timber.d(exception, "get failed with ")
+
             }
     }
 

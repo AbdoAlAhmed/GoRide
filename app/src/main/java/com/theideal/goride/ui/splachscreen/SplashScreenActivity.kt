@@ -20,7 +20,7 @@ import kotlin.properties.Delegates
 @SuppressLint("CustomSplashScreen")
 class SplashScreenActivity : AppCompatActivity() {
     private lateinit var viewModel: AuthenticationViewModel
-    private lateinit var isSignIn: String
+    private  var isSignIn: String? = ""
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splach_screen)

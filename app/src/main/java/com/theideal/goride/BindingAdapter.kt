@@ -4,6 +4,7 @@ import android.widget.ArrayAdapter
 import android.widget.AutoCompleteTextView
 import android.widget.ImageView
 import androidx.databinding.BindingAdapter
+import androidx.lifecycle.viewmodel.viewModelFactory
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.theideal.goride.model.*
@@ -16,6 +17,7 @@ fun bindRecyclerView(recyclerView: RecyclerView, data: List<CardViewData>?) {
     val adapter = recyclerView.adapter as CardViewAdapter
     adapter.submitList(data)
 }
+
 @BindingAdapter("list_data_available_trip")
 fun bindRecyclerView1(recyclerView: RecyclerView, data: List<Trip>?) {
     val adapter = recyclerView.adapter as AvailableTripAdapter
@@ -66,5 +68,19 @@ fun setVehicleType(view: AutoCompleteTextView, carType: Driver?) {
     view.setOnItemClickListener { parent, _, position, _ ->
         carType!!.carType = parent.getItemAtPosition(position).toString()
     }
+}
+
+@BindingAdapter("set_when_to_ride")
+fun setWhenToRide(autoComplete: AutoCompleteTextView, rideWhen: TripsLine?) {
+    val adapter = ArrayAdapter(
+        autoComplete.context,
+        android.R.layout.simple_list_item_1,
+        listOf("Now", "When I'm around")
+    )
+    autoComplete.setAdapter(adapter)
+    autoComplete.setOnItemClickListener { parent, _, position, l ->
+        rideWhen!!.whenToRide = parent.getItemAtPosition(position).toString()
+    }
+
 }
 

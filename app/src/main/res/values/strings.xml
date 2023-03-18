@@ -45,7 +45,7 @@
     <string name="done">Done</string>
     <string name="available_trips">Available Trips</string>
     <string name="pick_up_location">pick up location $location </string>
-    <string name="home_many_riders">Home Many Riders</string>
+    <string name="home_many_riders">Book How much ?</string>
     <string name="when">when ?</string>
     <string name="click">click</string>
     <array name="vehicle_type">
@@ -58,5 +58,9 @@
     <array name="user_type">
         <item>Rider</item>
         <item>Driver</item>
+    </array>
+    <array name="when_to_ride">
+        <item>Now</item>
+        <item>When I'm around</item>
     </array>
 </resources>

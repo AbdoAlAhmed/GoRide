@@ -11,16 +11,19 @@ import com.theideal.goride.ui.rider.home.services.availableTrip.AvailableTripsAc
 
 private const val CHANNEL_ID = "channel"
 
-class SendNotification(context: Context, trip: Trip, channelName: String) {
-    val notificationManager = context
+class SendNotification(context: Context, trip: Trip, private val channelName: String) {
+    var notificationManager = context
         .getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
 
     @RequiresApi(Build.VERSION_CODES.O)
-    val channel = NotificationChannel(
-        CHANNEL_ID,
-        channelName,
-        NotificationManager.IMPORTANCE_DEFAULT
-    )
+    fun createChannel() {
+        val channel = NotificationChannel(
+            CHANNEL_ID,
+            channelName,
+            NotificationManager.IMPORTANCE_DEFAULT
+        )
+        notificationManager.createNotificationChannel(channel)
+    }
 
 
 }
