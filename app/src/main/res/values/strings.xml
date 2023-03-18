@@ -48,6 +48,7 @@
     <string name="home_many_riders">Book How much ?</string>
     <string name="when">when ?</string>
     <string name="click">click</string>
+    <string name="name_of_the_driver">Name Of The Driver</string>
     <array name="vehicle_type">
         <item>Taxi</item>
         <item>Bus</item>

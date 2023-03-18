@@ -10,6 +10,7 @@ import com.bumptech.glide.Glide
 import com.theideal.goride.model.*
 import com.theideal.goride.ui.rider.home.services.availableTrip.AvailableTripAdapter
 import com.theideal.goride.ui.rider.CardViewAdapter
+import com.theideal.goride.ui.rider.home.services.availableTrip.AvailableDriverAdapter
 
 
 @BindingAdapter("list_data")
@@ -24,11 +25,26 @@ fun bindRecyclerView1(recyclerView: RecyclerView, data: List<Trip>?) {
     adapter.submitList(data)
 }
 
+@BindingAdapter("list_data_of_available_drivers")
+fun bindRecyclerView2(recyclerView: RecyclerView, data: List<DriverStatus>?) {
+    val adapter = recyclerView.adapter as AvailableDriverAdapter
+    adapter.submitList(data)
+}
+
 
 @BindingAdapter("set_image")
 fun setImage(view: ImageView, card: CardViewData?) {
     Glide.with(view.context)
         .load(card!!.image)
+        .centerCrop()
+        .placeholder(R.drawable.vc_error)
+        .into(view)
+}
+
+@BindingAdapter("set_image_users")
+fun setImage(view: ImageView, user: User?) {
+    Glide.with(view.context)
+        .load(user!!.profileImage)
         .centerCrop()
         .placeholder(R.drawable.vc_error)
         .into(view)

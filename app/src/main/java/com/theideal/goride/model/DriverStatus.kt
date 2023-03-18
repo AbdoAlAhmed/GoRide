@@ -4,7 +4,8 @@ data class DriverStatus(
     var id: String,
     var status: String,
     var userRef: String,
-    var realTimeLocation: Location
+    var realTimeLocation: Location,
+    var user: User
 ) {
-    constructor() : this("", "", "", Location(0.0, 0.0))
+    constructor() : this("", "", "", Location(),User())
 }
