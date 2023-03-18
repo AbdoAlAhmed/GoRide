@@ -49,6 +49,7 @@
     <string name="when">when ?</string>
     <string name="click">click</string>
     <string name="name_of_the_driver">Name Of The Driver</string>
+    <string name="request_a_ride">Request A Ride</string>
     <array name="vehicle_type">
         <item>Taxi</item>
         <item>Bus</item>
@@ -62,6 +63,6 @@
     </array>
     <array name="when_to_ride">
         <item>Now</item>
-        <item>When I'm around</item>
+        <item>When Iam around</item>
     </array>
 </resources>

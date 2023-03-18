@@ -5,8 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.theideal.goride.databinding.CardDetailListOfDirverBinding
-import com.theideal.goride.databinding.CardListOfDriverBinding
+import com.theideal.goride.databinding.CardDetailListOfDriverBinding
 import com.theideal.goride.model.DriverStatus
 
 class AvailableDriverAdapter :
@@ -22,7 +21,7 @@ class AvailableDriverAdapter :
 
     }
 
-    class ViewHolder(private val binding: CardDetailListOfDirverBinding) :
+    class ViewHolder(private val binding: CardDetailListOfDriverBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(driverStatus: DriverStatus) {
             binding.driverStatus = driverStatus
@@ -32,9 +31,9 @@ class AvailableDriverAdapter :
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
-    ): AvailableDriverAdapter.ViewHolder {
+    ): ViewHolder {
         return ViewHolder(
-            CardDetailListOfDirverBinding.inflate(
+            CardDetailListOfDriverBinding.inflate(
                 LayoutInflater.from(parent.context),
                 parent,
                 false
@@ -42,7 +41,7 @@ class AvailableDriverAdapter :
         )
     }
 
-    override fun onBindViewHolder(holder: AvailableDriverAdapter.ViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         var driverPosition = getItem(position)
         holder.bind(driverPosition)
     }

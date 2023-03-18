@@ -4,4 +4,6 @@ data class TripsLine(
     var id: String,
     var NumberOfRiders: String,
     var whenToRide: String
-)
+) {
+    constructor() : this("", "", "")
+}

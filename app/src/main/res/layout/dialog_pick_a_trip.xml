@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
+
         <variable
             name="TripsLine"
             type="com.theideal.goride.model.TripsLine" />
@@ -19,14 +20,14 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
             android:clickable="false"
+            android:orientation="vertical"
             android:padding="8dp">
 
             <com.google.android.material.textfield.TextInputLayout
+                style="?attr/textInputOutlinedStyle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                style="?attr/textInputOutlinedStyle"
                 android:hint="@string/home_many_riders">
 
                 <AutoCompleteTextView
@@ -37,24 +38,26 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
+                style="?attr/textInputOutlinedExposedDropdownMenuStyle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                style="?attr/textInputOutlinedExposedDropdownMenuStyle"
                 android:hint="@string/when">
 
                 <AutoCompleteTextView
                     android:id="@+id/when"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="none" />
+                    android:inputType="none"
+                    app:set_when_to_ride="@{TripsLine}"
+                    app:simpleItems="@array/when_to_ride" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <Button
-                android:id="@+id/click"
+                android:id="@+id/btn_request_from_dialog"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/click"
-                app:set_when_to_ride="@{TripsLine}"
+                android:text="@string/request_a_ride"
+                android:textAllCaps="false"
                 app:simpleItems="@array/when_to_ride" />
 
         </LinearLayout>

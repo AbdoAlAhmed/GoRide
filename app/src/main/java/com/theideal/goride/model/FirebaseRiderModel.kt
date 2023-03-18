@@ -55,11 +55,12 @@ class FirebaseRiderModel : ViewModel() {
     fun getDriver(callback: (ArrayList<DriverStatus>) -> Unit) {
         val listOfDriver = ArrayList<DriverStatus>()
         db.collection("driver")
-            .whereNotEqualTo("status","NotAvailable")
+            .whereNotEqualTo("status", "NotAvailable")
             .get()
             .addOnSuccessListener {
                 for (document in it) {
                     val data = document.toObject(DriverStatus::class.java)
+                    Timber.i(data.toString())
                     listOfDriver.add(data)
                     callback(listOfDriver)
                 }
