@@ -71,8 +71,9 @@ class FirebaseRiderModel : ViewModel() {
             }
     }
 
-    fun requestFromAvailableTirps(){
-
+    fun requestFromAvailableTrips(){
+        db.collection("ride-a-request")
+            .document("available-trips")
     }
 
 
