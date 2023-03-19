@@ -15,7 +15,7 @@ class AvailableTripAdapter(val onClickListener: OnClick): ListAdapter<Trip , Ava
         }
 
         override fun areContentsTheSame(oldItem: Trip, newItem: Trip): Boolean {
-            return oldItem.id == newItem.id
+            return oldItem.tripId == newItem.tripId
         }
 
     }

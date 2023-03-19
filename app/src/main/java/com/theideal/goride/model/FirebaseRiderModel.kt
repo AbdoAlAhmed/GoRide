@@ -71,6 +71,10 @@ class FirebaseRiderModel : ViewModel() {
             }
     }
 
+    fun requestFromAvailableTirps(){
+
+    }
+
 
 }
 

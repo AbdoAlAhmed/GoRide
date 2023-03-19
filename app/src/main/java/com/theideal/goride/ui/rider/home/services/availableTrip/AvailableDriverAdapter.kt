@@ -8,15 +8,15 @@ import androidx.recyclerview.widget.RecyclerView
 import com.theideal.goride.databinding.CardDetailListOfDriverBinding
 import com.theideal.goride.model.DriverStatus
 
-class AvailableDriverAdapter :
+class AvailableDriverAdapter(private val onClickListener: OnClick) :
     ListAdapter<DriverStatus, AvailableDriverAdapter.ViewHolder>(DiffCallBack) {
     object DiffCallBack : DiffUtil.ItemCallback<DriverStatus>() {
         override fun areItemsTheSame(oldItem: DriverStatus, newItem: DriverStatus): Boolean {
-            TODO("Not yet implemented")
+            return oldItem == newItem
         }
 
         override fun areContentsTheSame(oldItem: DriverStatus, newItem: DriverStatus): Boolean {
-            TODO("Not yet implemented")
+            return oldItem.statusId == newItem.statusId
         }
 
     }
@@ -44,5 +44,12 @@ class AvailableDriverAdapter :
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         var driverPosition = getItem(position)
         holder.bind(driverPosition)
+        holder.itemView.setOnClickListener {
+            onClickListener.onClick(driverPosition)
+        }
+    }
+
+    class OnClick(val onClickListener: (DriverStatus) -> Unit) {
+        fun onClick(status: DriverStatus) = onClickListener(status)
     }
 }

@@ -1,7 +1,7 @@
 package com.theideal.goride.model
 
 data class DriverStatus(
-    var id: String,
+    var statusId: String,
     var status: String,
     var userRef: String,
     var realTimeLocation: Location,

@@ -1,20 +1,14 @@
 package com.theideal.goride.ui.rider.home.services.availableTrip
 
-import android.annotation.SuppressLint
 import android.app.AlertDialog
 import android.os.Bundle
-import android.text.Layout
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
 import androidx.lifecycle.ViewModelProvider
-import androidx.recyclerview.widget.RecyclerView
 import com.google.android.gms.location.GeofencingClient
 import com.google.android.gms.location.LocationServices
-import com.theideal.goride.R
-import com.theideal.goride.databinding.CardAvailableTripsBinding
 import com.theideal.goride.databinding.CardListOfDriverBinding
 import com.theideal.goride.databinding.DialogPickATripBinding
 import com.theideal.goride.databinding.FragmentAvailableTripBinding
@@ -50,7 +44,7 @@ class AvailableTripFragment : Fragment() {
         geofencingClient = LocationServices.getGeofencingClient(requireActivity())
         viewModel.initializeAvailableTrips()
         binding.rvAvailableTrips.adapter = AvailableTripAdapter(AvailableTripAdapter.OnClick {
-            tripId = it.id
+            tripId = it.tripId
             firstStepToRequestTripDialog()
             viewModel.getAvailableDriver()
 
@@ -78,8 +72,10 @@ class AvailableTripFragment : Fragment() {
         val dialogCreate = dialogBuilder.create()
         val view = CardListOfDriverBinding.inflate(LayoutInflater.from(context), null)
         dialogCreate.setView(view.root)
-        // todo make the onClickListener to move to fragment to track the driver>>
-        view.rcAvailableDrivers.adapter = AvailableDriverAdapter()
+        view.rcAvailableDrivers.adapter = AvailableDriverAdapter(AvailableDriverAdapter.OnClick{
+
+            dialogCreate.dismiss()
+        })
         view.availableDriver = viewModel
         dialogCreate.show()
     }
