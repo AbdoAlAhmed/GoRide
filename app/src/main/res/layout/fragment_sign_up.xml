@@ -210,7 +210,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="5dp"
-                android:checked="true"
                 android:drawableStart="@drawable/vc_man"
                 android:text="@string/male" />
 
@@ -221,12 +220,7 @@
                 android:drawableStart="@drawable/vc_woman"
                 android:text="@string/female" />
 
-            <RadioButton
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="5dp"
-                android:enabled="false"
-                android:text="@string/gays_are_not_allowed" />
+
         </RadioGroup>
 
         <TextView

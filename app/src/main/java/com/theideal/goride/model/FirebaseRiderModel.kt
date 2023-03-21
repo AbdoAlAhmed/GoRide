@@ -55,7 +55,7 @@ class FirebaseRiderModel : ViewModel() {
     fun getDriver(callback: (ArrayList<User>) -> Unit) {
         val listOfDriver = ArrayList<User>()
         db.collection("users")
-            .whereEqualTo("userType", "driver")
+            .whereEqualTo("userType", "Driver")
             .get()
             .addOnSuccessListener {
                 for (document in it) {
