@@ -7,24 +7,17 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
-import com.google.android.gms.location.GeofencingClient
-import com.google.android.gms.location.LocationServices
 import com.theideal.goride.databinding.CardListOfDriverBinding
 import com.theideal.goride.databinding.DialogPickATripBinding
 import com.theideal.goride.databinding.FragmentAvailableTripBinding
-import com.theideal.goride.model.GeoFencing
-import com.theideal.goride.model.TripsLine
+import com.theideal.goride.model.Trip
 import kotlin.properties.Delegates
 
 
 class AvailableTripFragment : Fragment() {
     private lateinit var binding: FragmentAvailableTripBinding
     private lateinit var viewModel: AvailableTripsViewModel
-    private var tripsLine = TripsLine()
-    private var tripId by Delegates.notNull<Int>()
-    private lateinit var geoFencing: GeoFencing
-    private lateinit var geofencingClient: GeofencingClient
-    private val requestCodeGeofence = 1
+    private var trip = Trip()
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -41,10 +34,9 @@ class AvailableTripFragment : Fragment() {
         viewModel = ViewModelProvider(requireActivity())[AvailableTripsViewModel::class.java]
         binding.viewModel = viewModel
         binding.lifecycleOwner = this
-        geofencingClient = LocationServices.getGeofencingClient(requireActivity())
         viewModel.initializeAvailableTrips()
         binding.rvAvailableTrips.adapter = AvailableTripAdapter(AvailableTripAdapter.OnClick {
-            tripId = it.tripId
+            trip = it
             firstStepToRequestTripDialog()
             viewModel.getAvailableDriver()
 
@@ -59,7 +51,7 @@ class AvailableTripFragment : Fragment() {
         val dialogCreate = dialogBuilder.create()
         val view = DialogPickATripBinding.inflate(LayoutInflater.from(context), null, false)
         dialogCreate.setView(view.root)
-        view.tripsLine = tripsLine
+        view.trip = trip
         view.btnRequestFromDialog.setOnClickListener {
             lastStepToRequestTripDialog()
             dialogCreate.dismiss()
@@ -72,13 +64,18 @@ class AvailableTripFragment : Fragment() {
         val dialogCreate = dialogBuilder.create()
         val view = CardListOfDriverBinding.inflate(LayoutInflater.from(context), null)
         dialogCreate.setView(view.root)
-        view.rcAvailableDrivers.adapter = AvailableDriverAdapter(AvailableDriverAdapter.OnClick{
-
-            dialogCreate.dismiss()
-        })
         view.availableDriver = viewModel
+        view.rcAvailableDrivers.adapter = AvailableDriverAdapter(AvailableDriverAdapter.OnClick {
+
+        })
         dialogCreate.show()
     }
 
 
+    /*i think to solve this issue use tipsLine instead of trips so i got all the trips line issue (1)
+     issue (2) how to get the driver info remove driver status class
+    todo issue (3) how to get the rider info to get the rider info we are going to get from data
+
+    after fixing this get rider and driver and trips line info and put it in request a ride
+     */
 }

@@ -28,13 +28,14 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:hint="@string/pick_up_location"
-                android:text="@{trip.startDestination}" />
+                android:text="@{trip.startDestination.destinationName}"
+                 />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:hint="@string/end_destination"
-                android:text="@{trip.endDestination}" />
+                app:set_location_text="@{trip.endDestination}" />
         </LinearLayout>
     </androidx.cardview.widget.CardView>
 </layout>

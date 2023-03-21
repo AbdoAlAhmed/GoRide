@@ -3,10 +3,7 @@ package com.theideal.goride.ui.rider.home.services.availableTrip
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.theideal.goride.model.DriverStatus
-import com.theideal.goride.model.FirebaseRiderModel
-import com.theideal.goride.model.GeoFencing
-import com.theideal.goride.model.Trip
+import com.theideal.goride.model.*
 
 class AvailableTripsViewModel : ViewModel() {
     val data = FirebaseRiderModel()
@@ -18,8 +15,8 @@ class AvailableTripsViewModel : ViewModel() {
     private val _addGeoFencing = MutableLiveData<ArrayList<GeoFencing>>()
     val addGeoFencing: LiveData<ArrayList<GeoFencing>>
         get() = _addGeoFencing
-    private val _availableDrivers = MutableLiveData<ArrayList<DriverStatus>>()
-    val availableDrivers: LiveData<ArrayList<DriverStatus>>
+    private val _availableDrivers = MutableLiveData<ArrayList<User>>()
+    val availableDrivers: LiveData<ArrayList<User>>
         get() = _availableDrivers
 
 
@@ -33,5 +30,9 @@ class AvailableTripsViewModel : ViewModel() {
         data.getDriver { driver ->
             _availableDrivers.value = driver
         }
+    }
+
+    fun requestAvailableTrip(tripId: String, trip: Trip) {
+        data.requestFromAvailableTrips(tripId, trip)
     }
 }

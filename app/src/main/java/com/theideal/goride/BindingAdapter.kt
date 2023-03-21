@@ -3,6 +3,7 @@ package com.theideal.goride
 import android.widget.ArrayAdapter
 import android.widget.AutoCompleteTextView
 import android.widget.ImageView
+import android.widget.TextView
 import androidx.databinding.BindingAdapter
 import androidx.lifecycle.viewmodel.viewModelFactory
 import androidx.recyclerview.widget.RecyclerView
@@ -26,7 +27,7 @@ fun bindRecyclerView1(recyclerView: RecyclerView, data: List<Trip>?) {
 }
 
 @BindingAdapter("list_data_of_available_drivers")
-fun bindRecyclerView2(recyclerView: RecyclerView, data: List<DriverStatus>?) {
+fun bindRecyclerView2(recyclerView: RecyclerView, data: List<User>?) {
     val adapter = recyclerView.adapter as AvailableDriverAdapter
     adapter.submitList(data)
 }
@@ -87,7 +88,7 @@ fun setVehicleType(view: AutoCompleteTextView, carType: Driver?) {
 }
 
 @BindingAdapter("set_when_to_ride")
-fun setWhenToRide(autoComplete: AutoCompleteTextView, rideWhen: TripsLine?) {
+fun setWhenToRide(autoComplete: AutoCompleteTextView, rideWhen: Trip) {
     val adapter = ArrayAdapter(
         autoComplete.context,
         android.R.layout.simple_list_item_1,
@@ -97,6 +98,12 @@ fun setWhenToRide(autoComplete: AutoCompleteTextView, rideWhen: TripsLine?) {
     autoComplete.setOnItemClickListener { parent, _, position, l ->
         rideWhen!!.whenToRide = parent.getItemAtPosition(position).toString()
     }
+}
 
+@BindingAdapter("set_location_text")
+fun setLocationText(textView: TextView, location: Location?) {
+    location?.let {
+        textView.text = it.destinationName
+    }
 }
 

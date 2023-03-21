@@ -5,8 +5,8 @@
     <data>
 
         <variable
-            name="TripsLine"
-            type="com.theideal.goride.model.TripsLine" />
+            name="Trip"
+            type="com.theideal.goride.model.Trip" />
 
     </data>
 
@@ -30,11 +30,11 @@
                 android:layout_height="wrap_content"
                 android:hint="@string/home_many_riders">
 
-                <AutoCompleteTextView
-                    android:id="@+id/many"
+                <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:inputType="number" />
+                    android:layout_height="match_parent"
+                    android:text="@{Trip.numberOfRiders}"
+                    />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
@@ -48,7 +48,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="none"
-                    app:set_when_to_ride="@{TripsLine}"
+                    app:set_when_to_ride="@{Trip}"
                     app:simpleItems="@array/when_to_ride" />
             </com.google.android.material.textfield.TextInputLayout>
 

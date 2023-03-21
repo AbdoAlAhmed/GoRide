@@ -3,9 +3,11 @@ package com.theideal.goride.model
 data class Driver(
     var user: User = User(),
     var carType: String = "",
-    var disksNumber : String = "",
-    var driverInfo: ImageName = ImageName()
+    var disksNumber: String = "",
+    var driverInfo: ImageName = ImageName(),
+    var status: String
 ) {
+    constructor() : this(User(), "", "", ImageName(), "")
 }
 
 data class DriverHistory(
@@ -26,7 +28,6 @@ data class VehicleInfo(
     val numberRiders: String,
     val vehicleLicences: String
 )
-
 
 
 /*

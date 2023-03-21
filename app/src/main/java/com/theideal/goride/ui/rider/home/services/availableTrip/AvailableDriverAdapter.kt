@@ -6,25 +6,25 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.theideal.goride.databinding.CardDetailListOfDriverBinding
-import com.theideal.goride.model.DriverStatus
+import com.theideal.goride.model.User
 
 class AvailableDriverAdapter(private val onClickListener: OnClick) :
-    ListAdapter<DriverStatus, AvailableDriverAdapter.ViewHolder>(DiffCallBack) {
-    object DiffCallBack : DiffUtil.ItemCallback<DriverStatus>() {
-        override fun areItemsTheSame(oldItem: DriverStatus, newItem: DriverStatus): Boolean {
+    ListAdapter<User, AvailableDriverAdapter.ViewHolder>(DiffCallBack) {
+    object DiffCallBack : DiffUtil.ItemCallback<User>() {
+        override fun areItemsTheSame(oldItem: User, newItem: User): Boolean {
             return oldItem == newItem
         }
 
-        override fun areContentsTheSame(oldItem: DriverStatus, newItem: DriverStatus): Boolean {
-            return oldItem.statusId == newItem.statusId
+        override fun areContentsTheSame(oldItem: User, newItem: User): Boolean {
+            return oldItem.id == newItem.id
         }
 
     }
 
     class ViewHolder(private val binding: CardDetailListOfDriverBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(driverStatus: DriverStatus) {
-            binding.driverStatus = driverStatus
+        fun bind(user: User) {
+            binding.user = user
         }
     }
 
@@ -42,14 +42,14 @@ class AvailableDriverAdapter(private val onClickListener: OnClick) :
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        var driverPosition = getItem(position)
-        holder.bind(driverPosition)
+        var user = getItem(position)
+        holder.bind(user)
         holder.itemView.setOnClickListener {
-            onClickListener.onClick(driverPosition)
+            onClickListener.onClick(user)
         }
     }
 
-    class OnClick(val onClickListener: (DriverStatus) -> Unit) {
-        fun onClick(status: DriverStatus) = onClickListener(status)
+    class OnClick(val onClickListener: (User) -> Unit) {
+        fun onClick(status: User) = onClickListener(status)
     }
 }

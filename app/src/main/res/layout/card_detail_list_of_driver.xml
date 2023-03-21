@@ -5,8 +5,8 @@
     <data>
 
         <variable
-            name="DriverStatus"
-            type="com.theideal.goride.model.DriverStatus" />
+            name="user"
+            type="com.theideal.goride.model.User" />
 
     </data>
 
@@ -25,18 +25,24 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentStart="true"
-                android:layout_margin="10dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginBottom="10dp"
                 android:gravity="center"
                 android:hint="@string/name_of_the_driver"
-                android:text="@={DriverStatus.user.firstName}" />
+                android:text="@={user.firstName}" />
 
             <de.hdodenhof.circleimageview.CircleImageView
                 android:layout_width="@dimen/width_person_image"
                 android:layout_height="@dimen/height_person_image"
                 android:layout_alignParentEnd="true"
-                android:layout_margin="10dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginBottom="10dp"
                 android:src="@drawable/vc_person"
-                app:set_image_users="@{DriverStatus.user}" />
+                app:set_image_users="@{user}" />
         </RelativeLayout>
     </androidx.cardview.widget.CardView>
 </layout>

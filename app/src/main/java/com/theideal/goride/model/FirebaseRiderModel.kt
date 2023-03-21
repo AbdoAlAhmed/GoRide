@@ -52,14 +52,14 @@ class FirebaseRiderModel : ViewModel() {
             }
     }
 
-    fun getDriver(callback: (ArrayList<DriverStatus>) -> Unit) {
-        val listOfDriver = ArrayList<DriverStatus>()
-        db.collection("driver")
-            .whereNotEqualTo("status", "NotAvailable")
+    fun getDriver(callback: (ArrayList<User>) -> Unit) {
+        val listOfDriver = ArrayList<User>()
+        db.collection("users")
+            .whereEqualTo("userType", "driver")
             .get()
             .addOnSuccessListener {
                 for (document in it) {
-                    val data = document.toObject(DriverStatus::class.java)
+                    val data = document.toObject(User::class.java)
                     Timber.i(data.toString())
                     listOfDriver.add(data)
                     callback(listOfDriver)
@@ -71,9 +71,18 @@ class FirebaseRiderModel : ViewModel() {
             }
     }
 
-    fun requestFromAvailableTrips(){
-        db.collection("ride-a-request")
+    fun requestFromAvailableTrips(tripId: String, trip: Trip) {
+        db.collection("request-a-rides")
             .document("available-trips")
+            .collection("rider-driver")
+            .document(tripId)
+            .set(trip)
+            .addOnSuccessListener {
+                Timber.i(it.toString())
+            }
+            .addOnFailureListener {
+                Timber.i(it.toString())
+            }
     }
 
 
