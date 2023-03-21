@@ -27,11 +27,13 @@ class AvailableTripsViewModel : ViewModel() {
     }
 
     fun getAvailableDriver() {
+        // you can restrict the incoming data
         data.getDriver { driver ->
             _availableDrivers.value = driver
         }
     }
 
+    // todo i think we are here
     fun requestAvailableTrip(tripId: String, trip: Trip) {
         data.requestFromAvailableTrips(tripId, trip)
     }

@@ -1,9 +1,8 @@
 package com.theideal.goride.model
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
+import com.google.firebase.firestore.CollectionReference
 import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.firestore.ktx.toObject
 import timber.log.Timber
 
 class FirebaseRiderModel : ViewModel() {
@@ -52,22 +51,26 @@ class FirebaseRiderModel : ViewModel() {
             }
     }
 
-    fun getDriver(callback: (ArrayList<User>) -> Unit) {
+    fun getDriver(vararg keyValue: String, callback: (ArrayList<User>) -> Unit) {
         val listOfDriver = ArrayList<User>()
-        db.collection("users")
-            .whereEqualTo("userType", "Driver")
-            .get()
+        var query = db.collection("users").whereEqualTo("userType", "Driver")
+        if (keyValue.size % 2 == 0) {
+            for (i in keyValue.indices step 2) {
+                Timber.i(keyValue[i])
+                query = query.whereEqualTo(keyValue[i], keyValue[i + 1])
+            }
+        }
+        query.get()
             .addOnSuccessListener {
                 for (document in it) {
                     val data = document.toObject(User::class.java)
                     Timber.i(data.toString())
                     listOfDriver.add(data)
-                    callback(listOfDriver)
                 }
+                callback(listOfDriver)
             }
             .addOnFailureListener { exception ->
                 Timber.d(exception, "get failed with ")
-
             }
     }
 
