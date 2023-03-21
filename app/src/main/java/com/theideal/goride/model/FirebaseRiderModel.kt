@@ -74,7 +74,12 @@ class FirebaseRiderModel : ViewModel() {
             }
     }
 
+    // todo add in data driver name,id  rider1 name,id rider2 name,id
     fun requestFromAvailableTrips(tripId: String, trip: Trip) {
+        var data = mutableListOf(
+            "",""
+        )
+        data.add(trip.toString())
         db.collection("request-a-rides")
             .document("available-trips")
             .collection("rider-driver")

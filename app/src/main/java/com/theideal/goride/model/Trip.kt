@@ -10,9 +10,8 @@ data class Trip(
     var fare: Double = 0.0,
     var date: String = "",
     var whenToRide: String,
-    var distances: String = "",
-
-    ) {
+    var distances: String = ""
+) {
     constructor() : this(
         0, Location(), Location(), "", "", 0.0, "", "", ""
     )
