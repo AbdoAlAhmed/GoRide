@@ -6,7 +6,9 @@ import androidx.lifecycle.ViewModel
 import com.theideal.goride.model.*
 
 class AvailableTripsViewModel : ViewModel() {
-    val data = FirebaseRiderModel()
+    private val riderData = FirebaseRiderModel()
+    private val authData = FirebaseAuthModel()
+
 
     private val _availableTrips = MutableLiveData<ArrayList<Trip>>()
     val availableTrips: LiveData<ArrayList<Trip>>
@@ -18,23 +20,32 @@ class AvailableTripsViewModel : ViewModel() {
     private val _availableDrivers = MutableLiveData<ArrayList<User>>()
     val availableDrivers: LiveData<ArrayList<User>>
         get() = _availableDrivers
+    private val _user = MutableLiveData<User>()
+    val user: LiveData<User>
+        get() = _user
 
 
     fun initializeAvailableTrips() {
-        data.getAvailableTrips {
+        riderData.getAvailableTrips {
             _availableTrips.value = it
         }
     }
 
     fun getAvailableDriver() {
         // you can restrict the incoming data
-        data.getDriver { driver ->
+        riderData.getDriver { driver ->
             _availableDrivers.value = driver
         }
     }
 
     // todo i think we are here
-    fun requestAvailableTrip(tripId: String, trip: Trip) {
-        data.requestFromAvailableTrips(tripId, trip)
+    fun requestAvailableTrip(trip: Trip) {
+        riderData.requestFromAvailableTrips(trip)
+    }
+
+    fun getUser() {
+        authData.getUser {
+            _user.value = it
+        }
     }
 }

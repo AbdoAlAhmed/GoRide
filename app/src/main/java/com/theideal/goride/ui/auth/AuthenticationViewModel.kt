@@ -300,7 +300,7 @@ class AuthenticationViewModel(private val firebaseAuthModel: FirebaseAuthModel) 
             try {
 
                 firebaseAuthModel.sigIn(user) {
-                    when (it) {
+                    when (it.userType) {
                         "Rider" -> {
                             _isSignInRider.value = true
                             _progressBar.value = false

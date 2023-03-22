@@ -18,7 +18,8 @@ data class User(
     var gender: Gender = Gender.Male,
     var userType: String = "",
     var status: String = "",
-    var profileImage: String = ""
+    var profileImage: String = "",
+
 ) : Parcelable {
     fun getPassword() = password
     fun setPassword(newPassword: String) {

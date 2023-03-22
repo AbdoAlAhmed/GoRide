@@ -54,21 +54,28 @@ class FirebaseAuthModel : ViewModel() {
     }
 
 
-    suspend fun sigIn(user: User, callback: (String?) -> Unit) {
+    suspend fun sigIn(user: User, callback: (User) -> Unit) {
         withContext(Dispatchers.IO) {
-
             val auth = auth.signInWithEmailAndPassword(user.email, user.getPassword()).await()
-
             auth.user.let {
                 dbRef.document(it!!.uid).get().addOnSuccessListener { it ->
-                    val data = it.data?.get("userType")
-                    Timber.i(data.toString())
-                    callback(data.toString())
+                    val data = it.toObject(User::class.java)
+                    callback(data!!)
 
                 }
             }
         }
 
+    }
+
+    fun getUser(callback: (User) -> Unit) {
+        val uid = auth.currentUser?.uid
+        if (uid != null) {
+            dbRef.document(uid).get().addOnSuccessListener {
+                val data = it.toObject(User::class.java)
+                callback(data!!)
+            }
+        }
     }
 
     private fun verifyEmail() {

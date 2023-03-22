@@ -1,6 +1,7 @@
 package com.theideal.goride.model
 
 import androidx.lifecycle.ViewModel
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.CollectionReference
 import com.google.firebase.firestore.FirebaseFirestore
 import timber.log.Timber
@@ -74,23 +75,20 @@ class FirebaseRiderModel : ViewModel() {
             }
     }
 
-    // todo add in data driver name,id  rider1 name,id rider2 name,id
-    fun requestFromAvailableTrips(tripId: String, trip: Trip) {
-        var data = mutableListOf(
-            "",""
-        )
-        data.add(trip.toString())
-        db.collection("request-a-rides")
+
+    fun requestFromAvailableTrips(trip: Trip) {
+        val dbRef = db.collection("request-a-rides")
             .document("available-trips")
             .collection("rider-driver")
-            .document(tripId)
-            .set(trip)
-            .addOnSuccessListener {
-                Timber.i(it.toString())
-            }
-            .addOnFailureListener {
-                Timber.i(it.toString())
-            }
+            .add(trip)
+        dbRef.addOnSuccessListener {
+            it.update("tripId", it.id)
+            Timber.i(it.id)
+        }
+        dbRef.addOnFailureListener {
+            Timber.e(it)
+        }
+
     }
 
 

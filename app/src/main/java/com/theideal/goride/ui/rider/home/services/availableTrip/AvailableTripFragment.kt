@@ -35,12 +35,16 @@ class AvailableTripFragment : Fragment() {
         binding.viewModel = viewModel
         binding.lifecycleOwner = this
         viewModel.initializeAvailableTrips()
+        viewModel.getUser()
         binding.rvAvailableTrips.adapter = AvailableTripAdapter(AvailableTripAdapter.OnClick {
             trip = it
             firstStepToRequestTripDialog()
             viewModel.getAvailableDriver()
 
         })
+        viewModel.user.observe(viewLifecycleOwner) {
+            trip.usersId = listOf(it.id)
+        }
 
         return binding.root
     }
@@ -66,7 +70,9 @@ class AvailableTripFragment : Fragment() {
         dialogCreate.setView(view.root)
         view.availableDriver = viewModel
         view.rcAvailableDrivers.adapter = AvailableDriverAdapter(AvailableDriverAdapter.OnClick {
-
+            trip.driverId = it.id
+            viewModel.requestAvailableTrip(trip)
+            dialogCreate.dismiss()
         })
         dialogCreate.show()
     }
