@@ -38,7 +38,6 @@ class AvailableTripsViewModel : ViewModel() {
         }
     }
 
-    // todo i think we are here
     fun requestAvailableTrip(trip: Trip) {
         riderData.requestFromAvailableTrips(trip)
     }

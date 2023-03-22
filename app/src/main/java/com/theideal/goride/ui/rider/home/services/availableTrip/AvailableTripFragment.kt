@@ -36,15 +36,22 @@ class AvailableTripFragment : Fragment() {
         binding.lifecycleOwner = this
         viewModel.initializeAvailableTrips()
         viewModel.getUser()
+        /*
+        (1) userId adding it.id doesn't work
+        (2) If there another rider wanna ask for a trip he will create new trip so how to make sure he will be added to the same trip
+        if it's not full yet , i suggest add status
+
+
+         */
+        viewModel.user.observe(viewLifecycleOwner) {
+            trip.usersId.add(it.id)
+        }
         binding.rvAvailableTrips.adapter = AvailableTripAdapter(AvailableTripAdapter.OnClick {
             trip = it
             firstStepToRequestTripDialog()
             viewModel.getAvailableDriver()
 
         })
-        viewModel.user.observe(viewLifecycleOwner) {
-            trip.usersId = listOf(it.id)
-        }
 
         return binding.root
     }
@@ -78,12 +85,5 @@ class AvailableTripFragment : Fragment() {
     }
 
 
-    /*i think to solve this issue use tipsLine instead of trips so i got all the trips line issue (1)
-     issue (2) how to get the driver info remove driver status class
-    todo issue (3) how to get the rider info to get the rider info we are going to get from data
 
-    after fixing this get rider and driver and trips line info and put it in request a ride
-  From phone is to do the following
- add to user driver id,name and the same with rider but make it vararg if is it possible 
-     */
 }
