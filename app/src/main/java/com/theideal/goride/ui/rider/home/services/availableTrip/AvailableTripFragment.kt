@@ -36,11 +36,12 @@ class AvailableTripFragment : Fragment() {
         binding.lifecycleOwner = this
         viewModel.initializeAvailableTrips()
         viewModel.getUser()
-        /*
+        /* todo
         (1) userId adding it.id doesn't work
         (2) If there another rider wanna ask for a trip he will create new trip so how to make sure he will be added to the same trip
         if it's not full yet , i suggest add status
-
+        (3) date doesn't work
+        (4) for tonay How to add now his time ( a green dot )
 
          */
         viewModel.user.observe(viewLifecycleOwner) {
