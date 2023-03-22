@@ -77,5 +77,7 @@ class AvailableTripFragment : Fragment() {
     todo issue (3) how to get the rider info to get the rider info we are going to get from data
 
     after fixing this get rider and driver and trips line info and put it in request a ride
+  From phone is to do the following
+ add to user driver id,name and the same with rider but make it vararg if is it possible 
      */
 }
