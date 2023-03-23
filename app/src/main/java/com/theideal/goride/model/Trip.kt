@@ -1,6 +1,5 @@
 package com.theideal.goride.model
 
-import java.sql.Date
 import java.util.Calendar
 
 
@@ -14,11 +13,11 @@ data class Trip(
     var date: String = Calendar.getInstance().get(Calendar.DATE).toString(),
     var whenToRide: String,
     var distances: String = "",
-    var usersId: ArrayList<String>,
+    var riderId: String,
     var driverId: String,
     var tripStatus: String = ""
 ) {
     constructor() : this(
-        "", Location(), Location(), "", "", 0.0, "", "", "", arrayListOf(), "", ""
+        "", Location(), Location(), "", "", 0.0, "", "", "", "", "", ""
     )
 }

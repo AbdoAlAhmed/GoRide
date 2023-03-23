@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.CollectionReference
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.SetOptions
 import timber.log.Timber
 
 class FirebaseRiderModel : ViewModel() {
@@ -80,15 +81,35 @@ class FirebaseRiderModel : ViewModel() {
         val dbRef = db.collection("request-a-rides")
             .document("available-trips")
             .collection("rider-driver")
-            .add(trip)
-        dbRef.addOnSuccessListener {
-            it.update("tripId", it.id)
-            Timber.i(it.id)
-        }
-        dbRef.addOnFailureListener {
-            Timber.e(it)
-        }
-
+            .whereEqualTo("tripStatus", "available")
+            .limit(1) // Only retrieve one available trip (if any)
+        dbRef.get()
+            .addOnSuccessListener { querySnapshot ->
+                if (querySnapshot.documents.isNotEmpty()) {
+                    // Found an available trip
+                    val availableTrip = querySnapshot.documents[0]
+                    val tripId = availableTrip.id
+                    // Update the available trip with the new trip information
+                    // converted the trip to map
+                    //  todo i'm here
+                    availableTrip.reference.update(trip.riderId)
+                        .addOnSuccessListener {
+                            Timber.i("Requested ride from available trip with id: $tripId")
+                        }
+                        .addOnFailureListener { exception ->
+                            Timber.e(
+                                exception,
+                                "Failed to request ride from available trip with id: $tripId"
+                            )
+                        }
+                } else {
+                    // No available trips found
+                    Timber.i("No available trips found")
+                }
+            }
+            .addOnFailureListener { exception ->
+                Timber.e(exception, "Failed to retrieve available trips")
+            }
     }
 
 
