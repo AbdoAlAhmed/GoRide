@@ -112,6 +112,10 @@ class FirebaseRiderModel : ViewModel() {
             }
     }
 
+    fun setAvailableTrip(){
+
+    }
+
 
 }
 
