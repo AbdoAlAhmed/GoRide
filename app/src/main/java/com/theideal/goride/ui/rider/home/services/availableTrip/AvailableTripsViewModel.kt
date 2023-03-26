@@ -38,8 +38,8 @@ class AvailableTripsViewModel : ViewModel() {
         }
     }
 
-    fun requestAvailableTrip(trip: Trip) {
-        riderData.requestFromAvailableTrips(trip)
+    fun addRiderIdToAvailableTrip(riderId: String) {
+        riderData.addRiderIdToAvailableTrip(riderId)
     }
 
     fun getUser() {

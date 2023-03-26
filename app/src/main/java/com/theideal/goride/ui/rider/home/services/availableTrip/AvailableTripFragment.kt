@@ -11,7 +11,6 @@ import com.theideal.goride.databinding.CardListOfDriverBinding
 import com.theideal.goride.databinding.DialogPickATripBinding
 import com.theideal.goride.databinding.FragmentAvailableTripBinding
 import com.theideal.goride.model.Trip
-import timber.log.Timber
 
 
 class AvailableTripFragment : Fragment() {
@@ -42,6 +41,23 @@ class AvailableTripFragment : Fragment() {
         if it's not full yet , i suggest add status
         (3) date doesn't work
         (4) for tonay How to add now his time ( a green dot )
+        (5) Available Trips will be add by the admin
+        (6) In Available trip "trip Status" it's going to change by the driver
+        (7) In Available trip should being automatic created like this example
+         - Admin create an available trip
+         - status will be "waiting for driver"
+         - driver id will be empty
+         - when driver accept the trip the status will be "waiting for riders" and driver id will be added
+         - add check if the trip is full or not from going to driver id and check his car capacity
+         - when rider accept and there is no more seat  the trip  status will be "trip started"
+         - How to know if the trip is started ?
+         - How to know if the trip is canceled ?
+         - How to know if the trip is finished ?
+         - when the trip is finished the status will be "trip finished"
+         - then it's going to be deleted from the available trips
+         - How to know if the trip is deleted ?
+         - then create a new trip after checking if the last trip that relevant is finished
+
 
          */
         binding.rvAvailableTrips.adapter = AvailableTripAdapter(AvailableTripAdapter.OnClick {
@@ -79,7 +95,6 @@ class AvailableTripFragment : Fragment() {
         view.availableDriver = viewModel
         view.rcAvailableDrivers.adapter = AvailableDriverAdapter(AvailableDriverAdapter.OnClick {
             trip.driverId = it.id
-            viewModel.requestAvailableTrip(trip)
             dialogCreate.dismiss()
         })
         dialogCreate.show()

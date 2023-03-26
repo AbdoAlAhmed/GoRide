@@ -1,8 +1,6 @@
 package com.theideal.goride.model
 
 import androidx.lifecycle.ViewModel
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.firestore.CollectionReference
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.SetOptions
 import timber.log.Timber
@@ -76,8 +74,22 @@ class FirebaseRiderModel : ViewModel() {
             }
     }
 
+    fun setAvailableTrip(trip: Trip) {
+        val dbRef = db.collection("request-a-rides")
+            .document("available-trips")
+            .collection("rider-driver")
+            .document()
+            .set(trip)
+        dbRef.addOnSuccessListener {
+            Timber.i("Added available successfully")
+        }
+        dbRef.addOnFailureListener { exception ->
+            Timber.e(exception, "Failed to add available")
+        }
 
-    fun requestFromAvailableTrips(trip: Trip) {
+    }
+
+    fun addRiderIdToAvailableTrip(riderId: String) {
         val dbRef = db.collection("request-a-rides")
             .document("available-trips")
             .collection("rider-driver")
@@ -87,12 +99,13 @@ class FirebaseRiderModel : ViewModel() {
             .addOnSuccessListener { querySnapshot ->
                 if (querySnapshot.documents.isNotEmpty()) {
                     // Found an available trip
+
                     val availableTrip = querySnapshot.documents[0]
                     val tripId = availableTrip.id
                     // Update the available trip with the new trip information
                     // converted the trip to map
                     //  todo i'm here
-                    availableTrip.reference.update(trip.riderId)
+                    availableTrip.reference.update(riderId, SetOptions.merge())
                         .addOnSuccessListener {
                             Timber.i("Requested ride from available trip with id: $tripId")
                         }
@@ -110,10 +123,6 @@ class FirebaseRiderModel : ViewModel() {
             .addOnFailureListener { exception ->
                 Timber.e(exception, "Failed to retrieve available trips")
             }
-    }
-
-    fun setAvailableTrip(){
-
     }
 
 
