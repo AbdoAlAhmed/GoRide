@@ -1,6 +1,7 @@
 package com.theideal.goride.model
 
 import androidx.lifecycle.ViewModel
+import com.google.firebase.firestore.FieldPath
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.SetOptions
 import timber.log.Timber
@@ -78,10 +79,23 @@ class FirebaseRiderModel : ViewModel() {
         val dbRef = db.collection("request-a-rides")
             .document("available-trips")
             .collection("rider-driver")
-            .document()
-            .set(trip)
+            .whereEqualTo("tripStatus", "available")
+            .limit(1) // Only retrieve one available trip (if any)
+            .get()
         dbRef.addOnSuccessListener {
-            Timber.i("Added available successfully")
+            dbRef.result?.documents?.forEach { document ->
+                val tripId = document.id
+                document.reference.set(trip)
+                    .addOnSuccessListener {
+                        Timber.i("Requested ride from available trip with id: $tripId")
+                    }
+                    .addOnFailureListener { exception ->
+                        Timber.e(
+                            exception,
+                            "Failed to request ride from available trip with id: $tripId"
+                        )
+                    }
+            }
         }
         dbRef.addOnFailureListener { exception ->
             Timber.e(exception, "Failed to add available")
@@ -105,7 +119,7 @@ class FirebaseRiderModel : ViewModel() {
                     // Update the available trip with the new trip information
                     // converted the trip to map
                     //  todo i'm here
-                    availableTrip.reference.update(riderId, SetOptions.merge())
+                    availableTrip.reference.update(FieldPath.of("riderId"), riderId)
                         .addOnSuccessListener {
                             Timber.i("Requested ride from available trip with id: $tripId")
                         }

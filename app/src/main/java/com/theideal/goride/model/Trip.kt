@@ -13,11 +13,12 @@ data class Trip(
     var date: String = Calendar.getInstance().get(Calendar.DATE).toString(),
     var whenToRide: String,
     var distances: String = "",
-    var riderId: String,
+    var riderId: ArrayList<String>,
     var driverId: String,
     var tripStatus: String = ""
 ) {
     constructor() : this(
-        "", Location(), Location(), "", "", 0.0, "", "", "", "", "", ""
+
+        "", Location(), Location(), "", "", 0.0, "", "", "", arrayListOf(), "", ""
     )
 }

@@ -62,8 +62,8 @@ class AvailableTripFragment : Fragment() {
          */
         binding.rvAvailableTrips.adapter = AvailableTripAdapter(AvailableTripAdapter.OnClick {
             trip = it
-            viewModel.user.value?.let {
-                trip.riderId = it.id
+            viewModel.user.value?.let { it ->
+                trip.riderId.add(it.id)
             }
             firstStepToRequestTripDialog()
             viewModel.getAvailableDriver()
@@ -95,6 +95,8 @@ class AvailableTripFragment : Fragment() {
         view.availableDriver = viewModel
         view.rcAvailableDrivers.adapter = AvailableDriverAdapter(AvailableDriverAdapter.OnClick {
             trip.driverId = it.id
+            viewModel.setAvailableTrip(trip)
+            viewModel.addRiderIdToAvailableTrip(trip.riderId.toString())
             dialogCreate.dismiss()
         })
         dialogCreate.show()

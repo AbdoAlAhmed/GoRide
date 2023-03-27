@@ -41,6 +41,9 @@ class AvailableTripsViewModel : ViewModel() {
     fun addRiderIdToAvailableTrip(riderId: String) {
         riderData.addRiderIdToAvailableTrip(riderId)
     }
+    fun setAvailableTrip(trip:Trip){
+        riderData.setAvailableTrip(trip)
+    }
 
     fun getUser() {
         authData.getUser {
