@@ -1,14 +1,11 @@
 package com.theideal.goride.ui.rider.home.services.availableTrip
 
-import android.app.AlertDialog
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import com.theideal.goride.databinding.CardListOfDriverBinding
-import com.theideal.goride.databinding.DialogPickATripBinding
 import com.theideal.goride.databinding.FragmentAvailableTripBinding
 import com.theideal.goride.model.Trip
 
@@ -65,41 +62,11 @@ class AvailableTripFragment : Fragment() {
             viewModel.user.value?.let { it ->
                 trip.riderId.add(it.id)
             }
-            firstStepToRequestTripDialog()
             viewModel.getAvailableDriver()
 
         })
 
         return binding.root
-    }
-
-
-    private fun firstStepToRequestTripDialog() {
-        val dialogBuilder = AlertDialog.Builder(requireContext())
-        val dialogCreate = dialogBuilder.create()
-        val view = DialogPickATripBinding.inflate(LayoutInflater.from(context), null, false)
-        dialogCreate.setView(view.root)
-        view.trip = trip
-        view.btnRequestFromDialog.setOnClickListener {
-            lastStepToRequestTripDialog()
-            dialogCreate.dismiss()
-        }
-        dialogCreate.show()
-    }
-
-    private fun lastStepToRequestTripDialog() {
-        val dialogBuilder = AlertDialog.Builder(requireContext())
-        val dialogCreate = dialogBuilder.create()
-        val view = CardListOfDriverBinding.inflate(LayoutInflater.from(context), null)
-        dialogCreate.setView(view.root)
-        view.availableDriver = viewModel
-        view.rcAvailableDrivers.adapter = AvailableDriverAdapter(AvailableDriverAdapter.OnClick {
-            trip.driverId = it.id
-            viewModel.setAvailableTrip(trip)
-            viewModel.addRiderIdToAvailableTrip(trip.riderId.toString())
-            dialogCreate.dismiss()
-        })
-        dialogCreate.show()
     }
 
 
