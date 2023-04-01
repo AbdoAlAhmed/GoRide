@@ -33,7 +33,6 @@ class AvailableTripFragment : Fragment() {
         viewModel.initializeAvailableTrips()
         viewModel.getUser()
         /* todo
-        (1) userId adding it.id doesn't work == done
         (2) If there another rider wanna ask for a trip he will create new trip so how to make sure he will be added to the same trip
         if it's not full yet , i suggest add status
         (3) date doesn't work
@@ -54,11 +53,13 @@ class AvailableTripFragment : Fragment() {
          - then it's going to be deleted from the available trips
          - How to know if the trip is deleted ?
          - then create a new trip after checking if the last trip that relevant is finished
-
-
+         - How to know if the trip is finished ?
          */
+
+
         binding.rvAvailableTrips.adapter = AvailableTripAdapter(AvailableTripAdapter.OnClick {
             trip = it
+            // How to add rider id to the trip just one time
             viewModel.user.value?.let { it ->
                 trip.riderId.add(it.id)
             }

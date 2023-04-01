@@ -19,6 +19,7 @@ data class Trip(
 ) {
     constructor() : this(
 
-        "", Location(), Location(), "", "", 0.0, "", "", "", arrayListOf(), "", ""
+        "", Location(), Location(), "", ""
+        , 0.0, "", "", "", arrayListOf(), "", ""
     )
 }
