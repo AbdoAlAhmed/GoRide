@@ -5,9 +5,9 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.theideal.goride.model.*
 
-class AvailableTripsViewModel : ViewModel() {
-    private val riderData = FirebaseRiderModel()
-    private val authData = FirebaseAuthModel()
+class AvailableTripsViewModel(
+    private val riderData: FirebaseRiderModel, private val authData: FirebaseAuthModel
+) : ViewModel() {
 
 
     private val _availableTrips = MutableLiveData<ArrayList<Trip>>()
@@ -41,8 +41,13 @@ class AvailableTripsViewModel : ViewModel() {
     fun addRiderIdToAvailableTrip(riderId: String) {
         riderData.addRiderIdToAvailableTrip(riderId)
     }
-    fun setAvailableTrip(trip:Trip){
+
+    fun setAvailableTrip(trip: Trip) {
         riderData.setAvailableTrip(trip)
+    }
+
+    fun getOrCreateTrip(trip: Trip) {
+        riderData.getOrCreateTrip(trip)
     }
 
     fun getUser() {
@@ -50,4 +55,5 @@ class AvailableTripsViewModel : ViewModel() {
             _user.value = it
         }
     }
+
 }

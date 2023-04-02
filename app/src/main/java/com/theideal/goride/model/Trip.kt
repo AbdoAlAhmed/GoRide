@@ -1,13 +1,14 @@
 package com.theideal.goride.model
 
-import java.util.Calendar
+import java.util.*
 
 
 data class Trip(
     var tripId: String = "",
     var startDestination: Location,
     var endDestination: Location,
-    var numberOfRiders: String = "",
+    var numberOfRiders: Int,
+    var numberOfSeats: Int,
     var duration: String = "",
     var fare: Double = 0.0,
     var date: String = Calendar.getInstance().get(Calendar.DATE).toString(),
@@ -19,7 +20,6 @@ data class Trip(
 ) {
     constructor() : this(
 
-        "", Location(), Location(), "", ""
-        , 0.0, "", "", "", arrayListOf(), "", ""
+        "", Location(), Location(), 0, 0, "", 0.0, "", "", "", arrayListOf(), "", ""
     )
 }
