@@ -17,12 +17,34 @@ class AvailableTripsViewModel(
     private val _addGeoFencing = MutableLiveData<ArrayList<GeoFencing>>()
     val addGeoFencing: LiveData<ArrayList<GeoFencing>>
         get() = _addGeoFencing
-    private val _availableDrivers = MutableLiveData<ArrayList<User>>()
-    val availableDrivers: LiveData<ArrayList<User>>
-        get() = _availableDrivers
+    private val _availableDriver = MutableLiveData<User>()
+    val availableDriver: LiveData<User>
+        get() = _availableDriver
     private val _user = MutableLiveData<User>()
     val user: LiveData<User>
         get() = _user
+
+    private val _navToAvailableTrip = MutableLiveData<Boolean>()
+    val navToAvailableTrip: LiveData<Boolean>
+        get() = _navToAvailableTrip
+
+
+
+
+
+    fun navToAvailableTripMaps() {
+        _navToAvailableTrip.value = true
+    }
+
+    fun navToAvailableTripCompleteMaps() {
+        _navToAvailableTrip.value = false
+    }
+
+    fun cancelTrip() {
+        navToAvailableTripCompleteMaps()
+        // cancel trip remove rider id from trip
+    }
+
 
 
     fun initializeAvailableTrips() {
@@ -31,10 +53,10 @@ class AvailableTripsViewModel(
         }
     }
 
-    fun getAvailableDriver() {
+    fun getOrRequestDriver() {
         // you can restrict the incoming data
-        riderData.getDriver { driver ->
-            _availableDrivers.value = driver
+        riderData.getOrRequestDriver("from","cairo","to","egypt") { driver ->
+            _availableDriver.value = driver
         }
     }
 

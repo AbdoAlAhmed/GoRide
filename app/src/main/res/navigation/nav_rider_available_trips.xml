@@ -7,5 +7,15 @@
     <fragment
         android:id="@+id/availableTripFragment"
         android:name="com.theideal.goride.ui.rider.home.services.availableTrip.AvailableTripFragment"
-        android:label="AvailableTripFragment" />
+        android:label="AvailableTripFragment" >
+        <action
+            android:id="@+id/action_availableTripFragment_to_availableTripMapsFragment"
+            app:destination="@id/availableTripMapsFragment"
+            app:popUpTo="@id/availableTripFragment"
+            app:popUpToInclusive="false" />
+    </fragment>
+    <fragment
+        android:id="@+id/availableTripMapsFragment"
+        android:name="com.theideal.goride.ui.rider.home.services.availableTrip.maps.AvailableTripMapsFragment"
+        android:label="AvailableTripMapsFragment" />
 </navigation>

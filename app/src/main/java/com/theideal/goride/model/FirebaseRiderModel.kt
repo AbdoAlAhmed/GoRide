@@ -50,9 +50,11 @@ class FirebaseRiderModel {
             }
     }
 
-    fun getDriver(vararg keyValue: String, callback: (ArrayList<User>) -> Unit) {
-        val listOfDriver = ArrayList<User>()
-        var query = db.collection("users").whereEqualTo("userType", "Driver")
+    fun getOrRequestDriver(vararg keyValue: String, callback: (User) -> Unit) {
+        var query = db.collection("request-a-rides")
+            .document("drivers")
+            .collection("driver")
+            .whereEqualTo("status", "available")
         if (keyValue.size % 2 == 0) {
             for (i in keyValue.indices step 2) {
                 Timber.i(keyValue[i])
@@ -64,12 +66,11 @@ class FirebaseRiderModel {
                 for (document in it) {
                     val data = document.toObject(User::class.java)
                     Timber.i(data.toString())
-                    listOfDriver.add(data)
+                    callback(data)
                 }
-                callback(listOfDriver)
             }
             .addOnFailureListener { exception ->
-                Timber.d(exception, "get failed with ")
+                Timber.d(exception, "get driver failed")
             }
     }
 

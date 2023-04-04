@@ -50,6 +50,7 @@
     <string name="name_of_the_driver">Name Of The Driver</string>
     <string name="request_a_ride">Request A Ride</string>
     <string name="request_dialog">your about to request a trip \n so be there on 2 mins \n or your request will be cancelled</string>
+    <string name="cancel">cancel</string>
     <array name="vehicle_type">
         <item>Taxi</item>
         <item>Bus</item>

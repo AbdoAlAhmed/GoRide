@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import com.theideal.goride.databinding.CardRequestFromAvailableTripBinding
 import com.theideal.goride.databinding.FragmentAvailableTripBinding
 import com.theideal.goride.model.FirebaseAuthModel
@@ -53,9 +54,16 @@ class AvailableTripFragment : Fragment() {
                         trip.riderId.add(user.id)
                     }
                 }
+                confirmRequested()
             }
         )
         binding.rvAvailableTrips.adapter = adapter
+        viewModel.navToAvailableTrip.observe(viewLifecycleOwner) {
+            if (it) {
+                findNavController().navigate(AvailableTripFragmentDirections.actionAvailableTripFragmentToAvailableTripMapsFragment())
+                viewModel.navToAvailableTripCompleteMaps()
+            }
+        }
 
         return binding.root
     }
@@ -67,6 +75,7 @@ class AvailableTripFragment : Fragment() {
         dialogCreated.setView(view.root)
         view.confirmRequest.setOnClickListener {
             viewModel.getOrCreateTrip(trip)
+            viewModel.navToAvailableTripMaps()
             dialogCreated.dismiss()
         }
         dialogCreated.show()
