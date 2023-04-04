@@ -162,10 +162,9 @@ class FirebaseRiderModel {
                     dbRef.add(trip)
                         .addOnSuccessListener {
                             dbRef.document(it.id).update(
-                                "tripId", it.id
-                                , "tripStatus", "requested"
-                                ,"numberOfRiders",1
+                                "tripId", it.id, "tripStatus", "requested", "numberOfRiders", 1
                             )
+                            // todo send notification to the driver that a new trip is created
 
                             Timber.i("not found available trip so created a new trip")
                         }
@@ -182,7 +181,10 @@ class FirebaseRiderModel {
                     val numberOfRiders = data?.numberOfRiders?.plus(1)
                     val tripId = availableTrip.id
                     // check if the riderId is already in the array
-                    var result = data!!.riderId.find { it == trip.riderId.toString() }
+                    /* todo there is a problem here if the same rider try to request the same trip twice it will be added to the array twice
+                     todo because the []
+                    */
+                    val result = data!!.riderId.find { it == trip.riderId.toString() }
                     if (result != null) {
                         Timber.i("you already requested this trip $result")
                     } else {

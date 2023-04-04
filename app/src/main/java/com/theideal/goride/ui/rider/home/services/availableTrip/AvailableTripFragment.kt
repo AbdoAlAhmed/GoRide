@@ -1,11 +1,13 @@
 package com.theideal.goride.ui.rider.home.services.availableTrip
 
+import android.app.AlertDialog
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import com.theideal.goride.databinding.CardRequestFromAvailableTripBinding
 import com.theideal.goride.databinding.FragmentAvailableTripBinding
 import com.theideal.goride.model.FirebaseAuthModel
 import com.theideal.goride.model.FirebaseRiderModel
@@ -43,13 +45,12 @@ class AvailableTripFragment : Fragment() {
         viewModel.getUser()
 
 
-
         val adapter = AvailableTripAdapter(
             AvailableTripAdapter.OnClick {
+                trip = it
                 viewModel.user.value?.let { user ->
                     if (!trip.riderId.contains(user.id)) {
                         trip.riderId.add(user.id)
-                        viewModel.getOrCreateTrip(trip)
                     }
                 }
             }
@@ -57,6 +58,19 @@ class AvailableTripFragment : Fragment() {
         binding.rvAvailableTrips.adapter = adapter
 
         return binding.root
+    }
+
+    private fun confirmRequested() {
+        val dialogBuilder = AlertDialog.Builder(requireContext())
+        val dialogCreated = dialogBuilder.create()
+        val view = CardRequestFromAvailableTripBinding.inflate(layoutInflater, null, false)
+        dialogCreated.setView(view.root)
+        view.confirmRequest.setOnClickListener {
+            viewModel.getOrCreateTrip(trip)
+            dialogCreated.dismiss()
+        }
+        dialogCreated.show()
+
     }
 
 
