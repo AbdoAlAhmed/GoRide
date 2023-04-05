@@ -4,6 +4,7 @@ import com.google.firebase.firestore.FieldPath
 import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query
+import com.theideal.goride.utility.sendNotification
 import timber.log.Timber
 
 class FirebaseRiderModel {
@@ -85,6 +86,7 @@ class FirebaseRiderModel {
                 }else{
                     Timber.d("request driver")
                     // Send a request to the driver
+
                 }
 
             }

@@ -1,9 +1,11 @@
 package com.theideal.goride.ui.rider.home.services.availableTrip
 
+import android.content.Context
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.theideal.goride.model.*
+import com.theideal.goride.utility.sendNotification
 import timber.log.Timber
 
 class AvailableTripsViewModel(
@@ -78,6 +80,17 @@ class AvailableTripsViewModel(
         authData.getUser {
             _user.value = it
         }
+    }
+
+
+    fun senNotification(context: Context, trip: Trip) {
+        sendNotification(
+            context = context,
+            title = "name",
+            body = "How are you",
+            trip = trip,
+            channelName = "channel name1"
+        )
     }
 
 }

@@ -45,7 +45,6 @@ class AvailableTripFragment : Fragment() {
         viewModel.initializeAvailableTrips()
         viewModel.getUser()
 
-
         val adapter = AvailableTripAdapter(
             AvailableTripAdapter.OnClick {
                 trip = it
@@ -57,6 +56,7 @@ class AvailableTripFragment : Fragment() {
                 confirmRequested()
             }
         )
+        viewModel.senNotification(requireContext(), trip)
         binding.rvAvailableTrips.adapter = adapter
         viewModel.navToAvailableTrip.observe(viewLifecycleOwner) {
             if (it) {
