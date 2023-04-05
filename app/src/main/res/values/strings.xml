@@ -53,6 +53,7 @@
     <string name="cancel">cancel</string>
     <string name="driver_name">Driver Name</string>
     <string name="car_number">Car Number</string>
+    <string name="available">Available</string>
     <array name="vehicle_type">
         <item>Taxi</item>
         <item>Bus</item>
