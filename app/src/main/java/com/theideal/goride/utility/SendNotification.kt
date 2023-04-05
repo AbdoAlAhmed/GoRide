@@ -48,6 +48,7 @@ fun sendNotification(
         .setContentIntent(pendingIntent)
         .setAutoCancel(false)
         .build()
+
     notificationManager.notify(getUniqueId(), notification)
     // check if the notification is sent with timber
     Timber.d("notification sent, title: $title, body: $body, $notificationManager")
@@ -56,14 +57,17 @@ fun sendNotification(
 private fun getUniqueId() = ((System.currentTimeMillis() % 10000).toInt())
 
 fun sendRemoteMessage() {
-    val message =
-        RemoteMessage.Builder("dt8lF2glT6eMcLfFBS9xI6:APA91bGUqbLPpuh2MGttgqraSGy-4rW1q6x0qnQMVcG-U86iGaZFHKm3A64n_zJekpA3XFmcdPfyO0xn7DKv9XSmTsU1VgSgIU_H498VbCQK7WhBuSzFCfgnrpHDCXBYXxGIEFf-Yq6y")
-            .setMessageId(UUID.randomUUID().toString())
-            .addData("title", "title")
-            .build()
+    val message = RemoteMessage.Builder("senderId")
+        .setMessageId(UUID.randomUUID().toString())
+        .addData("title", "title")
+        .addData("body", "body")
+        .addData("sender_id", "sender_id")
+        .addData("receiver_id", "receiver_id")
+        .addData("message_id", "message_id")
+        .build()
 
-    message.data["body"] = "body"
 
     FirebaseMessaging.getInstance().send(message)
 
+    // todo sending remote message with firebase cloud messaging
 }
