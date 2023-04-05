@@ -9,6 +9,7 @@ import timber.log.Timber
 @Parcelize
 data class User(
     var id: String = "",
+    var tokenId: String = "",
     var firstName: String = "",
     var lastName: String = "",
     var email: String = "",

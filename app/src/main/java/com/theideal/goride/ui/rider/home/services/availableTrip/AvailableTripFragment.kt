@@ -13,6 +13,8 @@ import com.theideal.goride.databinding.FragmentAvailableTripBinding
 import com.theideal.goride.model.FirebaseAuthModel
 import com.theideal.goride.model.FirebaseRiderModel
 import com.theideal.goride.model.Trip
+import com.theideal.goride.utility.sendRemoteMessage
+import timber.log.Timber
 
 
 class AvailableTripFragment : Fragment() {
@@ -76,6 +78,8 @@ class AvailableTripFragment : Fragment() {
         view.confirmRequest.setOnClickListener {
             viewModel.getOrCreateTrip(trip)
             viewModel.navToAvailableTripMaps()
+            sendRemoteMessage()
+            Timber.i("sendRemoteMessage  ${sendRemoteMessage()}")
             dialogCreated.dismiss()
         }
         dialogCreated.show()
