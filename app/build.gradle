@@ -21,7 +21,7 @@ android {
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
-  
+
 
     buildTypes {
         release {
@@ -39,7 +39,7 @@ android {
     kotlinOptions {
         jvmTarget = '1.8'
     }
-    buildFeatures{
+    buildFeatures {
         dataBinding true
     }
 }
@@ -96,6 +96,10 @@ dependencies {
 
     // pick image from gallery or camera
     implementation 'com.github.dhaval2404:imagepicker:2.1'
+
+    // dagger
+    implementation 'com.google.dagger:dagger:2.45'
+    annotationProcessor 'com.google.dagger:dagger-compiler:2.45'
 
 
 }
