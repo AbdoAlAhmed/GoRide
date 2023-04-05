@@ -1,4 +1,4 @@
-package com.theideal.goride.ui.driver
+package com.theideal.goride.ui.driver.home
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment

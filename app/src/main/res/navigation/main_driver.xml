@@ -6,7 +6,7 @@
 
     <fragment
         android:id="@+id/homeDriverFragment"
-        android:name="com.theideal.goride.ui.driver.HomeDriverFragment"
+        android:name="com.theideal.goride.ui.driver.home.HomeDriverFragment"
         android:label="HomeDriverFragment" >
         <action
             android:id="@+id/action_homeDriverFragment_to_servicesDriverFragment"
