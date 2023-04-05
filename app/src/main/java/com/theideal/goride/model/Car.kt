@@ -1,13 +1,17 @@
 package com.theideal.goride.model
 
-data class Driver(
-    var user: User = User(),
+data class Car(
+    var id: String = "",
     var carType: String = "",
-    var disksNumber: String = "",
+    var carModel: String = "",
+    var carNumber: String = "",
+    var carColor: String = "",
+    var seats: String = "",
     var driverInfo: ImageName = ImageName(),
-    var status: String
+    var status: String,
+    var workInLine: Boolean = false,
 ) {
-    constructor() : this(User(), "", "", ImageName(), "")
+    constructor() : this("", "", "","", "", "", ImageName(), "")
 }
 
 data class DriverHistory(
@@ -17,7 +21,7 @@ data class DriverHistory(
     val dropOffLocation: Location? = null,
     val distance: Double? = null,
     val fareAmount: Double? = null,
-    val driver: Driver,
+    val car: Car,
     val rideStatus: String,
 )
 

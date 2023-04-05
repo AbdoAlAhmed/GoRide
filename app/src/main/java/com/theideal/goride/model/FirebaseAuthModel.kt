@@ -4,7 +4,6 @@ import android.net.Uri
 import androidx.lifecycle.ViewModel
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.ktx.storage
 import kotlinx.coroutines.Dispatchers
@@ -44,10 +43,10 @@ class FirebaseAuthModel : ViewModel() {
 
     }
 
-    fun completeDriverInfo(driver: Driver) {
+    fun completeDriverInfo(car: Car) {
         val data = hashMapOf(
-            "carType" to driver.carType,
-            "disksNumber" to driver.disksNumber
+            "carType" to car.carType,
+            "seats" to car.seats
         )
         dbRef.document(auth.currentUser!!.uid).update(data as Map<String, Any>)
 
@@ -154,9 +153,9 @@ class FirebaseAuthModel : ViewModel() {
         }
     }
 
-    fun updateProfileDriver(user: User, driver: Driver, callback: (Boolean) -> Unit) {
+    fun updateProfileDriver(user: User, car: Car, callback: (Boolean) -> Unit) {
         val user = auth.currentUser
-        dbRef.document(user!!.uid).set(driver).addOnSuccessListener {
+        dbRef.document(user!!.uid).set(car).addOnSuccessListener {
             callback(true)
         }.addOnFailureListener {
             callback(false)

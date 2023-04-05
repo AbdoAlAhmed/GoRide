@@ -50,10 +50,12 @@ class FirebaseRiderModel {
             }
     }
 
-    fun getOrRequestDriver(vararg keyValue: String, callback: (User) -> Unit) {
-        var query = db.collection("request-a-rides")
-            .document("drivers")
-            .collection("driver")
+    fun getOrRequestDriver(
+        vararg keyValue: String,
+        callback: (User, Car) -> Unit
+    ) {
+        val dbRef = db.collection("users")
+        var query = db.collection("drivers")
             .whereEqualTo("status", "available")
         if (keyValue.size % 2 == 0) {
             for (i in keyValue.indices step 2) {
@@ -63,11 +65,28 @@ class FirebaseRiderModel {
         }
         query.get()
             .addOnSuccessListener {
-                for (document in it) {
-                    val data = document.toObject(User::class.java)
-                    Timber.i(data.toString())
-                    callback(data)
+                val data = it.documents[0]
+                if (it.documents.isNotEmpty()) {
+                    val carInfo = data.toObject(Car::class.java)
+                    if (carInfo != null) {
+
+                        dbRef.whereEqualTo("id", carInfo.id)
+                            .get().addOnSuccessListener {
+                                if (it != null) {
+                                    for (document in it) {
+                                        val driverInfo = document.toObject(User::class.java)
+                                        callback(driverInfo, carInfo)
+                                    }
+                                } else {
+                                    Timber.d("No such document")
+                                }
+                            }
+                    }
+                }else{
+                    Timber.d("request driver")
+                    // Send a request to the driver
                 }
+
             }
             .addOnFailureListener { exception ->
                 Timber.d(exception, "get driver failed")

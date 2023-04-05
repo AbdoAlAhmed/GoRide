@@ -14,7 +14,7 @@ import com.google.firebase.FirebaseException
 import com.google.firebase.FirebaseNetworkException
 import com.google.firebase.auth.*
 import com.google.firebase.firestore.FirebaseFirestoreException
-import com.theideal.goride.model.Driver
+import com.theideal.goride.model.Car
 import com.theideal.goride.model.FirebaseAuthModel
 import com.theideal.goride.model.User
 import kotlinx.coroutines.launch
@@ -267,9 +267,9 @@ class AuthenticationViewModel(private val firebaseAuthModel: FirebaseAuthModel) 
 
     }
 
-    fun completeDriverInfo(driver: Driver) {
+    fun completeDriverInfo(car: Car) {
         try {
-            firebaseAuthModel.completeDriverInfo(driver)
+            firebaseAuthModel.completeDriverInfo(car)
             _isSignUpDriver.value = true
         } catch (e: FirebaseFirestoreException) {
             _snackBar.value = "Error"

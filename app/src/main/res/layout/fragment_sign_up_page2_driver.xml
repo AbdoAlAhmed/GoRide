@@ -7,7 +7,7 @@
 
         <variable
             name="driver"
-            type="com.theideal.goride.model.Driver" />
+            type="com.theideal.goride.model.Car" />
 
         <variable
             name="user"
@@ -196,7 +196,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="number"
-                android:text="@={driver.disksNumber}"
+                android:text="@={driver.seats}"
                 />
         </com.google.android.material.textfield.TextInputLayout>
 

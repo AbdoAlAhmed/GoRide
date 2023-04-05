@@ -3,7 +3,7 @@ package com.theideal.goride.model
 
 data class Rider(
     val paymentInfo: String = "",
-    val riderHistory: RiderHistory = RiderHistory("", Location(0.0, 0.0,""), null, null, null, Driver(), ""),
+    val riderHistory: RiderHistory = RiderHistory("", Location(0.0, 0.0,""), null, null, null, Car(), ""),
     val profilePicture: String = "",
     val rating: RatingRider = RatingRider(0, ""),
     var userType: String = "rider",
@@ -17,7 +17,7 @@ data class RiderHistory(
     val dropOffLocation: Location? = null,
     val distance: Double? = null,
     val fareAmount: Double? = null,
-    val driver: Driver,
+    val car: Car,
     val rideStatus: String
 )
 

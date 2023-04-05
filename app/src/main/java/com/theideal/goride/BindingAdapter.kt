@@ -5,7 +5,6 @@ import android.widget.AutoCompleteTextView
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.databinding.BindingAdapter
-import androidx.lifecycle.viewmodel.viewModelFactory
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.theideal.goride.model.*
@@ -75,7 +74,7 @@ fun setUserType(view: AutoCompleteTextView, user: User?) {
 }
 
 @BindingAdapter("set_vehicle_type")
-fun setVehicleType(view: AutoCompleteTextView, carType: Driver?) {
+fun setVehicleType(view: AutoCompleteTextView, carType: Car?) {
     val adapter = ArrayAdapter(
         view.context,
         android.R.layout.simple_list_item_1,

@@ -1,19 +1,15 @@
 package com.theideal.goride.ui.rider.home.services.availableTrip.maps
 
-import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
-import androidx.activity.addCallback
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.fragment.findNavController
-import com.google.android.material.snackbar.Snackbar
 import com.theideal.goride.databinding.FragmentAvailableTripMapsBinding
 import com.theideal.goride.model.FirebaseAuthModel
 import com.theideal.goride.model.FirebaseRiderModel
+import com.theideal.goride.model.User
 import com.theideal.goride.ui.rider.home.services.availableTrip.AvailableTripsViewModel
 import com.theideal.goride.ui.rider.home.services.availableTrip.AvailableTripsViewModelFactory
 
@@ -21,8 +17,7 @@ import com.theideal.goride.ui.rider.home.services.availableTrip.AvailableTripsVi
 class AvailableTripMapsFragment : Fragment() {
     private lateinit var binding: FragmentAvailableTripMapsBinding
     private lateinit var viewModelAvailableTrips: AvailableTripsViewModel
-
-
+    private var user = User()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -31,7 +26,7 @@ class AvailableTripMapsFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         // Inflate the layout for this fragment
         binding = FragmentAvailableTripMapsBinding.inflate(inflater, container, false)
         val viewModelFactory = AvailableTripsViewModelFactory(
@@ -42,6 +37,10 @@ class AvailableTripMapsFragment : Fragment() {
             requireActivity(),
             viewModelFactory
         )[AvailableTripsViewModel::class.java]
+        binding.viewModel = viewModelAvailableTrips
+        binding.lifecycleOwner = this
+        viewModelAvailableTrips.getOrRequestDriver()
+
 
 
 

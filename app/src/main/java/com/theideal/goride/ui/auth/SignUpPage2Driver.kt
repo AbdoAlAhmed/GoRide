@@ -12,7 +12,7 @@ import androidx.navigation.fragment.findNavController
 import com.github.dhaval2404.imagepicker.ImagePicker
 import com.google.android.material.snackbar.Snackbar
 import com.theideal.goride.databinding.FragmentSignUpPage2DriverBinding
-import com.theideal.goride.model.Driver
+import com.theideal.goride.model.Car
 import com.theideal.goride.model.FirebaseAuthModel
 import com.theideal.goride.model.ImageName
 
@@ -22,7 +22,7 @@ class SignUpPage2Driver : Fragment() {
     private lateinit var binding: FragmentSignUpPage2DriverBinding
     private var RequestCodePermission = 101
     private val RequestCodeImage = 102
-    private val driver = Driver()
+    private val car = Car()
     private val imageNameClass = ImageName()
     private lateinit var imageName: String
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -43,7 +43,7 @@ class SignUpPage2Driver : Fragment() {
         )[AuthenticationViewModel::class.java]
         binding.lifecycleOwner = this
         binding.viewModel = viewModel
-        binding.driver = driver
+        binding.driver = car
         val user = SignUpPage2DriverArgs.fromBundle(requireArguments()).user
         binding.user = user
         binding.imageName = imageNameClass

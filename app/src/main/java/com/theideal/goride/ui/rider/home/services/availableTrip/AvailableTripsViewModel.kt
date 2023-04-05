@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.theideal.goride.model.*
+import timber.log.Timber
 
 class AvailableTripsViewModel(
     private val riderData: FirebaseRiderModel, private val authData: FirebaseAuthModel
@@ -17,9 +18,12 @@ class AvailableTripsViewModel(
     private val _addGeoFencing = MutableLiveData<ArrayList<GeoFencing>>()
     val addGeoFencing: LiveData<ArrayList<GeoFencing>>
         get() = _addGeoFencing
-    private val _availableDriver = MutableLiveData<User>()
-    val availableDriver: LiveData<User>
-        get() = _availableDriver
+    private val _driverInfo = MutableLiveData<User>()
+    val driverInfo: LiveData<User>
+        get() = _driverInfo
+    private val _carInfo = MutableLiveData<Car>()
+    val carInfo: LiveData<Car>
+        get() = _carInfo
     private val _user = MutableLiveData<User>()
     val user: LiveData<User>
         get() = _user
@@ -27,9 +31,6 @@ class AvailableTripsViewModel(
     private val _navToAvailableTrip = MutableLiveData<Boolean>()
     val navToAvailableTrip: LiveData<Boolean>
         get() = _navToAvailableTrip
-
-
-
 
 
     fun navToAvailableTripMaps() {
@@ -46,7 +47,6 @@ class AvailableTripsViewModel(
     }
 
 
-
     fun initializeAvailableTrips() {
         riderData.getAvailableTrips {
             _availableTrips.value = it
@@ -55,8 +55,10 @@ class AvailableTripsViewModel(
 
     fun getOrRequestDriver() {
         // you can restrict the incoming data
-        riderData.getOrRequestDriver("from","cairo","to","egypt") { driver ->
-            _availableDriver.value = driver
+        riderData.getOrRequestDriver("from", "cairo", "to", "egypt") { user, driver ->
+            Timber.i("driver: $driver")
+            _driverInfo.value = user
+            _carInfo.value = driver
         }
     }
 
