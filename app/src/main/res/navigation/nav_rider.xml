@@ -22,7 +22,7 @@
     </fragment>
     <fragment
         android:id="@+id/profileFragment"
-        android:name="com.theideal.goride.ui.rider.ProfileFragment"
+        android:name="com.theideal.goride.ui.rider.ProfileRiderFragment"
         android:label="fragment_profile"
         tools:layout="@layout/fragment_profile" >
         <action
@@ -34,7 +34,7 @@
     </fragment>
     <fragment
         android:id="@+id/servicesFragment"
-        android:name="com.theideal.goride.ui.rider.ServicesFragment"
+        android:name="com.theideal.goride.ui.rider.ServicesRiderFragment"
         android:label="fragment_services"
         tools:layout="@layout/fragment_services" >
         <action

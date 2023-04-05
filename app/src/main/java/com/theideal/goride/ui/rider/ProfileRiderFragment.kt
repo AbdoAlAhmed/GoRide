@@ -7,9 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import com.theideal.goride.R
 
-
-class ServicesFragment : Fragment() {
-
+class ProfileRiderFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -21,8 +19,7 @@ class ServicesFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_services, container, false)
-
+        return inflater.inflate(R.layout.fragment_profile, container, false)
     }
 
 }
