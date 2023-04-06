@@ -9,7 +9,6 @@ import com.theideal.goride.R
 
 class HomeDriverFragment : Fragment() {
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 

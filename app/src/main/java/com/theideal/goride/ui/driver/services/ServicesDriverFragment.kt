@@ -1,4 +1,4 @@
-package com.theideal.goride.ui.driver
+package com.theideal.goride.ui.driver.services
 
 import android.os.Bundle
 import android.view.LayoutInflater

@@ -10,6 +10,6 @@ class AuthenticationViewModelFactory(private val firebaseAuthModel: FirebaseAuth
         if (modelClass.isAssignableFrom(AuthenticationViewModel::class.java)) {
             return AuthenticationViewModel(firebaseAuthModel) as T
         }
-        throw IllegalArgumentException(" something with factory")
+        throw IllegalArgumentException(" something wrong with factory")
     }
 }

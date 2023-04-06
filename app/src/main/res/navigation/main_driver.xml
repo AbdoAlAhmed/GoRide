@@ -17,10 +17,10 @@
     </fragment>
     <fragment
         android:id="@+id/profileDriverFragment"
-        android:name="com.theideal.goride.ui.driver.ProfileDriverFragment"
+        android:name="com.theideal.goride.ui.driver.profile.ProfileDriverFragment"
         android:label="ProfileDriverFragment" />
     <fragment
         android:id="@+id/servicesDriverFragment"
-        android:name="com.theideal.goride.ui.driver.ServicesDriverFragment"
+        android:name="com.theideal.goride.ui.driver.services.ServicesDriverFragment"
         android:label="ServicesDriverFragment" />
 </navigation>
