@@ -14,7 +14,7 @@ class ServicesDriverViewModel(private val db:ServicesDriverFirebase) : ViewModel
 
 
 
-    fun getServicesDriver(){
+    fun getServicesDriver1(){
         db.getRideServicesServicesFragment {
             _servicesDriver.value = it
         }

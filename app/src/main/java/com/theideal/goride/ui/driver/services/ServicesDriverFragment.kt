@@ -5,10 +5,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import com.theideal.goride.R
+import androidx.lifecycle.ViewModelProvider
+import com.theideal.goride.databinding.FragmentSerivcesDriverBinding
+import com.theideal.goride.model.ServicesDriverFirebase
+import com.theideal.goride.ui.rider.CardViewAdapter
 
 class ServicesDriverFragment : Fragment() {
-
+    private lateinit var viewModel: ServicesDriverViewModel
+    private lateinit var binding: FragmentSerivcesDriverBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -19,7 +23,22 @@ class ServicesDriverFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_serivces_driver, container, false)
+        binding = FragmentSerivcesDriverBinding.inflate(layoutInflater, null, false)
+        val viewModelFactory = ServicesDriverViewModelFactory(ServicesDriverFirebase())
+        viewModel = ViewModelProvider(
+            requireActivity(),
+            viewModelFactory
+        )[ServicesDriverViewModel::class.java]
+        binding.viewModel = viewModel
+        binding.lifecycleOwner = this
+        viewModel.getServicesDriver1()
+
+        binding.driverServicesInFragmentServices.adapter = CardViewAdapter(CardViewAdapter.OnClick {
+
+        })
+
+
+        return binding.root
     }
 
 
