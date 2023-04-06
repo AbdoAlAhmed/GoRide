@@ -2,6 +2,7 @@ package com.theideal.goride.model
 
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
+import timber.log.Timber
 
 class HomeDriverFirebase(private val database: FirebaseFirestore, private val auth: FirebaseAuth) {
 
@@ -13,6 +14,7 @@ class HomeDriverFirebase(private val database: FirebaseFirestore, private val au
             .collection("main").get().addOnSuccessListener {
                 for (document in it) {
                     val service = document.toObject(CardViewData::class.java)
+                    Timber.i("Service: $service")
                     listServices.add(service)
                 }
                 callback(listServices)
@@ -23,6 +25,7 @@ class HomeDriverFirebase(private val database: FirebaseFirestore, private val au
         val uid = auth.currentUser?.uid.toString()
         database.collection("drivers").document(uid).get().addOnSuccessListener {
             val driverInfo = it.toObject(Car::class.java)
+            Timber.i("Driver Info: $driverInfo")
             callback(driverInfo!!)
         }
     }
@@ -31,6 +34,7 @@ class HomeDriverFirebase(private val database: FirebaseFirestore, private val au
         val uid = auth.currentUser?.uid.toString()
         database.collection("users").document(uid).get().addOnSuccessListener {
             val driverInfo = it.toObject(User::class.java)
+            Timber.i("Driver Info: $driverInfo")
             callback(driverInfo!!)
         }
     }
