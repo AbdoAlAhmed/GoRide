@@ -4,8 +4,9 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import timber.log.Timber
 
-class HomeDriverFirebase(private val database: FirebaseFirestore, private val auth: FirebaseAuth) {
-
+class HomeDriverFirebase() {
+    private val database: FirebaseFirestore = FirebaseFirestore.getInstance()
+    private val auth: FirebaseAuth = FirebaseAuth.getInstance()
 
     fun getRideServicesHome(callback: (ArrayList<CardViewData>) -> Unit) {
         val listServices = ArrayList<CardViewData>()

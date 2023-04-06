@@ -5,9 +5,10 @@
 
     <data>
 
-            <variable
-                name="viewModel"
-                type="com.theideal.goride.ui.rider.RiderViewModel" />
+        <variable
+            name="viewModel"
+            type="com.theideal.goride.ui.rider.RiderViewModel" />
+
         <variable
             name="card"
             type="com.theideal.goride.model.CardViewData" />

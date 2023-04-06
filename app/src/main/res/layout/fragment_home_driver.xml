@@ -1,15 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools">
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
-
+        <variable
+            name="viewModel"
+            type="com.theideal.goride.ui.driver.home.HomeDriverViewModel" />
+        <variable
+            name="card"
+            type="com.theideal.goride.model.CardViewData" />
     </data>
 
-    <FrameLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".ui.driver.home.HomeDriverFragment">
 
-    </FrameLayout>
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/driver_services"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:list_data="@{viewModel.homeDriverServices}"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:listitem="@layout/card_home_rider"
+            />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
