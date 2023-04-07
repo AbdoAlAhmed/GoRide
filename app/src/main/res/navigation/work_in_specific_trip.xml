@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/work_in_specific_trip"
+    app:startDestination="@id/workInSpecificTripFragment">
+
+    <fragment
+        android:id="@+id/workInSpecificTripFragment"
+        android:name="com.theideal.goride.ui.driver.home.home_services.work_in_specific_trip.WorkInSpecificTripFragment"
+        android:label="fragment_work_in_a_specific_trip"
+        tools:layout="@layout/fragment_work_in_a_specific_trip" />
+</navigation>

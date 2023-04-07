@@ -1,5 +1,6 @@
 package com.theideal.goride.ui.driver.home
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -8,6 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.theideal.goride.databinding.FragmentHomeDriverBinding
 import com.theideal.goride.model.HomeDriverFirebase
+import com.theideal.goride.ui.driver.home.home_services.work_in_specific_trip.WorkInSpecificTripActivity
 import com.theideal.goride.ui.rider.CardViewAdapter
 
 class HomeDriverFragment : Fragment() {
@@ -39,15 +41,20 @@ class HomeDriverFragment : Fragment() {
 
                 }
                 HomeDriverViewModel.HomeDriverServices.WorkInASpecificTrip -> {
+                    startActivity(Intent(requireContext(), WorkInSpecificTripActivity::class.java))
+                    viewModel.doneNavigating()
 
                 }
                 HomeDriverViewModel.HomeDriverServices.Error -> {
 
                 }
+                else -> {
+
+                }
 
             }
         }
-            return binding.root
+        return binding.root
 
 
     }

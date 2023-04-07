@@ -23,7 +23,7 @@
         android:theme="@style/Theme.GoRide"
         tools:targetApi="31">
         <activity
-            android:name=".WorkInSpecificTripActivity"
+            android:name=".ui.driver.home.home_services.work_in_specific_trip.WorkInSpecificTripActivity"
             android:exported="false" />
         <activity
             android:name=".ui.rider.home.services.availableTrip.AvailableTripsActivity"
