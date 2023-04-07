@@ -8,9 +8,17 @@ import com.theideal.goride.model.HomeDriverFirebase
 
 class HomeDriverViewModel(private val homeDriverFirebase: HomeDriverFirebase) : ViewModel() {
 
+    enum class HomeDriverServices{WorkInASpecificTrip , WorkInATaxi , Suggest , Error}
+
     private val _homeDriverServices = MutableLiveData<ArrayList<CardViewData>>()
     val homeDriverServices: LiveData<ArrayList<CardViewData>>
         get() = _homeDriverServices
+
+    private val _navTo = MutableLiveData<HomeDriverServices>()
+    val navTo: LiveData<HomeDriverServices>
+        get() = _navTo
+
+
 
     fun getDriverServices() {
         homeDriverFirebase.getRideServicesHome {
@@ -18,5 +26,21 @@ class HomeDriverViewModel(private val homeDriverFirebase: HomeDriverFirebase) : 
         }
     }
 
+
+    fun navTo(card: CardViewData?) {
+        when (card!!.title) {
+            "Work In A Taxi" -> {
+                _navTo.value = HomeDriverServices.WorkInATaxi
+            }
+            "Work In A Specific Trip" -> {
+                _navTo.value = HomeDriverServices.WorkInASpecificTrip
+            }
+            "Trip Suggestions" -> {
+                _navTo.value = HomeDriverServices.Suggest
+            }
+            else -> _navTo.value = HomeDriverServices.Error
+        }
+
+    }
 
 }

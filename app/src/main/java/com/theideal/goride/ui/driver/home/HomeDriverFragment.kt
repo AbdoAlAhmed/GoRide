@@ -13,10 +13,6 @@ import com.theideal.goride.ui.rider.CardViewAdapter
 class HomeDriverFragment : Fragment() {
     private lateinit var binding: FragmentHomeDriverBinding
     private lateinit var viewModel: HomeDriverViewModel
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -30,11 +26,29 @@ class HomeDriverFragment : Fragment() {
         binding.viewModel = viewModel
         binding.lifecycleOwner = this
         viewModel.getDriverServices()
+
         binding.driverServices.adapter = CardViewAdapter(CardViewAdapter.OnClick {
-
+            viewModel.navTo(it)
         })
-        return binding.root
+        viewModel.navTo.observe(viewLifecycleOwner) {
+            when (it) {
+                HomeDriverViewModel.HomeDriverServices.WorkInATaxi -> {
+
+                }
+                HomeDriverViewModel.HomeDriverServices.Suggest -> {
+
+                }
+                HomeDriverViewModel.HomeDriverServices.WorkInASpecificTrip -> {
+
+                }
+                HomeDriverViewModel.HomeDriverServices.Error -> {
+
+                }
+
+            }
+        }
+            return binding.root
+
+
     }
-
-
 }
