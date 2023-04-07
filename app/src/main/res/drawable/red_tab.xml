@@ -1,0 +1,15 @@
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+
+    <solid android:color="@color/red" />
+
+    <corners android:radius="4dp" />
+
+    <size android:width="16dp"
+        android:height="8dp" />
+
+    <item
+        android:drawable="@drawable/ic_serrated_edge"
+        android:gravity="end|center_vertical" />
+
+</shape>

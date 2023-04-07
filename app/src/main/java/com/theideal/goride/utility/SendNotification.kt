@@ -30,7 +30,7 @@ fun sendNotification(
     val intent = Intent(context, RiderActivity::class.java).apply {
         flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
     }
-    val pendingIntent = PendingIntent.getActivity(context, 0, intent, PendingIntent.FLAG_ONE_SHOT)!!
+    val pendingIntent = PendingIntent.getActivity(context, 0, intent, PendingIntent.FLAG_MUTABLE)!!
 
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
         val channel = NotificationChannel(
@@ -57,7 +57,7 @@ fun sendNotification(
 private fun getUniqueId() = ((System.currentTimeMillis() % 10000).toInt())
 
 fun sendRemoteMessage() {
-    val message = RemoteMessage.Builder("senderId")
+    val message = RemoteMessage.Builder("feX8Z1vxSSqDBnwAy2pdej:APA91bGeQG7kmeADR80FYwvMYHE7VOciBo3AHpcqcdwXPTC0MGk2Pi6gzg-WQDe7ro-3MgQ-i2vgrC0BPCIgw8RyozpADcAIGr5WSHEoaM8-LlqUnqbBhPgP-zthBJtC6djaIKxH1reF")
         .setMessageId(UUID.randomUUID().toString())
         .addData("title", "title")
         .addData("body", "body")
