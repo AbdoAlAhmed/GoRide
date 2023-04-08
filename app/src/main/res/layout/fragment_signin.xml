@@ -9,6 +9,10 @@
             type="com.theideal.goride.ui.auth.AuthenticationViewModel" />
 
         <variable
+            name="viewModel2"
+            type="com.theideal.goride.ui.auth.sigin.SignInViewModel" />
+
+        <variable
             name="user"
             type="com.theideal.goride.model.User" />
 
@@ -84,12 +88,11 @@
             android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
             android:layout_marginEnd="16dp"
-            android:onClick="@{() -> viewModel.validateEmailAndPassword(user) ? viewModel.signIn(user) : null}"
+            android:onClick="@{() -> viewModel.validateEmailAndPassword(user) ? viewModel2.signIn2(user) : null}"
             android:text="@string/sign_in"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/et_password_sign_in"
-            />
+            app:layout_constraintTop_toBottomOf="@+id/et_password_sign_in" />
 
         <TextView
             android:id="@+id/tv_forget_password"
