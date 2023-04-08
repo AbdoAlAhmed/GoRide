@@ -7,7 +7,7 @@ import com.theideal.goride.model.CardViewData
 import com.theideal.goride.model.FirebaseRiderModel
 import timber.log.Timber
 
-class RiderViewModel : ViewModel() {
+ class RiderViewModel : ViewModel() {
     enum class HomeServicesFragment { Available, Suggest, Request, Error,DoneNav }
 
     val data = FirebaseRiderModel()

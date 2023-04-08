@@ -17,10 +17,11 @@ import com.google.firebase.firestore.FirebaseFirestoreException
 import com.theideal.goride.model.Car
 import com.theideal.goride.model.FirebaseAuthModel
 import com.theideal.goride.model.User
+import com.theideal.goride.ui.rider.RiderViewModel
 import kotlinx.coroutines.launch
 import timber.log.Timber
 
-class AuthenticationViewModel(private val firebaseAuthModel: FirebaseAuthModel) : ViewModel() {
+open class AuthenticationViewModel(private val firebaseAuthModel: FirebaseAuthModel) : ViewModel() {
 
     val array = arrayOf("Rider", "Driver", "Admin")
 
