@@ -7,11 +7,10 @@ data class Car(
     var carNumber: String = "",
     var carColor: String = "",
     var seats: String = "",
-    var driverInfo: ImageName = ImageName(),
     var status: String,
     var workInLine: Boolean = false,
 ) {
-    constructor() : this("", "", "","", "", "", ImageName(), "")
+    constructor() : this("", "", "","", "", "", "")
 }
 
 data class DriverHistory(

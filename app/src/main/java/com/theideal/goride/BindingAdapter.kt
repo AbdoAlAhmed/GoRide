@@ -1,16 +1,13 @@
 package com.theideal.goride
 
-import android.widget.ArrayAdapter
-import android.widget.AutoCompleteTextView
-import android.widget.ImageView
-import android.widget.TextView
+import android.widget.*
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.theideal.goride.model.*
-import com.theideal.goride.ui.rider.home.services.availableTrip.AvailableTripAdapter
 import com.theideal.goride.ui.rider.CardViewAdapter
 import com.theideal.goride.ui.rider.home.services.availableTrip.AvailableDriverAdapter
+import com.theideal.goride.ui.rider.home.services.availableTrip.AvailableTripAdapter
 
 
 @BindingAdapter("list_data")
@@ -105,4 +102,7 @@ fun setLocationText(textView: TextView, location: Location?) {
         textView.text = it.destinationName
     }
 }
+
+
+
 

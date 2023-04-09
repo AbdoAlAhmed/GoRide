@@ -56,6 +56,7 @@
     <string name="available">Available</string>
     <string name="coming_soon">coming soon</string>
     <string name="continue_">Continue</string>
+    <string name="car_info">Car Info</string>
     <array name="vehicle_type">
         <item>Taxi</item>
         <item>Bus</item>

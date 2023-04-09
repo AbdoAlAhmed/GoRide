@@ -112,7 +112,6 @@ class DriverInfoFragment : Fragment() {
 
             viewModel.uploadImage(fileUri!!, imageName)
             viewModel.setSnackBar("Image Uploaded + $imageName")
-            viewModel.downloadImage(imageName)
         } else if (resultCode == ImagePicker.RESULT_ERROR) {
             viewModel.setSnackBar(ImagePicker.getError(data)!!)
         } else {

@@ -24,125 +24,140 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:context=".ui.auth.DriverInfoFragment">
+        android:layout_height="match_parent">
 
-        <TextView
-            android:id="@+id/tv_additional_information"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginEnd="20dp"
-            android:layout_marginBottom="20dp"
-            android:gravity="center"
-            android:text="@string/additional_information"
-            android:textColor="@color/black"
-            android:textSize="24sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-
-        <Button
-            android:id="@+id/btn_upload_image_profile"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="20dp"
-            android:layout_marginEnd="20dp"
-            android:layout_marginBottom="20dp"
-            android:enabled="true"
-            android:gravity="center"
-            android:onClick="@{() -> viewModel.startUploadImage(imageName.profileImage)}"
-            android:text="@string/profile_image"
-            android:textColor="@color/black"
-            android:textSize="16sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_additional_information" />
-
-        <Button
-            android:id="@+id/btn_upload_national_id_front"
+        <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="20dp"
-            android:layout_marginBottom="20dp"
-            android:enabled="true"
-            android:gravity="center"
-            android:onClick="@{() -> viewModel.startUploadImage(imageName.nationalIdImageFromFront)}"
-            android:text="@string/national_id_front"
-            android:textColor="@color/black"
-            android:textSize="16sp"
+            app:cardCornerRadius="10dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/btn_upload_image_profile" />
+            app:layout_constraintTop_toTopOf="parent">
 
-        <Button
-            android:id="@+id/btn_upload_national_id_back"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="20dp"
-            android:layout_marginBottom="20dp"
-            android:enabled="true"
-            android:gravity="center"
-            android:onClick="@{() -> viewModel.startUploadImage(imageName.nationalIdImageFromBack)}"
-            android:text="@string/national_id_back"
-            android:textColor="@color/black"
-            android:textSize="16sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/btn_upload_national_id_front" />
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                tools:context=".ui.auth.DriverInfoFragment">
 
-        <Button
-            android:id="@+id/btn_upload_driving_license_front"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="20dp"
-            android:layout_marginBottom="20dp"
-            android:enabled="true"
-            android:gravity="center"
-            android:onClick="@{() -> viewModel.startUploadImage(imageName.drivingLicenseImageFromFront)}"
-            android:text="@string/driving_license_front"
-            android:textColor="@color/black"
-            android:textSize="16sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/btn_upload_national_id_back" />
-
-        <Button
-            android:id="@+id/btn_upload_driving_license_back"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="20dp"
-            android:layout_marginBottom="20dp"
-            android:enabled="true"
-            android:gravity="center"
-            android:onClick="@{() -> viewModel.startUploadImage(imageName.drivingLicenseImageFromBack)}"
-            android:text="@string/driving_license_back"
-            android:textColor="@color/black"
-            android:textSize="16sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/btn_upload_driving_license_front" />
+                <TextView
+                    android:id="@+id/tv_additional_information"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="20dp"
+                    android:layout_marginBottom="20dp"
+                    android:gravity="center"
+                    android:text="@string/additional_information"
+                    android:textColor="@color/black"
+                    android:textSize="24sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
 
-        <Button
-            android:id="@+id/btn_continue"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="20dp"
-            android:layout_marginBottom="20dp"
-            android:enabled="true"
-            android:gravity="center"
-            android:onClick="@{() -> viewModel.uploadCarInfo(car)}"
-            android:text="@string/continue_"
-            android:textColor="@color/black"
-            android:textSize="16sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/btn_upload_driving_license_back" />
+                <Button
+                    android:id="@+id/btn_upload_image_profile"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginEnd="20dp"
+                    android:layout_marginBottom="20dp"
+                    android:gravity="center"
+                    android:onClick="@{() -> viewModel.startUploadImage(imageName.profileImage)}"
+                    android:text="@string/profile_image"
+                    android:textColor="@color/black"
+                    android:textSize="16sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_additional_information" />
+
+                <Button
+                    android:id="@+id/btn_upload_national_id_front"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="20dp"
+                    android:layout_marginBottom="20dp"
+                    android:enabled="true"
+                    android:gravity="center"
+                    android:onClick="@{() -> viewModel.startUploadImage(imageName.nationalIdImageFromFront)}"
+                    android:text="@string/national_id_front"
+                    android:textColor="@color/black"
+                    android:textSize="16sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/btn_upload_image_profile" />
+
+                <Button
+                    android:id="@+id/btn_upload_national_id_back"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="20dp"
+                    android:layout_marginBottom="20dp"
+                    android:enabled="true"
+                    android:gravity="center"
+                    android:onClick="@{() -> viewModel.startUploadImage(imageName.nationalIdImageFromBack)}"
+                    android:text="@string/national_id_back"
+                    android:textColor="@color/black"
+                    android:textSize="16sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/btn_upload_national_id_front" />
+
+                <Button
+                    android:id="@+id/btn_upload_driving_license_front"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="20dp"
+                    android:layout_marginBottom="20dp"
+                    android:enabled="true"
+                    android:gravity="center"
+                    android:onClick="@{() -> viewModel.startUploadImage(imageName.drivingLicenseImageFromFront)}"
+                    android:text="@string/driving_license_front"
+                    android:textColor="@color/black"
+                    android:textSize="16sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/btn_upload_national_id_back" />
+
+                <Button
+                    android:id="@+id/btn_upload_driving_license_back"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="20dp"
+                    android:layout_marginBottom="20dp"
+                    android:enabled="true"
+                    android:gravity="center"
+                    android:onClick="@{() -> viewModel.startUploadImage(imageName.drivingLicenseImageFromBack)}"
+                    android:text="@string/driving_license_back"
+                    android:textColor="@color/black"
+                    android:textSize="16sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/btn_upload_driving_license_front" />
 
 
+                <Button
+                    android:id="@+id/btn_continue"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="20dp"
+                    android:layout_marginBottom="20dp"
+                    android:enabled="true"
+                    android:gravity="center"
+                    android:onClick="@{() -> viewModel.navToCarInfoFragment()}"
+                    android:text="@string/continue_"
+                    android:textColor="@color/black"
+                    android:textSize="16sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/btn_upload_driving_license_back" />
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </com.google.android.material.card.MaterialCardView>
     </androidx.constraintlayout.widget.ConstraintLayout>
+
 </layout>

@@ -44,5 +44,9 @@
         android:id="@+id/carInfo"
         android:name="com.theideal.goride.ui.auth.CarInfo"
         android:label="fragment_car_info"
-        tools:layout="@layout/fragment_car_info" />
+        tools:layout="@layout/fragment_car_info" >
+        <action
+            android:id="@+id/action_carInfo_to_signInFragment2"
+            app:destination="@id/signInFragment2" />
+    </fragment>
 </navigation>

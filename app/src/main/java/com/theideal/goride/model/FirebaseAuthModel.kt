@@ -49,6 +49,8 @@ class FirebaseAuthModel : ViewModel() {
 
         dbRef.document("drivers").collection("cars_info").document(auth.currentUser!!.uid)
             .set(car).addOnSuccessListener {
+                dbRef.document("drivers").collection("cars_info").document(auth.currentUser!!.uid)
+                    .update("id", auth.currentUser!!.uid)
                 result(true)
             }.addOnFailureListener {
                 result(false)
@@ -113,7 +115,9 @@ class FirebaseAuthModel : ViewModel() {
 
     }
 
+    // some thing wrong with this function
     fun downloadImage(imageName: String): Uri {
+
         val user = auth.currentUser
         val storageRef =
             storage.child("users/${user!!.uid}/images/$imageName")

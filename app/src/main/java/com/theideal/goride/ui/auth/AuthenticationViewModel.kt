@@ -18,7 +18,6 @@ import com.theideal.goride.model.Car
 import com.theideal.goride.model.FirebaseAuthModel
 import com.theideal.goride.model.User
 import kotlinx.coroutines.launch
-import timber.log.Timber
 
 open class AuthenticationViewModel(private val firebaseAuthModel: FirebaseAuthModel) : ViewModel() {
 
@@ -38,9 +37,9 @@ open class AuthenticationViewModel(private val firebaseAuthModel: FirebaseAuthMo
     val isSignUpRider: LiveData<Boolean>
         get() = _isSignUpRider
 
-    private val _isSignUpDriver = MutableLiveData<Boolean>()
-    val isSignUpDriver: LiveData<Boolean>
-        get() = _isSignUpDriver
+    private val _isSignUpDriverCompleted = MutableLiveData<Boolean>()
+    val isSignUpDriverCompleted: LiveData<Boolean>
+        get() = _isSignUpDriverCompleted
 
 
     private val _signWithGoogle = MutableLiveData<Boolean>()
@@ -94,9 +93,9 @@ open class AuthenticationViewModel(private val firebaseAuthModel: FirebaseAuthMo
     val imageUpload: LiveData<String>
         get() = _imageUpload
 
-//    private val _imageName = MutableLiveData<String>()
-//    val imageName: LiveData<String>
-//        get() = _imageName
+    private val _imageUploadCompleted = MutableLiveData<Boolean>()
+    val imageUploadCompleted: LiveData<Boolean>
+        get() = _imageUploadCompleted
 
 
     init {
@@ -270,18 +269,19 @@ open class AuthenticationViewModel(private val firebaseAuthModel: FirebaseAuthMo
 
     }
 
-    fun navToCarInfoFragment() {
-        _navToCarInfoFragment.value = true
-    }
 
     fun navToCarInfoFragmentComplete() {
         _navToCarInfoFragment.value = false
     }
 
+    fun signUpDriverCompletedDoneNav() {
+        _isSignUpDriverCompleted.value = false
+    }
+
     fun uploadCarInfo(car: Car) {
         try {
             firebaseAuthModel.uploadCarInfo(car) {
-                _isSignUpDriver.value = it
+                _isSignUpDriverCompleted.value = it
             }
         } catch (e: FirebaseFirestoreException) {
             _snackBar.value = "Error"
@@ -289,6 +289,11 @@ open class AuthenticationViewModel(private val firebaseAuthModel: FirebaseAuthMo
             _snackBar.value = "Error"
         }
     }
+
+    fun navToCarInfoFragment() {
+        _navToCarInfoFragment.value = true
+    }
+
 
     fun checkUserType(user: User) {
         when (user.userType) {
@@ -437,20 +442,22 @@ open class AuthenticationViewModel(private val firebaseAuthModel: FirebaseAuthMo
         }
     }
 
-    fun uploadImage(uri: Uri, imageName: String) {
+    fun uploadImage(uri: Uri, imageName: String)  {
         firebaseAuthModel.uploadImage(uri, imageName) {
-
-            Timber.i("image url $it")
+            _imageUploadCompleted.value = it
         }
     }
 
     fun downloadImage(imageName: String): Uri? {
+
         return firebaseAuthModel.downloadImage(imageName)
+
     }
 
 
-    fun startUploadImage(imageName: String) {
+    fun startUploadImage(imageName: String): Boolean {
         _imageUpload.value = imageName
+        return true
     }
 
 }
