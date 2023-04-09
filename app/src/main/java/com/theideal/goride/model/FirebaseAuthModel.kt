@@ -62,11 +62,14 @@ class FirebaseAuthModel : ViewModel() {
         withContext(Dispatchers.IO) {
             val auth = auth.signInWithEmailAndPassword(user.email, user.getPassword()).await()
             auth.user.let {
-                dbRef.document(it!!.uid).get().addOnSuccessListener { it ->
-                    val data = it.toObject(User::class.java)
-                    callback(data!!)
+                    .whereEqualTo("id", it!!.uid)
+                    .whereNotEqualTo("firstName", "null")
+                    .get().addOnSuccessListener { it ->
+                        Timber.i(it.documents[0].toString())
+                        val data = it.documents[0].toObject(User::class.java)
+                        callback(data!!)
 
-                }
+                    }
             }
         }
 
