@@ -16,5 +16,19 @@
     <color name="dark_slate_gray">#205E61</color>\
     <color name="electric_blue">#8BF5FA</color>
     <color name="red">#ff0000</color>
+    <color name="bright_orange">#FFA500</color>
+    <color name="sky_blue">#87CEEB</color>
+    <color name="deep_blue">#0000FF</color>
+    <color name="dark_blue">#00008B</color>
+    <color name="dark_sky_blue">#00BFFF</color>
+    <color name="sunset_orange">#FFA500</color>
+    <color name="dark_sunset_orange">#FF8C00</color>
+    <color name="ocean_blue">#00BFFF</color>
+    <color name="dark_ocean_blue">#008B8B</color>
+    <color name="ride_green">#00FF00</color>
+    <color name="dark_ride_green">#008000</color>
+    <color name="ride_blue">#0000FF</color>
+    <color name="dark_ride_blue">#00008B</color>
+    <color name="ride_red">#FF0000</color>
 
 </resources>

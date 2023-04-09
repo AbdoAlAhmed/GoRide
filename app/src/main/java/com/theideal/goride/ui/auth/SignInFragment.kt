@@ -12,14 +12,12 @@ import com.google.android.material.snackbar.Snackbar
 import com.theideal.goride.databinding.FragmentSigninBinding
 import com.theideal.goride.model.FirebaseAuthModel
 import com.theideal.goride.model.User
-import com.theideal.goride.ui.auth.sigin.SignInViewModel
 import com.theideal.goride.ui.driver.DriverActivity
 import com.theideal.goride.ui.rider.RiderActivity
 
 
 class SignInFragment : Fragment() {
     private lateinit var viewModel: AuthenticationViewModel
-    private lateinit var viewModel2: SignInViewModel
     private lateinit var binding: FragmentSigninBinding
     private val user = User()
 
@@ -39,10 +37,8 @@ class SignInFragment : Fragment() {
             requireActivity(),
             viewModelFactory
         )[AuthenticationViewModel::class.java]
-        viewModel2 = SignInViewModel(FirebaseAuthModel())
         binding.lifecycleOwner = this
         binding.viewModel = viewModel
-        binding.viewModel2 = viewModel2
         binding.user = user
 
 

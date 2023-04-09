@@ -8,9 +8,6 @@
             name="viewModel"
             type="com.theideal.goride.ui.auth.AuthenticationViewModel" />
 
-        <variable
-            name="viewModel2"
-            type="com.theideal.goride.ui.auth.sigin.SignInViewModel" />
 
         <variable
             name="user"
@@ -88,7 +85,7 @@
             android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
             android:layout_marginEnd="16dp"
-            android:onClick="@{() -> viewModel.validateEmailAndPassword(user) ? viewModel2.signIn2(user) : null}"
+            android:onClick="@{() -> viewModel.validateEmailAndPassword(user) ? viewModel.signIn(user) : null}"
             android:text="@string/sign_in"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

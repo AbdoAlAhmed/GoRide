@@ -3,23 +3,23 @@ package com.theideal.goride.ui.auth
 import android.Manifest
 import android.content.Intent
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.github.dhaval2404.imagepicker.ImagePicker
 import com.google.android.material.snackbar.Snackbar
-import com.theideal.goride.databinding.FragmentSignUpPage2DriverBinding
+import com.theideal.goride.databinding.FragmentDriverInfoBinding
 import com.theideal.goride.model.Car
 import com.theideal.goride.model.FirebaseAuthModel
 import com.theideal.goride.model.ImageName
 
 
-class SignUpPage2Driver : Fragment() {
+class DriverInfoFragment : Fragment() {
     private lateinit var viewModel: AuthenticationViewModel
-    private lateinit var binding: FragmentSignUpPage2DriverBinding
+    private lateinit var binding: FragmentDriverInfoBinding
     private var RequestCodePermission = 101
     private val RequestCodeImage = 102
     private val car = Car()
@@ -35,7 +35,7 @@ class SignUpPage2Driver : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        binding = FragmentSignUpPage2DriverBinding.inflate(inflater, container, false)
+        binding = FragmentDriverInfoBinding.inflate(inflater, container, false)
         val viewModelFactory = AuthenticationViewModelFactory(FirebaseAuthModel())
         viewModel = ViewModelProvider(
             requireActivity(),
@@ -43,9 +43,7 @@ class SignUpPage2Driver : Fragment() {
         )[AuthenticationViewModel::class.java]
         binding.lifecycleOwner = this
         binding.viewModel = viewModel
-        binding.driver = car
-        val user = SignUpPage2DriverArgs.fromBundle(requireArguments()).user
-        binding.user = user
+        binding.car = car
         binding.imageName = imageNameClass
         // permission
         viewModel.checkPermission(
@@ -71,11 +69,15 @@ class SignUpPage2Driver : Fragment() {
                 imagePicker()
             }
         }
-        viewModel.isSignUpDriver.observe(viewLifecycleOwner) {
+        viewModel.navToCarInfoFragment.observe(viewLifecycleOwner) {
             if (it) {
-                findNavController().popBackStack()
+                findNavController().navigate(
+                    DriverInfoFragmentDirections.actionDriverInfoToCarInfo()
+                )
+                viewModel.navToCarInfoFragmentComplete()
             }
         }
+
 
 
 

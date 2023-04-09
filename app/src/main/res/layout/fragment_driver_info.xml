@@ -6,7 +6,7 @@
     <data>
 
         <variable
-            name="driver"
+            name="car"
             type="com.theideal.goride.model.Car" />
 
         <variable
@@ -25,7 +25,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".ui.auth.SignUpPage2Driver">
+        tools:context=".ui.auth.DriverInfoFragment">
 
         <TextView
             android:id="@+id/tv_additional_information"
@@ -126,95 +126,22 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/btn_upload_driving_license_front" />
 
+
         <Button
-            android:id="@+id/btn_upload_vehicle_registration"
+            android:id="@+id/btn_continue"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="20dp"
             android:layout_marginBottom="20dp"
             android:enabled="true"
             android:gravity="center"
-            android:onClick="@{() -> viewModel.startUploadImage(imageName.vehicleRegistrationImage)}"
-            android:text="@string/vehicle_registration"
+            android:onClick="@{() -> viewModel.uploadCarInfo(car)}"
+            android:text="@string/continue_"
             android:textColor="@color/black"
             android:textSize="16sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/btn_upload_driving_license_back" />
-
-        <Button
-            android:id="@+id/btn_upload_car_image"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="20dp"
-            android:layout_marginBottom="20dp"
-            android:enabled="true"
-            android:gravity="center"
-            android:onClick="@{() -> viewModel.startUploadImage(imageName.vehicleImage)}"
-            android:text="@string/vehicleimage"
-            android:textColor="@color/black"
-            android:textSize="16sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/btn_upload_vehicle_registration" />
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/et_car_type"
-            style="?attr/textInputOutlinedExposedDropdownMenuStyle"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_margin="5dp"
-            android:gravity="center"
-            android:hint="@string/car_type"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/btn_upload_car_image">
-
-            <AutoCompleteTextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="none"
-                app:set_vehicle_type="@{driver}"
-                app:simpleItems="@array/vehicle_type" />
-
-        </com.google.android.material.textfield.TextInputLayout>
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/et_disk_number"
-            style="?attr/textInputOutlinedStyle"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_margin="5dp"
-            android:gravity="center"
-            android:hint="@string/disks_number"
-            app:helperText="@{viewModel.diskNumberHelper }"
-            app:helperTextEnabled="true"
-            app:helperTextTextColor="@color/red"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/et_car_type">
-            <com.google.android.material.textfield.TextInputEditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="number"
-                android:text="@={driver.seats}"
-                />
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <Button
-            android:id="@+id/btn_upload"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="20dp"
-            android:layout_marginBottom="20dp"
-            android:enabled="true"
-            android:gravity="center"
-            android:textColor="@color/black"
-            android:textSize="16sp"
-            android:text="@string/done"
-            android:onClick="@{() -> viewModel.completeDriverInfo(driver)}"
-            app:layout_constraintEnd_toEndOf="parent"
-             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/et_disk_number" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

@@ -20,8 +20,9 @@ class FirebaseAuthModel : ViewModel() {
 
     fun createAccountAndSaveDataRider(user: User) {
         auth.createUserWithEmailAndPassword(user.email, user.getPassword()).addOnSuccessListener {
-            dbRef.document(it.user!!.uid).set(user)
-            dbRef.document(it.user!!.uid).update("id", it.user!!.uid)
+            dbRef.document("riders").collection("riders_info").document(it.user!!.uid).set(user)
+            dbRef.document("riders").collection("riders_info").document(it.user!!.uid)
+                .update("id", it.user!!.uid)
             verifyEmail()
         }.addOnFailureListener {
             Timber.i(it.toString())
@@ -32,8 +33,9 @@ class FirebaseAuthModel : ViewModel() {
     fun createAccountAndSaveDataDriver(user: User, callback: (Boolean) -> Unit) {
         val auth = auth.createUserWithEmailAndPassword(user.email, user.getPassword())
         auth.addOnSuccessListener {
-            dbRef.document(it.user!!.uid).set(user)
-            dbRef.document(it.user!!.uid).update("id", it.user!!.uid)
+            dbRef.document("drivers").collection("drivers_info").document(it.user!!.uid).set(user)
+            dbRef.document("drivers").collection("drivers_info").document(it.user!!.uid)
+                .update("id", it.user!!.uid)
             verifyEmail()
             callback(true)
         }.addOnFailureListener {
@@ -43,13 +45,14 @@ class FirebaseAuthModel : ViewModel() {
 
     }
 
-    fun completeDriverInfo(car: Car) {
-        val data = hashMapOf(
-            "carType" to car.carType,
-            "seats" to car.seats
-        )
-        dbRef.document(auth.currentUser!!.uid).update(data as Map<String, Any>)
+    fun uploadCarInfo(car: Car, result: (Boolean) -> Unit) {
 
+        dbRef.document("drivers").collection("cars_info").document(auth.currentUser!!.uid)
+            .set(car).addOnSuccessListener {
+                result(true)
+            }.addOnFailureListener {
+                result(false)
+            }
     }
 
 

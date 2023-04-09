@@ -17,7 +17,6 @@ import com.google.firebase.firestore.FirebaseFirestoreException
 import com.theideal.goride.model.Car
 import com.theideal.goride.model.FirebaseAuthModel
 import com.theideal.goride.model.User
-import com.theideal.goride.ui.rider.RiderViewModel
 import kotlinx.coroutines.launch
 import timber.log.Timber
 
@@ -34,6 +33,7 @@ open class AuthenticationViewModel(private val firebaseAuthModel: FirebaseAuthMo
     val isSignInRider: LiveData<Boolean>
         get() = _isSignInRider
 
+
     private val _isSignUpRider = MutableLiveData<Boolean>()
     val isSignUpRider: LiveData<Boolean>
         get() = _isSignUpRider
@@ -49,7 +49,9 @@ open class AuthenticationViewModel(private val firebaseAuthModel: FirebaseAuthMo
 
 
     // nav
-
+    private val _navToCarInfoFragment = MutableLiveData<Boolean>()
+    val navToCarInfoFragment: LiveData<Boolean>
+        get() = _navToCarInfoFragment
 
     private val _navToSignUpPage2Driver = MutableLiveData<Boolean>()
     val navToSignUpPage2Driver: LiveData<Boolean>
@@ -268,10 +270,19 @@ open class AuthenticationViewModel(private val firebaseAuthModel: FirebaseAuthMo
 
     }
 
-    fun completeDriverInfo(car: Car) {
+    fun navToCarInfoFragment() {
+        _navToCarInfoFragment.value = true
+    }
+
+    fun navToCarInfoFragmentComplete() {
+        _navToCarInfoFragment.value = false
+    }
+
+    fun uploadCarInfo(car: Car) {
         try {
-            firebaseAuthModel.completeDriverInfo(car)
-            _isSignUpDriver.value = true
+            firebaseAuthModel.uploadCarInfo(car) {
+                _isSignUpDriver.value = it
+            }
         } catch (e: FirebaseFirestoreException) {
             _snackBar.value = "Error"
         } catch (e: Exception) {
