@@ -58,34 +58,20 @@ open class FirebaseAuthModel : ViewModel() {
     }
 
 
-    // todo  it's not working because col user doc drivers or riders
     suspend fun sigIn(user: User, callback: (User) -> Unit) {
         withContext(Dispatchers.IO) {
             val auth = auth.signInWithEmailAndPassword(user.email, user.getPassword()).await()
             auth.user.let { firebaseUser ->
-                dbRef.document("drivers")
-                    .collection("users_info")
-                    .document(firebaseUser!!.uid)
+                db.collectionGroup("users_info")
+                    .whereEqualTo("id", firebaseUser!!.uid)
+                    .whereNotEqualTo("firstName", "null")
                     .get().addOnSuccessListener {
-                        if (it.exists()) {
-                            val data = it.toObject(User::class.java)
-                            callback(data!!)
-                        } else {
-                            dbRef.document("riders")
-                                .collection("users_info")
-                                .document(firebaseUser.uid)
-                                .get().addOnSuccessListener {
-                                    if (it.exists()) {
-                                        val data = it.toObject(User::class.java)
-                                        callback(data!!)
-                                    }
-                                }
-                                .addOnFailureListener {
-                                    Timber.i(it.toString())
-                                }
+                        for (document in it) {
+                            Timber.i(document.data.toString())
+                            val data = document.toObject(User::class.java)
+                            callback(data)
                         }
-                    }
-                    .addOnSuccessListener {
+                    }.addOnFailureListener {
                         Timber.i(it.toString())
                     }
             }
@@ -93,15 +79,31 @@ open class FirebaseAuthModel : ViewModel() {
 
     }
 
-    // todo  i'm here
-    fun getUser(callback: (User) -> Unit) {
+    // todo fixit
+    fun getUser(callback: (User) -> Unit, vararg valueKey: String) {
         val uid = auth.currentUser?.uid
         if (uid != null) {
-            db.collectionGroup("users_info").
-                whereEqualTo("id",uid).get().addOnSuccessListener {
-                val data = it.toObject(User::class.java)
-                callback(data!!)
-            }
+            Timber.i(uid)
+            db.collectionGroup("users_info")
+                .whereEqualTo("id", uid)
+                .whereNotEqualTo("firstName", "null")
+                .get().addOnSuccessListener {
+                    for (document in it) {
+                        Timber.i(document.data.toString())
+                        val data = document.toObject(User::class.java)
+                        callback(data)
+                        if (valueKey.size %2 == 0) {
+                            for (i in 0 until valueKey.size step 2) {
+                                db.collectionGroup("users_info")
+                                    .whereEqualTo("id", uid)
+                                    .whereNotEqualTo("firstName", "null")
+                                    .update(valueKey[i], valueKey[i + 1])
+                            }
+                        }
+                    }
+                }.addOnFailureListener {
+                    Timber.i(it.toString())
+                }
         }
     }
 
@@ -116,10 +118,18 @@ open class FirebaseAuthModel : ViewModel() {
     // todo fixit
     fun checkUserAuth(currentUser: (Boolean, String) -> Unit) {
         if (auth.currentUser != null) {
-            dbRef.document(auth.currentUser!!.uid).get().addOnSuccessListener {
-                val data = it.data?.get("userType")
-                currentUser(true, data.toString())
-            }
+            db.collectionGroup("users_info")
+                .whereEqualTo("id", auth.currentUser!!.uid)
+                .whereNotEqualTo("firstName", "null")
+                .get().addOnSuccessListener {
+                    for (document in it) {
+                        Timber.i(document.data.toString())
+                        val data = document.toObject(User::class.java)
+                        currentUser(true, data.userType)
+                    }
+                }.addOnFailureListener {
+                    Timber.i(it.toString())
+                }
         } else {
             currentUser(false, "null")
         }
@@ -177,6 +187,7 @@ open class FirebaseAuthModel : ViewModel() {
             callback(false)
         }
     }
+
     // todo fixit
     fun updateProfile(user: User, callback: (Boolean) -> Unit) {
         val user = auth.currentUser
@@ -186,6 +197,7 @@ open class FirebaseAuthModel : ViewModel() {
             callback(false)
         }
     }
+
     // todo fixit
     fun updateProfileDriver(user: User, car: Car, callback: (Boolean) -> Unit) {
         val user = auth.currentUser

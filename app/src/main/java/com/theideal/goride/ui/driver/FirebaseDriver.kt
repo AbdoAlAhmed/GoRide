@@ -7,7 +7,11 @@ import com.theideal.goride.model.User
 class FirebaseDriver() : FirebaseAuthModel() {
     private val db = FirebaseFirestore.getInstance()
 
-    fun getDriverInfo(callback: (User)-> Unit){
+
+    fun getUserInfo(callback: (String) -> Unit) {
+        getUser {
+            callback(it.status)
+        }
     }
 
 }

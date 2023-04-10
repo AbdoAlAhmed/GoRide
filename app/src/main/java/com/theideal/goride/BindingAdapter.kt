@@ -103,6 +103,11 @@ fun setLocationText(textView: TextView, location: Location?) {
     }
 }
 
+@BindingAdapter("get_driver_status")
+fun getDriverStatus(switch: Switch, boolean: Boolean) {
+   switch.isChecked = boolean
+}
+
 
 
 
