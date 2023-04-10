@@ -73,7 +73,7 @@ class FirebaseAuthModel : ViewModel() {
                         } else {
                             dbRef.document("riders")
                                 .collection("users_info")
-                                .document(firebaseUser!!.uid)
+                                .document(firebaseUser.uid)
                                 .get().addOnSuccessListener {
                                     if (it.exists()) {
                                         val data = it.toObject(User::class.java)
@@ -112,6 +112,7 @@ class FirebaseAuthModel : ViewModel() {
         auth.signOut()
     }
 
+    // todo fixit
     fun checkUserAuth(currentUser: (Boolean, String) -> Unit) {
         if (auth.currentUser != null) {
             dbRef.document(auth.currentUser!!.uid).get().addOnSuccessListener {
@@ -138,6 +139,7 @@ class FirebaseAuthModel : ViewModel() {
     }
 
     // some thing wrong with this function
+    // todo fixit
     fun downloadImage(imageName: String): Uri {
 
         val user = auth.currentUser
@@ -155,6 +157,7 @@ class FirebaseAuthModel : ViewModel() {
         }
     }
 
+    // todo fixit update password in profile
     fun updatePassword(newPassword: User, callback: (Boolean) -> Unit) {
         val user = auth.currentUser
         user!!.updatePassword(newPassword.getPassword()).addOnSuccessListener {
@@ -163,6 +166,7 @@ class FirebaseAuthModel : ViewModel() {
             callback(false)
         }
     }
+    // todo fixit
 
     fun updateEmail(newEmail: User, callback: (Boolean) -> Unit) {
         val user = auth.currentUser
@@ -172,7 +176,7 @@ class FirebaseAuthModel : ViewModel() {
             callback(false)
         }
     }
-
+    // todo fixit
     fun updateProfile(user: User, callback: (Boolean) -> Unit) {
         val user = auth.currentUser
         dbRef.document(user!!.uid).set(user).addOnSuccessListener {
@@ -181,7 +185,7 @@ class FirebaseAuthModel : ViewModel() {
             callback(false)
         }
     }
-
+    // todo fixit
     fun updateProfileDriver(user: User, car: Car, callback: (Boolean) -> Unit) {
         val user = auth.currentUser
         dbRef.document(user!!.uid).set(car).addOnSuccessListener {
