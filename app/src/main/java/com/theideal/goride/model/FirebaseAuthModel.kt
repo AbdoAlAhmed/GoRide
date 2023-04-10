@@ -11,7 +11,7 @@ import kotlinx.coroutines.tasks.await
 import kotlinx.coroutines.withContext
 import timber.log.Timber
 
-class FirebaseAuthModel : ViewModel() {
+open class FirebaseAuthModel : ViewModel() {
     private val db = FirebaseFirestore.getInstance()
     private val dbRef = db.collection("users")
     private val auth = FirebaseAuth.getInstance()
@@ -97,7 +97,8 @@ class FirebaseAuthModel : ViewModel() {
     fun getUser(callback: (User) -> Unit) {
         val uid = auth.currentUser?.uid
         if (uid != null) {
-            dbRef.document(uid).get().addOnSuccessListener {
+            db.collectionGroup("users_info").
+                whereEqualTo("id",uid).get().addOnSuccessListener {
                 val data = it.toObject(User::class.java)
                 callback(data!!)
             }
