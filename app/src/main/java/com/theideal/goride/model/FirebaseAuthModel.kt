@@ -20,8 +20,8 @@ class FirebaseAuthModel : ViewModel() {
 
     fun createAccountAndSaveDataRider(user: User) {
         auth.createUserWithEmailAndPassword(user.email, user.getPassword()).addOnSuccessListener {
-            dbRef.document("riders").collection("riders_info").document(it.user!!.uid).set(user)
-            dbRef.document("riders").collection("riders_info").document(it.user!!.uid)
+            dbRef.document("riders").collection("users_info").document(it.user!!.uid).set(user)
+            dbRef.document("riders").collection("users_info").document(it.user!!.uid)
                 .update("id", it.user!!.uid)
             verifyEmail()
         }.addOnFailureListener {
@@ -33,8 +33,8 @@ class FirebaseAuthModel : ViewModel() {
     fun createAccountAndSaveDataDriver(user: User, callback: (Boolean) -> Unit) {
         val auth = auth.createUserWithEmailAndPassword(user.email, user.getPassword())
         auth.addOnSuccessListener {
-            dbRef.document("drivers").collection("drivers_info").document(it.user!!.uid).set(user)
-            dbRef.document("drivers").collection("drivers_info").document(it.user!!.uid)
+            dbRef.document("drivers").collection("users_info").document(it.user!!.uid).set(user)
+            dbRef.document("drivers").collection("users_info").document(it.user!!.uid)
                 .update("id", it.user!!.uid)
             verifyEmail()
             callback(true)
@@ -58,17 +58,35 @@ class FirebaseAuthModel : ViewModel() {
     }
 
 
+    // todo  it's not working because col user doc drivers or riders
     suspend fun sigIn(user: User, callback: (User) -> Unit) {
         withContext(Dispatchers.IO) {
             val auth = auth.signInWithEmailAndPassword(user.email, user.getPassword()).await()
-            auth.user.let {
-                    .whereEqualTo("id", it!!.uid)
-                    .whereNotEqualTo("firstName", "null")
-                    .get().addOnSuccessListener { it ->
-                        Timber.i(it.documents[0].toString())
-                        val data = it.documents[0].toObject(User::class.java)
-                        callback(data!!)
-
+            auth.user.let { firebaseUser ->
+                dbRef.document("drivers")
+                    .collection("users_info")
+                    .document(firebaseUser!!.uid)
+                    .get().addOnSuccessListener {
+                        if (it.exists()) {
+                            val data = it.toObject(User::class.java)
+                            callback(data!!)
+                        } else {
+                            dbRef.document("riders")
+                                .collection("users_info")
+                                .document(firebaseUser!!.uid)
+                                .get().addOnSuccessListener {
+                                    if (it.exists()) {
+                                        val data = it.toObject(User::class.java)
+                                        callback(data!!)
+                                    }
+                                }
+                                .addOnFailureListener {
+                                    Timber.i(it.toString())
+                                }
+                        }
+                    }
+                    .addOnSuccessListener {
+                        Timber.i(it.toString())
                     }
             }
         }
