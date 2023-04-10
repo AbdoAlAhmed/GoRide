@@ -93,6 +93,7 @@ class FirebaseAuthModel : ViewModel() {
 
     }
 
+    // todo  i'm here
     fun getUser(callback: (User) -> Unit) {
         val uid = auth.currentUser?.uid
         if (uid != null) {
