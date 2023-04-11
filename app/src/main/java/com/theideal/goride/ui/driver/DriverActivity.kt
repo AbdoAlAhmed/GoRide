@@ -16,7 +16,7 @@ class DriverActivity : AppCompatActivity() {
         binding = ActivityHomeDriverBinding.inflate(layoutInflater)
         supportActionBar?.hide()
         setContentView(binding.root)
-        val viewModelFactory = DriverViewModelFactory(FirebaseDriver())
+        val viewModelFactory = DriverViewModelFactory(DriverHomeActivityFirebase())
         viewModel = ViewModelProvider(this, viewModelFactory)[(DriverViewModel::class.java)]
         viewModel.setDriverAvailable()
         binding.viewModel = viewModel

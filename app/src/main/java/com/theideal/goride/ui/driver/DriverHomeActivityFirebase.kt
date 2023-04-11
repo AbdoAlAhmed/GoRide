@@ -4,7 +4,7 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.theideal.goride.model.FirebaseAuthModel
 import com.theideal.goride.model.User
 
-class FirebaseDriver() : FirebaseAuthModel() {
+class DriverHomeActivityFirebase() : FirebaseAuthModel() {
     private val db = FirebaseFirestore.getInstance()
 
 

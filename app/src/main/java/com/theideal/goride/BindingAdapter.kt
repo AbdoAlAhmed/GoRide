@@ -1,5 +1,6 @@
 package com.theideal.goride
 
+import android.view.View
 import android.widget.*
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -106,6 +107,17 @@ fun setLocationText(textView: TextView, location: Location?) {
 @BindingAdapter("get_driver_status")
 fun getDriverStatus(switch: Switch, boolean: Boolean) {
    switch.isChecked = boolean
+}
+
+@BindingAdapter("text_visibility")
+fun textVisibility(textView: TextView, card: CardViewData?) {
+    if (card!!.label.isEmpty()){
+        textView.visibility = View.GONE
+    }else{
+        textView.visibility = View.VISIBLE
+        textView.text = card.label
+    }
+
 }
 
 

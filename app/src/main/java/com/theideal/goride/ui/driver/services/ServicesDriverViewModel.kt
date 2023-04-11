@@ -3,31 +3,16 @@ package com.theideal.goride.ui.driver.services
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.theideal.goride.model.CardViewData
-import com.theideal.goride.model.ServicesDriverFirebase
 
 class ServicesDriverViewModel(private val db: ServicesDriverFirebase) : ViewModel() {
     private val localData = arrayListOf(
         CardViewData(
             1,
-            "Ride",
-            "Get a ride",
+            "Loyalty Points",
+            " Earn Rewards for Engaging with Our App ",
             "null",
             ""
-        ),
-        CardViewData(
-            2,
-            "Ride",
-            "Get a ride",
-            "null",
-            ""
-        ),
-        CardViewData(
-            3,
-            "Ride",
-            "Get a ride",
-            "null",
-            ""
-        ),
+        )
     )
 
     private val _servicesDriver = MutableLiveData<ArrayList<CardViewData>>()
@@ -40,9 +25,11 @@ class ServicesDriverViewModel(private val db: ServicesDriverFirebase) : ViewMode
     }
 
 
-    fun getServicesDriver1() {
-        db.getRideServicesServicesFragment {
-            _servicesDriver.value!!.addAll(it)
+    fun getServicesDriver_() {
+        db.getDriverServices_ {
+            if (!_servicesDriver.value!!.containsAll(it)) {
+                _servicesDriver.value!!.addAll(it)
+            }
         }
     }
 }

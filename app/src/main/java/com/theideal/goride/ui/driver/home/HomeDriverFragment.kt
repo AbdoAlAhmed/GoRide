@@ -8,7 +8,6 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.theideal.goride.databinding.FragmentHomeDriverBinding
-import com.theideal.goride.model.HomeDriverFirebase
 import com.theideal.goride.ui.driver.home.home_services.work_in_specific_trip.WorkInSpecificTripActivity
 import com.theideal.goride.ui.rider.CardViewAdapter
 
@@ -22,7 +21,7 @@ class HomeDriverFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         binding = FragmentHomeDriverBinding.inflate(layoutInflater, null, false)
-        val vieModelFactory = HomeDriverViewModelFactory(HomeDriverFirebase())
+        val vieModelFactory = HomeDriverViewModelFactory(HomeDriverFragmentFirebase())
         viewModel =
             ViewModelProvider(requireActivity(), vieModelFactory)[HomeDriverViewModel::class.java]
         binding.viewModel = viewModel

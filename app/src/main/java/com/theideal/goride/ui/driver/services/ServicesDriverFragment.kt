@@ -7,7 +7,6 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.theideal.goride.databinding.FragmentSerivcesDriverBinding
-import com.theideal.goride.model.ServicesDriverFirebase
 import com.theideal.goride.ui.rider.CardViewAdapter
 
 class ServicesDriverFragment : Fragment() {
@@ -31,7 +30,7 @@ class ServicesDriverFragment : Fragment() {
         )[ServicesDriverViewModel::class.java]
         binding.viewModel = viewModel
         binding.lifecycleOwner = this
-        viewModel.getServicesDriver1()
+        viewModel.getServicesDriver_()
 
         binding.driverServicesInFragmentServices.adapter = CardViewAdapter(CardViewAdapter.OnClick {
 
