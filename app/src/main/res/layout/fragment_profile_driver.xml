@@ -21,20 +21,31 @@
             android:layout_height="wrap_content"
             android:layout_margin="8dp"
             app:cardCornerRadius="8dp"
+            app:cardBackgroundColor="@color/ocean_blue"
             app:cardElevation="4dp"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent">
-            <androidx.constraintlayout.widget.ConstraintLayout
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                >
                 <include
                     layout="@layout/card_user_info2"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     binding:viewModel="@{viewModel}"
                     />
-            </androidx.constraintlayout.widget.ConstraintLayout>
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rv_settings"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    app:bind_data="@{viewModel.settings}"
+                    />
+
+            </LinearLayout>
 
         </androidx.cardview.widget.CardView>
 

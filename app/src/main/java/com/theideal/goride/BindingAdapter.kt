@@ -9,6 +9,7 @@ import com.theideal.goride.model.*
 import com.theideal.goride.ui.rider.CardViewAdapter
 import com.theideal.goride.ui.rider.home.services.availableTrip.AvailableDriverAdapter
 import com.theideal.goride.ui.rider.home.services.availableTrip.AvailableTripAdapter
+import timber.log.Timber
 
 
 @BindingAdapter("list_data")
@@ -27,6 +28,12 @@ fun bindRecyclerView1(recyclerView: RecyclerView, data: List<Trip>?) {
 fun bindRecyclerView2(recyclerView: RecyclerView, data: List<User>?) {
     val adapter = recyclerView.adapter as AvailableDriverAdapter
     adapter.submitList(data)
+}
+
+@BindingAdapter("bind_data")
+fun bindDataToRecyclerView(recyclerView: RecyclerView, data: List<Any>?) {
+    val adapter = recyclerView.adapter as androidx.recyclerview.widget.ListAdapter<* , *>?
+    adapter!!.submitList(data as List<Nothing>?)
 }
 
 
@@ -48,7 +55,7 @@ fun setImage(view: ImageView, user: User?) {
             .placeholder(R.drawable.vc_error)
             .into(view)
     } catch (e: Exception) {
-        e.printStackTrace()
+        Timber.e("focus"  + e)
     }
 
 }
@@ -124,14 +131,7 @@ fun textVisibility(textView: TextView, card: CardViewData?) {
     }
 }
 
-@BindingAdapter("loading_data")
-fun loadingData(progressBar: ProgressBar, name: User?) {
-    if (name!!.firstName.isEmpty()) {
-        progressBar.visibility = View.VISIBLE
-    } else {
-        progressBar.visibility = View.GONE
-    }
-}
+
 
 
 

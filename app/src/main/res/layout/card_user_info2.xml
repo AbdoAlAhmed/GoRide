@@ -31,13 +31,7 @@
                 android:gravity="center"
                 android:hint="@string/first_name"
                 android:text="@={viewModel.profileUser.firstName}" />
-            <ProgressBar
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
-                android:layout_centerVertical="true"
-                app:loading_data="@{viewModel.profileUser}"
-                />
+
 
             <de.hdodenhof.circleimageview.CircleImageView
                 android:layout_width="@dimen/width_person_image"

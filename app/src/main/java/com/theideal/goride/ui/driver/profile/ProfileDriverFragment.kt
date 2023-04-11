@@ -32,6 +32,7 @@ class ProfileDriverFragment : Fragment() {
         binding.viewModel = viewModel
         binding.lifecycleOwner = this
         viewModel.getAndUpdateUserInformation()
+        binding.rvSettings.adapter = ProfileDriverAdapter()
         return binding.root
 
     }
