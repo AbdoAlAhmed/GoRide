@@ -23,9 +23,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="8dp"
+            app:cardBackgroundColor="@color/ocean_blue"
             app:cardCornerRadius="8dp"
             app:cardElevation="4dp"
-            android:backgroundTint="@color/dark_ocean_blue"
+            app:cardUseCompatPadding="true"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
@@ -34,21 +35,17 @@
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
-                <ScrollView
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
 
-                    <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/driver_services"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:list_data="@{viewModel.homeDriverServices}"
-                        tools:listitem="@layout/card_home_rider" />
-                </ScrollView>
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/driver_services"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:list_data="@{viewModel.homeDriverServices}"
+                    tools:listitem="@layout/card_home_rider" />
 
 
             </androidx.constraintlayout.widget.ConstraintLayout>
