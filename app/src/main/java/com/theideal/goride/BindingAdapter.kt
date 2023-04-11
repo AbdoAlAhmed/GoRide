@@ -41,11 +41,16 @@ fun setImage(view: ImageView, card: CardViewData?) {
 
 @BindingAdapter("set_image_users")
 fun setImage(view: ImageView, user: User?) {
-    Glide.with(view.context)
-        .load(user!!.profileImage)
-        .centerCrop()
-        .placeholder(R.drawable.vc_error)
-        .into(view)
+    try {
+        Glide.with(view.context)
+            .load(user!!.profileImage)
+            .centerCrop()
+            .placeholder(R.drawable.vc_error)
+            .into(view)
+    } catch (e: Exception) {
+        e.printStackTrace()
+    }
+
 }
 
 @BindingAdapter("set_image_image_name")
@@ -106,18 +111,26 @@ fun setLocationText(textView: TextView, location: Location?) {
 
 @BindingAdapter("get_driver_status")
 fun getDriverStatus(switch: Switch, boolean: Boolean) {
-   switch.isChecked = boolean
+    switch.isChecked = boolean
 }
 
 @BindingAdapter("text_visibility")
 fun textVisibility(textView: TextView, card: CardViewData?) {
-    if (card!!.label.isEmpty()){
+    if (card!!.label.isEmpty()) {
         textView.visibility = View.GONE
-    }else{
+    } else {
         textView.visibility = View.VISIBLE
         textView.text = card.label
     }
+}
 
+@BindingAdapter("loading_data")
+fun loadingData(progressBar: ProgressBar, name: User?) {
+    if (name!!.firstName.isEmpty()) {
+        progressBar.visibility = View.VISIBLE
+    } else {
+        progressBar.visibility = View.GONE
+    }
 }
 
 

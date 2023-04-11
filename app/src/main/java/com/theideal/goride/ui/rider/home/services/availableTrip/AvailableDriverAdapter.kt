@@ -5,7 +5,8 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.theideal.goride.databinding.CardDetailListOfDriverBinding
+import com.theideal.goride.databinding.CardUserInfoBinding
+
 import com.theideal.goride.model.User
 
 class AvailableDriverAdapter(private val onClickListener: OnClick) :
@@ -21,7 +22,7 @@ class AvailableDriverAdapter(private val onClickListener: OnClick) :
 
     }
 
-    class ViewHolder(private val binding: CardDetailListOfDriverBinding) :
+    class ViewHolder(private val binding: CardUserInfoBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(user: User) {
             binding.user = user
@@ -33,7 +34,7 @@ class AvailableDriverAdapter(private val onClickListener: OnClick) :
         viewType: Int
     ): ViewHolder {
         return ViewHolder(
-            CardDetailListOfDriverBinding.inflate(
+            CardUserInfoBinding.inflate(
                 LayoutInflater.from(parent.context),
                 parent,
                 false

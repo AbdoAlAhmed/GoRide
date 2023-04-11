@@ -1,12 +1,13 @@
 package com.theideal.goride.ui.driver.profile
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.theideal.goride.model.User
 
 class ProfileDriverViewModel(val db: ProfileDriverFirebase) : ViewModel() {
     private var _profileUser = MutableLiveData<User>()
-    val profileUser: MutableLiveData<User>
+    val profileUser: LiveData<User>
         get() = _profileUser
 
 
