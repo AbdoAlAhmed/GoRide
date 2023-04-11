@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="viewModel"
             type="com.theideal.goride.ui.driver.DriverViewModel" />
@@ -14,20 +15,21 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".ui.driver.DriverActivity">
+
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar_driver"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
-            app:title="@string/app_name"
-            >
+            app:title="@string/app_name">
+
             <Switch
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="end"
+                android:onClick="@{() -> viewModel.changeDriverStatus()}"
                 android:text="@string/available"
                 app:get_driver_status="@{viewModel.setDriverAvailable}"
-                android:onClick="@{() -> viewModel.changeDriverStatus()}"
-                android:layout_gravity="end"
                 tools:ignore="UseSwitchCompatOrMaterialXml" />
         </androidx.appcompat.widget.Toolbar>
 
@@ -36,18 +38,18 @@
             android:name="androidx.navigation.fragment.NavHostFragment"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:defaultNavHost="true"
+            android:layout_above="@+id/bottom_app_bar_driver"
             android:layout_below="@+id/toolbar_driver"
+            app:defaultNavHost="true"
             app:navGraph="@navigation/main_driver"
-            tools:layout="@layout/fragment_home_driver"
-            />
+            tools:layout="@layout/fragment_home_driver" />
 
         <com.google.android.material.bottomnavigation.BottomNavigationView
             android:id="@+id/bottom_app_bar_driver"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="bottom"
             android:layout_alignParentBottom="true"
+            android:layout_gravity="bottom"
             android:layout_margin="5dp"
             app:menu="@menu/bottom_app_bar_driver" />
     </RelativeLayout>
