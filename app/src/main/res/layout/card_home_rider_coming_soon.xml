@@ -53,7 +53,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:clickable="false"
-                    android:text="@{Card.subTitle}"
+                    android:text="@{Card.subtitle}"
                     android:hint="@string/subtitle"
                     android:textColor="@android:color/darker_gray"
                     android:textSize="16sp" />

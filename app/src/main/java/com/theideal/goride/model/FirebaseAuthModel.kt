@@ -79,8 +79,8 @@ open class FirebaseAuthModel : ViewModel() {
 
     }
 
-    // todo fixit
-    fun getUser(callback: (User) -> Unit, vararg valueKey: String) {
+
+    fun getAndUpdateUserInfo(vararg keyValue: String, callback: (User) -> Unit) {
         val uid = auth.currentUser?.uid
         if (uid != null) {
             Timber.i(uid)
@@ -90,16 +90,13 @@ open class FirebaseAuthModel : ViewModel() {
                 .get().addOnSuccessListener {
                     for (document in it) {
                         Timber.i(document.data.toString())
-                        val data = document.toObject(User::class.java)
-                        callback(data)
-                        if (valueKey.size %2 == 0) {
-                            for (i in 0 until valueKey.size step 2) {
-                                db.collectionGroup("users_info")
-                                    .whereEqualTo("id", uid)
-                                    .whereNotEqualTo("firstName", "null")
-                                    .update(valueKey[i], valueKey[i + 1])
+                        if (keyValue.size % 2 == 0) {
+                            for (i in keyValue.indices step 2) {
+                                document.reference.update(keyValue[i], keyValue[i + 1])
                             }
                         }
+                        val data = document.toObject(User::class.java)
+                        callback(data)
                     }
                 }.addOnFailureListener {
                     Timber.i(it.toString())

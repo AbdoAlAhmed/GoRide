@@ -12,10 +12,21 @@ class DriverViewModel(private val dbFirebaseDriver: FirebaseDriver) : ViewModel(
 
 
     fun setDriverAvailable() {
-        dbFirebaseDriver.getUserInfo {
+        dbFirebaseDriver.getAndUpdateUserInformation {
             Timber.i("Driver Status: $it")
-            _setDriverAvailable.value = it == "available"
+            _setDriverAvailable.value = it.status != "not_available"
         }
+    }
+    fun changeDriverStatus() {
+       if (_setDriverAvailable.value == true) {
+           dbFirebaseDriver.getAndUpdateUserInformation ("status", "not_available") {
+               _setDriverAvailable.value = false
+           }
+       } else {
+           dbFirebaseDriver.getAndUpdateUserInformation ("status", "available") {
+               _setDriverAvailable.value = true
+           }
+       }
     }
 
 

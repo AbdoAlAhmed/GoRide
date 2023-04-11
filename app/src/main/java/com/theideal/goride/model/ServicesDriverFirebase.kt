@@ -10,7 +10,6 @@ class ServicesDriverFirebase() {
     fun getRideServicesServicesFragment(callback: (ArrayList<CardViewData>) -> Unit) {
         val listServices = ArrayList<CardViewData>()
         db.collection("features").document("driver")
-            .collection("services").document("services_fragment")
             .collection("services").get().addOnSuccessListener {
                 Timber.d("Success")
                 for (document in it) {

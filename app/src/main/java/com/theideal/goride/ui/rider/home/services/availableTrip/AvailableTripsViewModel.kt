@@ -77,7 +77,7 @@ class AvailableTripsViewModel(
     }
 
     fun getUser() {
-        authData.getUser {
+        authData.getAndUpdateUserInfo {
             _user.value = it
         }
     }
