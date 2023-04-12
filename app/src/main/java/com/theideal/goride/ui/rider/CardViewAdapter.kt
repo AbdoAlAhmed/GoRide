@@ -5,7 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.theideal.goride.databinding.CardHomeRiderBinding
+import com.theideal.goride.databinding.CardServicesBinding
 import com.theideal.goride.model.CardViewData
 
 class CardViewAdapter(private val onClickListener: OnClick) :
@@ -21,7 +21,7 @@ class CardViewAdapter(private val onClickListener: OnClick) :
 
     }
 
-    class CardViewHolder(private val binding: CardHomeRiderBinding) :
+    class CardViewHolder(private val binding: CardServicesBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(cardViewData: CardViewData) {
             binding.card = cardViewData
@@ -33,7 +33,7 @@ class CardViewAdapter(private val onClickListener: OnClick) :
         viewType: Int
     ): CardViewHolder {
         return CardViewHolder(
-            CardHomeRiderBinding.inflate(
+            CardServicesBinding.inflate(
                 LayoutInflater.from(parent.context),
                 parent, false
             )

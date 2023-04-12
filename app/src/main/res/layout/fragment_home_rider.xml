@@ -25,15 +25,12 @@
             android:id="@+id/ride_services"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:list_data="@{viewModel.rideServicesData}"
+            app:bind_data="@{viewModel.rideServicesData}"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            tools:listitem="@layout/card_home_rider"
-            />
-
-
+            tools:listitem="@layout/card_services" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

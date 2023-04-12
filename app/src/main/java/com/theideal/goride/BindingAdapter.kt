@@ -12,23 +12,6 @@ import com.theideal.goride.ui.rider.home.services.availableTrip.AvailableTripAda
 import timber.log.Timber
 
 
-@BindingAdapter("list_data")
-fun bindRecyclerView(recyclerView: RecyclerView, data: List<CardViewData>?) {
-    val adapter = recyclerView.adapter as CardViewAdapter
-    adapter.submitList(data)
-}
-
-@BindingAdapter("list_data_available_trip")
-fun bindRecyclerView1(recyclerView: RecyclerView, data: List<Trip>?) {
-    val adapter = recyclerView.adapter as AvailableTripAdapter
-    adapter.submitList(data)
-}
-
-@BindingAdapter("list_data_of_available_drivers")
-fun bindRecyclerView2(recyclerView: RecyclerView, data: List<User>?) {
-    val adapter = recyclerView.adapter as AvailableDriverAdapter
-    adapter.submitList(data)
-}
 
 @BindingAdapter("bind_data")
 fun bindDataToRecyclerView(recyclerView: RecyclerView, data: List<Any>?) {

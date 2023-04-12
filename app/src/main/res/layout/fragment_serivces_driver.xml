@@ -42,8 +42,8 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:list_data="@{viewModel.servicesDriver}"
-                    tools:listitem="@layout/card_home_rider" />
+                    app:bind_data="@{viewModel.servicesDriver}"
+                    tools:listitem="@layout/card_services" />
             </LinearLayout>
         </androidx.cardview.widget.CardView>
 

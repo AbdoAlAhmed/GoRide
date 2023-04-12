@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/error"
+    app:startDestination="@id/errorFragment">
+
+    <fragment
+        android:id="@+id/errorFragment"
+        android:name="com.theideal.goride.ui.both.ErrorFragment"
+        android:label="fragment_error"
+        tools:layout="@layout/fragment_error" />
+</navigation>

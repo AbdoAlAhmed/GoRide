@@ -46,6 +46,10 @@ class HomeDriverViewModel(private val homeDriverFragmentFirebase: HomeDriverFrag
     val navTo: LiveData<HomeDriverServices>
         get() = _navTo
 
+    private val _snackBar = MutableLiveData<String>()
+    val snackBar: LiveData<String>
+        get() = _snackBar
+
 
     init {
         _homeDriverServices.value = localData
@@ -61,17 +65,20 @@ class HomeDriverViewModel(private val homeDriverFragmentFirebase: HomeDriverFrag
 
 
     fun navTo(card: CardViewData?) {
-        when (card!!.title) {
-            "Work In A Taxi" -> {
-                _navTo.value = HomeDriverServices.WorkInATaxi
-            }
-            "Work In A Specific Trip" -> {
+        when (card!!.id) {
+            1 -> {
                 _navTo.value = HomeDriverServices.WorkInASpecificTrip
             }
-            "Trip Suggestions" -> {
+            2 -> {
                 _navTo.value = HomeDriverServices.Suggest
             }
-            else -> _navTo.value = HomeDriverServices.Error
+            3 -> {
+                _navTo.value = HomeDriverServices.WorkInATaxi
+            }
+            else -> {
+                _navTo.value = HomeDriverServices.Error
+                _snackBar.value = "Error"
+            }
         }
 
     }
@@ -80,4 +87,7 @@ class HomeDriverViewModel(private val homeDriverFragmentFirebase: HomeDriverFrag
         _navTo.value = HomeDriverServices.Done
     }
 
+    fun doneShowingSnackBar() {
+        _snackBar.value = ""
+    }
 }
