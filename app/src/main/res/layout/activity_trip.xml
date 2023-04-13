@@ -4,18 +4,20 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="viewModel"
-            type="com.theideal.goride.ui.driver.home.home_services.taxi.TaxiViewModel" />
+            type="com.theideal.goride.ui.driver.home.home_services.work_in_trip.WorkInTripViewModel" />
 
     </data>
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".ui.driver.home.home_services.taxi.TaxiActivity">
+        tools:context=".ui.driver.home.home_services.work_in_trip.WorkInTripActivity">
+
         <androidx.appcompat.widget.Toolbar
-            android:id="@+id/toolbar_driver_taxi"
+            android:id="@+id/toolbar_driver_trip"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
@@ -25,20 +27,24 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="end"
-                android:onClick="@{() -> viewModel.changeDriverStatus()}"
+                android:onClick="@{() -> viewModel.changeDriverAvailability()}"
                 android:text="@string/available"
-                app:get_driver_status="@{viewModel.setAndGetDriverAvailablity}"
+                app:get_driver_status="@{viewModel.setAndGetDriverAvailability}"
                 tools:ignore="UseSwitchCompatOrMaterialXml" />
         </androidx.appcompat.widget.Toolbar>
+
         <androidx.fragment.app.FragmentContainerView
             android:id="@+id/fragment_container_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_below="@+id/toolbar_driver_taxi"
-            android:name="androidx.navigation.fragment.NavHostFragment"
+            android:layout_below="@+id/toolbar_driver_trip"
             app:defaultNavHost="true"
-            app:navGraph="@navigation/nav_driver_taxi"
-            tools:layout="@layout/fragment_taxi"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:navGraph="@navigation/work_in_trip"
+
             />
 
     </RelativeLayout>

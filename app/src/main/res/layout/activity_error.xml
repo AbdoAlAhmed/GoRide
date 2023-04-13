@@ -15,14 +15,12 @@
         <androidx.fragment.app.FragmentContainerView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:id="@+id/error_fragment_container"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:fragment="com.example.android.navigation.ui.both.ErrorFragment"
+            android:name="androidx.navigation.fragment.NavHostFragment"
+            app:navGraph="@navigation/nav_error1"
             app:defaultNavHost="true"
-            app:navGraph="@navigation/error" />
+            android:id="@+id/container"
+            tools:layout="@layout/fragment_error"
+            />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

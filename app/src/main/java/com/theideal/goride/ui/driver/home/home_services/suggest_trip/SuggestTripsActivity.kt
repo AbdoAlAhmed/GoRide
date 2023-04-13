@@ -1,12 +1,21 @@
 package com.theideal.goride.ui.driver.home.home_services.suggest_trip
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import com.theideal.goride.R
+import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.ViewModelProvider
+import com.theideal.goride.databinding.ActivitySuggestTripsBinding
 
 class SuggestTripsActivity : AppCompatActivity() {
+    private lateinit var binding: ActivitySuggestTripsBinding
+    private lateinit var viewModel: SuggestTripsViewModel
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_suggest_trips)
+        binding = ActivitySuggestTripsBinding.inflate(layoutInflater)
+        viewModel = ViewModelProvider(this)[SuggestTripsViewModel::class.java]
+        binding.viewModel = viewModel
+        supportActionBar!!.hide()
+        setContentView(binding.root)
+
+
     }
 }

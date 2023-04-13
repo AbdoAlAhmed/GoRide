@@ -12,7 +12,7 @@ import com.theideal.goride.databinding.FragmentHomeDriverBinding
 import com.theideal.goride.ui.both.ErrorActivity
 import com.theideal.goride.ui.driver.home.home_services.suggest_trip.SuggestTripsActivity
 import com.theideal.goride.ui.driver.home.home_services.taxi.TaxiActivity
-import com.theideal.goride.ui.driver.home.home_services.work_in_specific_trip.WorkInSpecificTripActivity
+import com.theideal.goride.ui.driver.home.home_services.work_in_trip.WorkInTripActivity
 
 class HomeDriverFragment : Fragment() {
     private lateinit var binding: FragmentHomeDriverBinding
@@ -45,7 +45,7 @@ class HomeDriverFragment : Fragment() {
                     viewModel.doneNavigating()
                 }
                 HomeDriverViewModel.HomeDriverServices.WorkInASpecificTrip -> {
-                    startActivity(Intent(requireContext(), WorkInSpecificTripActivity::class.java))
+                    startActivity(Intent(requireContext(), WorkInTripActivity::class.java))
                     viewModel.doneNavigating()
 
                 }

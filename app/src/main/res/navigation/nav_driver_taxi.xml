@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_driver_taxi"
+    app:startDestination="@id/taxiFragment">
+
+    <fragment
+        android:id="@+id/taxiFragment"
+        android:name="com.theideal.goride.ui.driver.home.home_services.taxi.TaxiFragment"
+        android:label="fragment_taxi"
+        tools:layout="@layout/fragment_taxi" />
+</navigation>
