@@ -6,15 +6,12 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import com.theideal.goride.databinding.FragmentSuggestTripBinding
-import com.theideal.goride.ui.driver.home.HomeDriverFragmentFirebase
-import com.theideal.goride.ui.driver.home.HomeDriverViewModel
-import com.theideal.goride.ui.driver.home.HomeDriverViewModelFactory
+import com.theideal.goride.databinding.FragmentSuggestTripDriverBinding
 
-class SuggestTripsFragment : Fragment() {
+class SuggestTripsDriverFragment : Fragment() {
 
     private lateinit var viewModel: SuggestTripsViewModel
-    private lateinit var binding: FragmentSuggestTripBinding
+    private lateinit var binding: FragmentSuggestTripDriverBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -26,15 +23,15 @@ class SuggestTripsFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        binding = FragmentSuggestTripBinding.inflate(layoutInflater, null, false)
+        binding = FragmentSuggestTripDriverBinding.inflate(layoutInflater, null, false)
         val viewModelFactory = SuggestTripsViewModelFactory(FirebaseSuggestTrips())
         viewModel = ViewModelProvider(
             requireActivity(),
             viewModelFactory
         )[SuggestTripsViewModel::class.java]
-
-
+        viewModel.getSuggestTrips()
         binding.lifecycleOwner = this
+        binding.viewModel = viewModel
         return binding.root
     }
 

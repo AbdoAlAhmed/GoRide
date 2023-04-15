@@ -11,3 +11,4 @@ data class TripsLine(
     val HMRequest: Int,
     val IsHSupported: Boolean
 )
+// trip line status = "suggest" = pass the review waiting for support  or "review" first step  or "available" last step

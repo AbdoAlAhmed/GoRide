@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/suggestTripsFragment"
-        android:name="com.theideal.goride.ui.driver.home.home_services.suggest_trip.SuggestTripsFragment"
+        android:name="com.theideal.goride.ui.driver.home.home_services.suggest_trip.SuggestTripsDriverFragment"
         android:label="fragment_suggest_trip"
-        tools:layout="@layout/fragment_suggest_trip" />
+        tools:layout="@layout/fragment_suggest_trip_driver" />
 </navigation>

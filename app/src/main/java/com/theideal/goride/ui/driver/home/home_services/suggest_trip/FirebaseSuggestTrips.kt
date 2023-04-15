@@ -18,7 +18,7 @@ class FirebaseSuggestTrips() : FirebaseAuthModel() {
         }
     }
 
-    fun getTrips(vararg keyValue: String,callback: (ArrayList<TripsLine>) -> Unit) {
+    fun getSuggestTrips(vararg keyValue: String, callback: (ArrayList<TripsLine>) -> Unit) {
         val list = ArrayList<TripsLine>()
         db.collection("TripsLine")
             .whereNotEqualTo(keyValue[0], keyValue[1])
