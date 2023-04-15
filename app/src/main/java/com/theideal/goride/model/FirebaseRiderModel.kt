@@ -7,7 +7,7 @@ import com.google.firebase.firestore.Query
 import com.theideal.goride.utility.sendNotification
 import timber.log.Timber
 
-class FirebaseRiderModel {
+ class FirebaseRiderModel {
     private val db = FirebaseFirestore.getInstance()
 
     fun getRideServicesHome(callback: (ArrayList<CardViewData>) -> Unit) {

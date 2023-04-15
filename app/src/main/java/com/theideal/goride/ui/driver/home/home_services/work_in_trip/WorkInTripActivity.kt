@@ -14,7 +14,6 @@ class WorkInTripActivity : AppCompatActivity() {
         binding = ActivityTripBinding.inflate(layoutInflater)
         workInTripViewModel = ViewModelProvider(this)[WorkInTripViewModel::class.java]
         binding.viewModel = workInTripViewModel
-        supportActionBar!!.hide()
         setContentView(binding.root)
 
     }

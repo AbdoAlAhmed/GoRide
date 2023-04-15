@@ -5,7 +5,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import com.theideal.goride.databinding.FragmentSuggestTripBinding
+import com.theideal.goride.ui.driver.home.HomeDriverFragmentFirebase
+import com.theideal.goride.ui.driver.home.HomeDriverViewModel
+import com.theideal.goride.ui.driver.home.HomeDriverViewModelFactory
 
 class SuggestTripsFragment : Fragment() {
 
@@ -23,8 +27,13 @@ class SuggestTripsFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         binding = FragmentSuggestTripBinding.inflate(layoutInflater, null, false)
-        viewModel = SuggestTripsViewModel()
-        binding.viewModel = viewModel
+        val viewModelFactory = SuggestTripsViewModelFactory(FirebaseSuggestTrips())
+        viewModel = ViewModelProvider(
+            requireActivity(),
+            viewModelFactory
+        )[SuggestTripsViewModel::class.java]
+
+
         binding.lifecycleOwner = this
         return binding.root
     }

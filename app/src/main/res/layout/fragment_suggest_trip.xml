@@ -5,8 +5,8 @@
     <data>
 
         <variable
-            name="viewModel"
-            type="com.theideal.goride.ui.driver.home.home_services.suggest_trip.SuggestTripsViewModel" />
+            name="viewModelDriverHome"
+            type="com.theideal.goride.ui.driver.DriverViewModel" />
     </data>
 
     <FrameLayout

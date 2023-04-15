@@ -8,15 +8,6 @@ class DriverHomeActivityFirebase() : FirebaseAuthModel() {
     private val db = FirebaseFirestore.getInstance()
 
 
-    fun getAndUpdateUserInformation(vararg keyValue: String, callback: (User) -> Unit) {
-        if (keyValue.size % 2 != 0) {
-            throw IllegalArgumentException("keyValue must be even")
-        } else {
-            getAndUpdateUserInfo(*keyValue) {
-                callback(it)
-            }
-        }
 
-    }
 
 }

@@ -59,6 +59,9 @@
     <string name="car_info">Car Info</string>
     <string name="setting_">setting</string>
     <string name="under_development">Under Development</string>
+    <string name="from_sadat_city">From: Sadat city</string>
+    <string name="to_badr_city">To: Badr city</string>
+    <string name="_100">100</string>
     <array name="vehicle_type">
         <item>Taxi</item>
         <item>Bus</item>

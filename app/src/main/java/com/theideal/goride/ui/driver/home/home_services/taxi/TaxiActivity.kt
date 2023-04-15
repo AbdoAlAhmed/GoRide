@@ -11,7 +11,6 @@ class TaxiActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityTaxiBinding.inflate(layoutInflater)
-        supportActionBar!!.hide()
         taxiViewModel = ViewModelProvider(this)[TaxiViewModel::class.java]
         binding.viewModel = taxiViewModel
         setContentView(binding.root)

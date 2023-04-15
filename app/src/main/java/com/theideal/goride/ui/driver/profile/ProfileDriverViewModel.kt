@@ -34,7 +34,7 @@ class ProfileDriverViewModel(val db: ProfileDriverFirebase) : ViewModel() {
         if (keyValue.size % 2 != 0) {
             throw IllegalArgumentException("keyValue must be even")
         } else {
-            db.getAndUpdateUserInformation(*keyValue) {
+            db.getAndUpdateUserInfo(*keyValue) {
                 _profileUser.value = it
             }
         }
