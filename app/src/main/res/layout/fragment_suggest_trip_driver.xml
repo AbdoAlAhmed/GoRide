@@ -10,7 +10,7 @@
             type="com.theideal.goride.ui.driver.home.home_services.suggest_trip.SuggestTripsViewModel" />
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".ui.driver.home.home_services.suggest_trip.SuggestTripsDriverFragment">
@@ -18,14 +18,15 @@
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_above="@+id/fab_suggest_trip_driver"
+            android:layout_alignParentTop="true"
             android:layout_margin="4dp"
-            app:cardBackgroundColor="@color/dark_ocean_blue"
+            app:cardBackgroundColor="@color/ocean_blue"
             app:cardCornerRadius="8dp"
             app:cardElevation="2dp"
-            app:cardUseCompatPadding="true"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            app:cardUseCompatPadding="true">
+
+
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
@@ -42,6 +43,14 @@
 
         </androidx.cardview.widget.CardView>
 
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fab_suggest_trip_driver"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:onClick="@{() -> viewModel.addDialog()}"
+            android:src="@drawable/vc_add" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    </RelativeLayout>
 </layout>

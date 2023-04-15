@@ -3,19 +3,17 @@ package com.theideal.goride
 import android.view.View
 import android.widget.*
 import androidx.databinding.BindingAdapter
+import androidx.databinding.InverseBindingAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.google.android.material.textfield.TextInputEditText
 import com.theideal.goride.model.*
-import com.theideal.goride.ui.rider.CardViewAdapter
-import com.theideal.goride.ui.rider.home.services.availableTrip.AvailableDriverAdapter
-import com.theideal.goride.ui.rider.home.services.availableTrip.AvailableTripAdapter
 import timber.log.Timber
-
 
 
 @BindingAdapter("bind_data")
 fun bindDataToRecyclerView(recyclerView: RecyclerView, data: List<Any>?) {
-    val adapter = recyclerView.adapter as androidx.recyclerview.widget.ListAdapter<* , *>?
+    val adapter = recyclerView.adapter as androidx.recyclerview.widget.ListAdapter<*, *>?
     adapter!!.submitList(data as List<Nothing>?)
 }
 
@@ -38,7 +36,7 @@ fun setImage(view: ImageView, user: User?) {
             .placeholder(R.drawable.vc_error)
             .into(view)
     } catch (e: Exception) {
-        Timber.e("focus"  + e)
+        Timber.e("focus" + e)
     }
 
 }
@@ -123,6 +121,17 @@ fun isHSupported(view: View, boolean: Boolean) {
     }
 }
 
+@BindingAdapter("text_int")
+fun textInt(textView: TextView, int: Int) {
+    textView.text = int.toString()
+}
 
-
-
+@BindingAdapter("doubleText")
+fun textDouble(textView: TextView, value: Double) {
+    textView.text = value.toString()
+}
+@InverseBindingAdapter(attribute = "doubleText")
+fun getText(view: TextInputEditText): Double {
+    val text = view.text.toString()
+    return if (text.isEmpty()) 0.0 else text.toDouble()
+}

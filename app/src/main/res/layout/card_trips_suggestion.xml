@@ -44,16 +44,6 @@
                 app:layout_constraintTop_toBottomOf="@+id/tv_from_card"
                 app:set_location_text="@{tripsLine.endDestination}" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:hint="@string/_100"
-                android:text="@{tripsLine.HMRequest}"
-                android:textSize="16sp"
-                app:layout_constraintEnd_toStartOf="@id/btn_add_card"
-                app:layout_constraintStart_toEndOf="@id/tv_from_card"
-                app:layout_constraintTop_toTopOf="parent" />
-            />
 
             <ImageButton
                 android:id="@+id/btn_add_card"
@@ -64,7 +54,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <ImageButton
+            <ImageView
                 android:id="@+id/btn_add_card_support"
                 android:layout_width="40dp"
                 android:layout_height="40dp"

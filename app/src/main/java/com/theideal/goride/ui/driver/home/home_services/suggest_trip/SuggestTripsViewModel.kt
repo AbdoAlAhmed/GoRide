@@ -18,6 +18,10 @@ class SuggestTripsViewModel(private val db: FirebaseSuggestTrips) : ViewModel() 
     val listOfSuggestTrips: LiveData<ArrayList<TripsLine>>
         get() = _listOFSuggestTrips
 
+    private val _addDialog = MutableLiveData<Boolean>()
+    val addDialog: LiveData<Boolean>
+        get() = _addDialog
+
     fun getAndUpdateUserInfo() {
         db.getAndUpdateUserInfo {
             _userInfo.value = it
@@ -31,5 +35,12 @@ class SuggestTripsViewModel(private val db: FirebaseSuggestTrips) : ViewModel() 
         }
     }
 
+    fun addDialog() {
+        _addDialog.value = true
+    }
+
+    fun addDialogDone() {
+        _addDialog.value = false
+    }
 
 }
