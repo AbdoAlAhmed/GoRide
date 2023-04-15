@@ -7,11 +7,14 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.theideal.goride.databinding.FragmentSuggestTripDriverBinding
+import com.theideal.goride.model.TripsLine
+import timber.log.Timber
 
 class SuggestTripsDriverFragment : Fragment() {
 
     private lateinit var viewModel: SuggestTripsViewModel
     private lateinit var binding: FragmentSuggestTripDriverBinding
+    private val tripsLine = TripsLine()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,8 +33,12 @@ class SuggestTripsDriverFragment : Fragment() {
             viewModelFactory
         )[SuggestTripsViewModel::class.java]
         viewModel.getSuggestTrips()
-        binding.lifecycleOwner = this
         binding.viewModel = viewModel
+        binding.lifecycleOwner = this
+        binding.rvSuggestTrips.adapter = SuggestTripsAdapter(SuggestTripsAdapter.OnClick {
+
+        })
+        Timber.i("onCreateView")
         return binding.root
     }
 

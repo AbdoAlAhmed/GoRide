@@ -12,19 +12,19 @@ class SuggestTripsAdapter(private val onClick: OnClick) :
     ListAdapter<TripsLine, SuggestTripsAdapter.SuggestTripsViewHolder>(TripsLineDiffCallback) {
     object TripsLineDiffCallback : DiffUtil.ItemCallback<TripsLine>() {
         override fun areItemsTheSame(oldItem: TripsLine, newItem: TripsLine): Boolean {
-            return oldItem.tripsLineId == newItem.tripsLineId
+            return oldItem == newItem
         }
 
         override fun areContentsTheSame(oldItem: TripsLine, newItem: TripsLine): Boolean {
-            return oldItem == newItem
+            return oldItem.tripsLineId == newItem.tripsLineId
         }
     }
 
-    class SuggestTripsViewHolder(val binding: CardTripsSuggestionBinding) :
+    class SuggestTripsViewHolder(private val binding: CardTripsSuggestionBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(tripsLine: TripsLine) {
             binding.tripsLine = tripsLine
-            binding.executePendingBindings()
+
         }
 
     }

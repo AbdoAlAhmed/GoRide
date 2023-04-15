@@ -26,6 +26,5 @@ class SuggestTripsActivity : AppCompatActivity() {
         binding.lifecycleOwner = this
         setContentView(binding.root)
 
-
     }
 }

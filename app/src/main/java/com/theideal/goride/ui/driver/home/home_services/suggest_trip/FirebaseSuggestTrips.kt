@@ -9,7 +9,6 @@ class FirebaseSuggestTrips() : FirebaseAuthModel() {
     private val db = FirebaseFirestore.getInstance()
 
 
-
     fun addTrips(trips: TripsLine, result: (Boolean) -> Unit) {
         db.collection("TripsLine").add(trips).addOnSuccessListener {
             db.collection("TripsLine").get().addOnSuccessListener { result ->
@@ -19,17 +18,20 @@ class FirebaseSuggestTrips() : FirebaseAuthModel() {
     }
 
     fun getSuggestTrips(vararg keyValue: String, callback: (ArrayList<TripsLine>) -> Unit) {
+        Timber.i("getSuggestTrips + ${keyValue[0]} + ${keyValue[1]}")
         val list = ArrayList<TripsLine>()
-        db.collection("TripsLine")
-            .whereNotEqualTo(keyValue[0], keyValue[1])
+        db.collection("trips_line")
+            .whereEqualTo(keyValue[0], keyValue[1])
             .get().addOnSuccessListener { result ->
-            for (document in result) {
-                val data = document.toObject(TripsLine::class.java)
-                list.add(data)
-                Timber.i(document.data.toString())
+                for (document in result) {
+                    val data = document.toObject(TripsLine::class.java)
+                    list.add(data)
+                    Timber.i(document.data.toString())
+                }
+                callback(list)
+            }.addOnFailureListener {
+                Timber.i("error")
             }
-            callback(list)
-        }
     }
 
 }
