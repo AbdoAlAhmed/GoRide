@@ -2,7 +2,7 @@ package com.theideal.goride.model
 
 data class TripsLine(
     val tripsLineId: Int,
-    var startDestination: Location,
+    val startDestination: Location,
     var endDestination: Location,
     val fare: Double,
     val duration: String,

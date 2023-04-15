@@ -114,7 +114,14 @@ fun textVisibility(textView: TextView, card: CardViewData?) {
     }
 }
 
-
+@BindingAdapter("isHSupported")
+fun isHSupported(view: View, boolean: Boolean) {
+    if (boolean) {
+        view.visibility = View.VISIBLE
+    } else {
+        view.visibility = View.GONE
+    }
+}
 
 
 
