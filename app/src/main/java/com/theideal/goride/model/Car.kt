@@ -8,9 +8,9 @@ data class Car(
     var carColor: String = "",
     var seats: String = "",
     var status: String,
-    var workInLine: Boolean = false,
+    var workInLine: ArrayList<String>,
 ) {
-    constructor() : this("", "", "","", "", "", "")
+    constructor() : this("", "", "", "", "", "", "", arrayListOf())
 }
 
 data class DriverHistory(

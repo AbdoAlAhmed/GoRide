@@ -111,10 +111,11 @@ fun textVisibility(textView: TextView, card: CardViewData?) {
     }
 }
 
-@BindingAdapter("isHSupported")
-fun isHSupported(check: CheckBox, boolean: Boolean) {
-    check.isChecked = boolean
+@BindingAdapter("isChecked")
+fun isChecked(check: CheckBox, isChecked: Boolean) {
+    check.isChecked = isChecked
 }
+
 
 @BindingAdapter("text_int")
 fun textInt(textView: TextView, int: Int) {

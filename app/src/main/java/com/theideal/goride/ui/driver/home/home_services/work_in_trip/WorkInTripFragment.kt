@@ -26,6 +26,7 @@ class WorkInTripFragment : Fragment() {
         viewModelFactory =
             WorkInTripFragmentViewModelFactory(WorkInTripFirebase(), requireActivity().application)
         viewModel = viewModelFactory.create(WorkInTripFragmentViewModel::class.java)
+        viewModel.userInfo()
         viewModel.getTripData()
 
 

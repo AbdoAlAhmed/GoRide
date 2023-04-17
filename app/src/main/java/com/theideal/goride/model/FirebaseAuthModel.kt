@@ -15,6 +15,7 @@ open class FirebaseAuthModel : ViewModel() {
     private val db = FirebaseFirestore.getInstance()
     private val dbRef = db.collection("users")
     private val auth = FirebaseAuth.getInstance()
+    val userId = auth.currentUser?.uid
     private val storage = Firebase.storage.reference
 
 

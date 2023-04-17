@@ -1,7 +1,7 @@
 package com.theideal.goride.model
 
 data class TripsLine(
-    val tripsLineId: Int,
+    val tripsLineId: String,
     val startDestination: Location,
     val endDestination: Location,
     var fare: String,
@@ -12,6 +12,6 @@ data class TripsLine(
     val IsHSupported: Boolean
 
 ) {
-    constructor() : this(0, Location(), Location(), "", "", "", "", 0, false)
+    constructor() : this("", Location(), Location(), "", "", "", "", 0, false)
 }
 // trip line status = "suggest" = pass the review waiting for support  or "review" first step  or "available" last step
