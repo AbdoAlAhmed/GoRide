@@ -7,7 +7,7 @@
 
         <variable
             name="viewModel"
-            type="com.theideal.goride.ui.driver.home.home_services.work_in_trip.WorkInTripViewModel" />
+            type="com.theideal.goride.ui.driver.home.home_services.work_in_trip.WorkInTripActivityViewModel" />
         <variable
             name="viewModelDriver"
             type="com.theideal.goride.ui.driver.DriverViewModel" />

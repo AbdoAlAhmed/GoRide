@@ -9,18 +9,18 @@ import com.theideal.goride.ui.driver.DriverViewModel
 import com.theideal.goride.ui.driver.DriverViewModelFactory
 
 class WorkInTripActivity : AppCompatActivity() {
-    private lateinit var workInTripViewModel: WorkInTripViewModel
+    private lateinit var workInTripActivityViewModel: WorkInTripActivityViewModel
     private lateinit var homeDriverViewModel: DriverViewModel
     private lateinit var binding: ActivityTripBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityTripBinding.inflate(layoutInflater)
-        workInTripViewModel = ViewModelProvider(this)[WorkInTripViewModel::class.java]
+        workInTripActivityViewModel = ViewModelProvider(this)[WorkInTripActivityViewModel::class.java]
         val viewModelFactory = DriverViewModelFactory(DriverHomeActivityFirebase())
         homeDriverViewModel =
             ViewModelProvider(this, viewModelFactory)[(DriverViewModel::class.java)]
         homeDriverViewModel.setDriverAvailable()
-        binding.viewModel = workInTripViewModel
+        binding.viewModel = workInTripActivityViewModel
         binding.viewModelDriver = homeDriverViewModel
         binding.lifecycleOwner = this
         setContentView(binding.root)
