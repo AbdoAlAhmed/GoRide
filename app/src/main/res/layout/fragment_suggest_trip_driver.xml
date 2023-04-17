@@ -10,21 +10,23 @@
             type="com.theideal.goride.ui.driver.home.home_services.suggest_trip.SuggestTripsViewModel" />
     </data>
 
-    <RelativeLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".ui.driver.home.home_services.suggest_trip.SuggestTripsDriverFragment">
 
         <androidx.cardview.widget.CardView
+            android:id="@+id/card_suggest_trips"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_above="@+id/fab_suggest_trip_driver"
-            android:layout_alignParentTop="true"
             android:layout_margin="4dp"
             app:cardBackgroundColor="@color/ocean_blue"
             app:cardCornerRadius="8dp"
             app:cardElevation="2dp"
-            app:cardUseCompatPadding="true">
+            app:cardUseCompatPadding="true"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
 
             <androidx.constraintlayout.widget.ConstraintLayout
@@ -47,10 +49,12 @@
             android:id="@+id/fab_suggest_trip_driver"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_centerHorizontal="true"
+            android:layout_margin="16dp"
             android:onClick="@{() -> viewModel.addDialog()}"
-            android:src="@drawable/vc_add" />
+            android:src="@drawable/vc_add"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
 
-    </RelativeLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

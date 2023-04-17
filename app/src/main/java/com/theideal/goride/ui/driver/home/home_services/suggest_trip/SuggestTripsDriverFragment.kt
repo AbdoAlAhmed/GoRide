@@ -10,7 +10,6 @@ import androidx.lifecycle.ViewModelProvider
 import com.theideal.goride.databinding.DialogSuggestTripBinding
 import com.theideal.goride.databinding.FragmentSuggestTripDriverBinding
 import com.theideal.goride.model.TripsLine
-import timber.log.Timber
 
 class SuggestTripsDriverFragment : Fragment() {
 
@@ -54,7 +53,14 @@ class SuggestTripsDriverFragment : Fragment() {
         val view = DialogSuggestTripBinding.inflate(layoutInflater, null, false)
         createDialog.setView(view.root)
         view.tripsLine = tripsLine
+        view.viewModel = viewModel
+        view.lifecycleOwner = this
         createDialog.show()
+        viewModel.addDialog.observe(viewLifecycleOwner) {
+            if (!it) {
+                createDialog.dismiss()
+            }
+        }
     }
 
 

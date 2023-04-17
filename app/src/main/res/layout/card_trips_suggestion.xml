@@ -45,23 +45,16 @@
                 app:set_location_text="@{tripsLine.endDestination}" />
 
 
-            <ImageButton
+            <TextView
                 android:id="@+id/btn_add_card"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:src="@drawable/vc_add"
-                app:isHSupported="@{!tripsLine.isHSupported}"
+                android:hint="@string/fare_example"
+                android:text="@{tripsLine.fare}"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <ImageView
-                android:id="@+id/btn_add_card_support"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:src="@drawable/vc_check"
-                app:isHSupported="@{tripsLine.isHSupported}"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </com.google.android.material.card.MaterialCardView>

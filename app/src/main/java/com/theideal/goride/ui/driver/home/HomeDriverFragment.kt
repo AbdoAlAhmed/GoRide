@@ -11,7 +11,6 @@ import com.google.android.material.snackbar.Snackbar
 import com.theideal.goride.databinding.FragmentHomeDriverBinding
 import com.theideal.goride.ui.both.ErrorActivity
 import com.theideal.goride.ui.driver.home.home_services.suggest_trip.SuggestTripsActivity
-import com.theideal.goride.ui.driver.home.home_services.taxi.TaxiActivity
 import com.theideal.goride.ui.driver.home.home_services.work_in_trip.WorkInTripActivity
 
 class HomeDriverFragment : Fragment() {
@@ -24,7 +23,8 @@ class HomeDriverFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         binding = FragmentHomeDriverBinding.inflate(layoutInflater, null, false)
-        val vieModelFactory = HomeDriverViewModelFactory(HomeDriverFragmentFirebase())
+        val vieModelFactory =
+            HomeDriverViewModelFactory(HomeDriverFragmentFirebase(), requireActivity().application)
         viewModel =
             ViewModelProvider(requireActivity(), vieModelFactory)[HomeDriverViewModel::class.java]
         binding.viewModel = viewModel
@@ -37,8 +37,7 @@ class HomeDriverFragment : Fragment() {
         viewModel.navTo.observe(viewLifecycleOwner) {
             when (it) {
                 HomeDriverViewModel.HomeDriverServices.WorkInATaxi -> {
-                    startActivity(Intent(requireContext(), TaxiActivity::class.java))
-                    viewModel.doneNavigating()
+
                 }
                 HomeDriverViewModel.HomeDriverServices.Suggest -> {
                     startActivity(Intent(requireContext(), SuggestTripsActivity::class.java))
@@ -55,19 +54,16 @@ class HomeDriverFragment : Fragment() {
 
                 }
                 else -> {
-                    viewModel.snackBar.observe(viewLifecycleOwner) {
-                        if (it != null) {
-                            Snackbar.make(binding.root, it, Snackbar.LENGTH_SHORT).show()
-                            viewModel.doneShowingSnackBar()
-                        }
-                    }
-
                 }
-
+            }
+            viewModel.snackBar.observe(viewLifecycleOwner) { message ->
+                if (message != null) {
+                    Snackbar.make(binding.root, message, Snackbar.LENGTH_SHORT).show()
+                }
             }
         }
         return binding.root
-
-
     }
+
+
 }

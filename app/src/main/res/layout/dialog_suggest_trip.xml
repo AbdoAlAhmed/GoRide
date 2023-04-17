@@ -7,6 +7,9 @@
         <variable
             name="tripsLine"
             type="com.theideal.goride.model.TripsLine" />
+        <variable
+            name="viewModel"
+            type="com.theideal.goride.ui.driver.home.home_services.suggest_trip.SuggestTripsViewModel" />
 
     </data>
 
@@ -46,19 +49,21 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <com.google.android.material.textfield.TextInputEditText
+            <EditText
                 android:id="@+id/et_fare"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:inputType="numberDecimal"
                 android:hint="@string/fare_example"
-                app:doubleText="@{tripsLine.fare}"/>
+                android:inputType="numberDecimal"
+                android:text="@={tripsLine.fare}" />
+
         </com.google.android.material.textfield.TextInputLayout>
 
         <Button
             android:id="@+id/btn_save_suggest_trip"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:onClick="@{() -> viewModel.addSuggestTrip(tripsLine)}"
             android:text="@string/save"
             android:textColor="@color/black" />
     </LinearLayout>

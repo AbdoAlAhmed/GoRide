@@ -6,7 +6,6 @@ import androidx.databinding.BindingAdapter
 import androidx.databinding.InverseBindingAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.google.android.material.textfield.TextInputEditText
 import com.theideal.goride.model.*
 import timber.log.Timber
 
@@ -126,12 +125,20 @@ fun textInt(textView: TextView, int: Int) {
     textView.text = int.toString()
 }
 
-@BindingAdapter("doubleText")
-fun textDouble(textView: TextView, value: Double) {
-    textView.text = value.toString()
+@BindingAdapter("text_double")
+fun setTextDouble(view: EditText, value: Double?) {
+    view.setText(value?.toString())
 }
-@InverseBindingAdapter(attribute = "doubleText")
-fun getText(view: TextInputEditText): Double {
+
+@InverseBindingAdapter(attribute = "text_double" )
+fun getTextDouble(view: EditText): Double {
     val text = view.text.toString()
-    return if (text.isEmpty()) 0.0 else text.toDouble()
+    return if (text.isNotEmpty()) text.toDouble() else 0.0
+}
+
+
+@InverseBindingAdapter(attribute = "android:text")
+fun getTextDouble2(view: EditText): Double {
+    val text = view.text.toString()
+    return if (text.isNotEmpty()) text.toDouble() else 0.0
 }

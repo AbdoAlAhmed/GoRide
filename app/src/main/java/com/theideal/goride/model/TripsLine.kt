@@ -4,7 +4,7 @@ data class TripsLine(
     val tripsLineId: Int,
     val startDestination: Location,
     val endDestination: Location,
-    var fare: Double,
+    var fare: String,
     val duration: String,
     val distance: String,
     val tripsLineStatus: String,
@@ -12,6 +12,6 @@ data class TripsLine(
     val IsHSupported: Boolean
 
 ) {
-    constructor() : this(0, Location(), Location(), 0.00, "", "", "", 0, false)
+    constructor() : this(0, Location(), Location(), "", "", "", "", 0, false)
 }
 // trip line status = "suggest" = pass the review waiting for support  or "review" first step  or "available" last step

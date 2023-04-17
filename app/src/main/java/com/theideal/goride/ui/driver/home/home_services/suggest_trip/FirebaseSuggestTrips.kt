@@ -1,5 +1,6 @@
 package com.theideal.goride.ui.driver.home.home_services.suggest_trip
 
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.theideal.goride.model.FirebaseAuthModel
 import com.theideal.goride.model.TripsLine
@@ -9,11 +10,11 @@ class FirebaseSuggestTrips() : FirebaseAuthModel() {
     private val db = FirebaseFirestore.getInstance()
 
 
-    fun addTrips(trips: TripsLine, result: (Boolean) -> Unit) {
-        db.collection("TripsLine").add(trips).addOnSuccessListener {
-            db.collection("TripsLine").get().addOnSuccessListener { result ->
-                result(!result.isEmpty)
-            }
+    fun addTrips(trips: TripsLine) {
+        db.collection("trips_line").add(trips).addOnSuccessListener {
+            Timber.i("addTrips success")
+        }.addOnFailureListener {
+            Timber.i("addTrips error")
         }
     }
 
