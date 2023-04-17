@@ -17,12 +17,10 @@
 
         <androidx.cardview.widget.CardView
             android:id="@+id/card_suggest_trips"
+            style="@style/CardContainer"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="4dp"
-            app:cardBackgroundColor="@color/ocean_blue"
-            app:cardCornerRadius="8dp"
-            app:cardElevation="2dp"
             app:cardUseCompatPadding="true"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

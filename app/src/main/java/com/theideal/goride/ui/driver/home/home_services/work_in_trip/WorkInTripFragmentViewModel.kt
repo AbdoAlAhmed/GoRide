@@ -19,5 +19,6 @@ class WorkInTripFragmentViewModel(
         db.getTripData { tripsLineList ->
             _tripsLineList.value = tripsLineList
         }
+        db.setDriverWorkInTrip("carId" to "1", "carStatus" to "busy")
     }
 }

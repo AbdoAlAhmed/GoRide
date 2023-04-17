@@ -112,12 +112,8 @@ fun textVisibility(textView: TextView, card: CardViewData?) {
 }
 
 @BindingAdapter("isHSupported")
-fun isHSupported(view: View, boolean: Boolean) {
-    if (boolean) {
-        view.visibility = View.VISIBLE
-    } else {
-        view.visibility = View.GONE
-    }
+fun isHSupported(check: CheckBox, boolean: Boolean) {
+    check.isChecked = boolean
 }
 
 @BindingAdapter("text_int")
@@ -130,7 +126,7 @@ fun setTextDouble(view: EditText, value: Double?) {
     view.setText(value?.toString())
 }
 
-@InverseBindingAdapter(attribute = "text_double" )
+@InverseBindingAdapter(attribute = "text_double")
 fun getTextDouble(view: EditText): Double {
     val text = view.text.toString()
     return if (text.isNotEmpty()) text.toDouble() else 0.0
