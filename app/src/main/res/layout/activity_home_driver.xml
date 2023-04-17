@@ -28,8 +28,8 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="end"
                 android:onClick="@{() -> viewModel.changeDriverStatus()}"
-                android:text="@string/available"
                 app:get_driver_status="@{viewModel.setDriverAvailable}"
+                android:text="@string/available"
                 tools:ignore="UseSwitchCompatOrMaterialXml" />
         </androidx.appcompat.widget.Toolbar>
 

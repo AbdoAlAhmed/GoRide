@@ -24,7 +24,7 @@ class SuggestTripsAdapter(private val onClick: OnClick) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(tripsLine: TripsLine) {
             binding.tripsLine = tripsLine
-
+            binding.executePendingBindings()
         }
 
     }

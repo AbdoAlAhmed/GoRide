@@ -8,6 +8,9 @@
         <variable
             name="viewModel"
             type="com.theideal.goride.ui.driver.home.home_services.work_in_trip.WorkInTripViewModel" />
+        <variable
+            name="viewModelDriver"
+            type="com.theideal.goride.ui.driver.DriverViewModel" />
 
     </data>
 
@@ -27,9 +30,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="end"
-                android:onClick="@{() -> viewModel.changeDriverAvailability()}"
+                android:onClick="@{() -> viewModelDriver.changeDriverStatus()}"
+                app:get_driver_status="@{viewModelDriver.setDriverAvailable}"
                 android:text="@string/available"
-                app:get_driver_status="@{viewModel.setAndGetDriverAvailability}"
                 tools:ignore="UseSwitchCompatOrMaterialXml" />
         </androidx.appcompat.widget.Toolbar>
 
