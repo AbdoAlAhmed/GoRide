@@ -8,12 +8,9 @@
             name="tripsLine"
             type="com.theideal.goride.model.TripsLine" />
 
-        <variable
-            name="viewModel"
-            type="com.theideal.goride.ui.driver.home.home_services.work_in_trip.WorkInTripFragmentViewModel" />
-
 
     </data>
+
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -54,8 +51,6 @@
             android:id="@+id/item_checkbox"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:onClick="@{() -> viewModel.addAndRemoveTrip(tripsLine)}"
-            app:isChecked="@{viewModel.isChecked}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>

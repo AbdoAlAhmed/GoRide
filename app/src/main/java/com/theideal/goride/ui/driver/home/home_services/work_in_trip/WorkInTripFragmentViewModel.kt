@@ -8,6 +8,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.theideal.goride.model.TripsLine
 import com.theideal.goride.model.User
+import timber.log.Timber
 
 class WorkInTripFragmentViewModel(
     private val db: WorkInTripFirebase,
@@ -15,7 +16,7 @@ class WorkInTripFragmentViewModel(
 ) : ViewModel() {
 
     private val _tripsLineList = MutableLiveData<ArrayList<TripsLine>>()
-    val tripsLineList: MutableLiveData<ArrayList<TripsLine>>
+    val tripsLineList: LiveData<ArrayList<TripsLine>>
         get() = _tripsLineList
 
     private val _userInfo = MutableLiveData<User>()
@@ -28,9 +29,11 @@ class WorkInTripFragmentViewModel(
 
     init {
         _isChecked.value = false
+        Timber.i("WorkInTripFragmentViewModel created!")
     }
 
     fun getTripData() {
+        Timber.i("getTripData")
         db.getTripData { tripsLineList ->
             _tripsLineList.value = tripsLineList
         }
@@ -43,13 +46,15 @@ class WorkInTripFragmentViewModel(
     }
 
 
-    @RequiresApi(Build.VERSION_CODES.N)
     fun addAndRemoveTrip(tripsLine: TripsLine) {
+        Timber.i("addAndRemoveTrip")
         if (_isChecked.value == true) {
             db.addTrip(tripsLine.tripsLineId)
+            Timber.i("addTrip")
 
         } else {
             db.removeTrip(tripsLine.tripsLineId)
+            Timber.i("removeTrip")
         }
     }
 }

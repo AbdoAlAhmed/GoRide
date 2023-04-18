@@ -1,14 +1,15 @@
 package com.theideal.goride.ui.driver.home.home_services.work_in_trip
 
-import android.os.Build
-import androidx.annotation.RequiresApi
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import com.google.firebase.FirebaseException
 import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.SetOptions
 import com.theideal.goride.model.CheckBoxForChooseTrip
 import com.theideal.goride.model.FirebaseAuthModel
 import com.theideal.goride.model.TripsLine
+import timber.log.Timber
 
 class WorkInTripFirebase : FirebaseAuthModel() {
     private val db = FirebaseFirestore.getInstance()
@@ -25,6 +26,7 @@ class WorkInTripFirebase : FirebaseAuthModel() {
                 for (document in result) {
                     val tripsLine = document.toObject(TripsLine::class.java)
                     tripsLineList.add(tripsLine)
+                    Timber.d("tripsLineList $tripsLineList")
                 }
                 callback(tripsLineList)
             }
@@ -33,7 +35,6 @@ class WorkInTripFirebase : FirebaseAuthModel() {
             }
     }
 
-    // todo i'm here 
 
     private fun setDriverWorkInTrip(): LiveData<List<CheckBoxForChooseTrip>> {
         val listOfCheckTrip = MutableLiveData<List<CheckBoxForChooseTrip>>()
@@ -50,18 +51,28 @@ class WorkInTripFirebase : FirebaseAuthModel() {
         return listOfCheckTrip
     }
 
-    @RequiresApi(Build.VERSION_CODES.N)
-    fun addTrip(vararg trip: String) {
-        val trip = setDriverWorkInTrip()
+    fun addTrip(vararg tripid: String) {
+
         dbRef.get().addOnSuccessListener {
-            it.documents[0].reference.update("workInLine", FieldValue.arrayUnion(trip))
+            Timber.i(userId)
+//            it.documents[0].reference.update("workInLine", FieldValue.arrayUnion(tripid))
         }
     }
 
-    fun removeTrip(vararg trip: String) {
-        val trip = setDriverWorkInTrip()
-        dbRef.get().addOnSuccessListener {
-            it.documents[0].reference.update("workInLine", FieldValue.arrayRemove(trip))
+    fun removeTrip(tripid: String) {
+        val list = listOf(tripid)
+        val map = hashMapOf(
+            "workInLine" to tripid
+        )
+        try {
+            dbRef.get().addOnSuccessListener {
+                it.documents[0].reference.set(map, SetOptions.merge())
+            }
+
+        } catch (e: FirebaseException) {
+            println("Error updating document $e")
+        } catch (e: Exception) {
+            println("Error updating document $e")
         }
     }
 

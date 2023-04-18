@@ -5,12 +5,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import com.theideal.goride.databinding.FragmentWorkInTripBinding
 
 class WorkInTripFragment : Fragment() {
     private lateinit var binding: FragmentWorkInTripBinding
     private lateinit var viewModel: WorkInTripFragmentViewModel
-    private lateinit var viewModelFactory: WorkInTripFragmentViewModelFactory
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -23,11 +24,20 @@ class WorkInTripFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         binding = FragmentWorkInTripBinding.inflate(inflater, container, false)
-        viewModelFactory =
+        val viewModelFactory =
             WorkInTripFragmentViewModelFactory(WorkInTripFirebase(), requireActivity().application)
-        viewModel = viewModelFactory.create(WorkInTripFragmentViewModel::class.java)
+        viewModel =
+            ViewModelProvider(
+                requireActivity(),
+                viewModelFactory
+            )[WorkInTripFragmentViewModel::class.java]
         viewModel.userInfo()
         viewModel.getTripData()
+        binding.viewModel = viewModel
+        binding.lifecycleOwner = this
+        binding.rvTripsLine.adapter = WorkInTripAdapter(WorkInTripAdapter.OnClickListener {
+            viewModel.addAndRemoveTrip(it)
+        })
 
 
         return binding.root
