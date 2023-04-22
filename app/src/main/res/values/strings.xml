@@ -68,6 +68,11 @@
     <string name="fare_example">Fare: 5.00</string>
     <string name="save">save</string>
     <string name="_error">Error</string>
+    <string name="_next">Next</string>
+    <string name="_add">Add</string>
+    <string name="_delete">Delete</string>
+    <string name="you_are_working_in_the_following_trips">You are working in the following trips:</string>
+    <string name="choose_the_trip_you_want_to_work_in">Choose the trip you want to work in</string>
     <array name="vehicle_type">
         <item>Taxi</item>
         <item>Bus</item>

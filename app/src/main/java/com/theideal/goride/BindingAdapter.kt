@@ -112,8 +112,8 @@ fun textVisibility(textView: TextView, card: CardViewData?) {
 }
 
 @BindingAdapter("isChecked")
-fun isChecked(check: CheckBox, isChecked: Boolean) {
-    check.isChecked = isChecked
+fun isChecked(check: CheckBox, isChecked2: TripsLine) {
+    check.isChecked = isChecked2.tripsLineId.isNotEmpty()
 }
 
 

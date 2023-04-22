@@ -11,47 +11,55 @@
 
     </data>
 
-
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/cardView_item"
+        style="@style/cardStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <TextView
-            android:id="@+id/tv_from_card"
-            android:layout_width="wrap_content"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/from_sadat_city"
-            android:textSize="16sp"
-            app:layout_constraintBottom_toTopOf="@+id/tv_to_card"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:set_location_text="@{tripsLine.startDestination}" />
+            >
 
-        <TextView
-            android:id="@+id/tv_to_card"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:hint="@string/to_badr_city"
-            android:textSize="16sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_from_card"
-            app:set_location_text="@{tripsLine.endDestination}" />
+            <TextView
+                android:id="@+id/tv_from_card"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="@string/from_sadat_city"
+                android:textSize="16sp"
+                app:layout_constraintBottom_toTopOf="@+id/tv_to_card"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:set_location_text="@{tripsLine.startDestination}" />
 
-        <TextView
-            android:id="@+id/btn_add_card"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:hint="@string/fare_example"
-            android:text="@{tripsLine.fare}"
-            app:layout_constraintEnd_toStartOf="@+id/item_checkbox"
-            app:layout_constraintTop_toTopOf="parent" />
+            <TextView
+                android:id="@+id/tv_to_card"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="@string/to_badr_city"
+                android:textSize="16sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_from_card"
+                app:set_location_text="@{tripsLine.endDestination}" />
 
-        <CheckBox
-            android:id="@+id/item_checkbox"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            <TextView
+                android:id="@+id/tv_add_card"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:hint="@string/fare_example"
+                android:text="@{tripsLine.fare}"
+                app:layout_constraintEnd_toStartOf="@+id/item_checkbox"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <CheckBox
+                android:id="@+id/item_checkbox"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:isChecked="@{tripsLine}"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </com.google.android.material.card.MaterialCardView>
 </layout>

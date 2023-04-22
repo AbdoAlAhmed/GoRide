@@ -9,9 +9,12 @@ data class TripsLine(
     val distance: String,
     val tripsLineStatus: String,
     val HMRequest: Int,
-    val IsHSupported: Boolean
+    var isChecked: Boolean
 
 ) {
     constructor() : this("", Location(), Location(), "", "", "", "", 0, false)
+    constructor(
+        tripsLineId: String
+    ) : this(tripsLineId, Location(), Location(), "", "", "", "", 0, false)
 }
 // trip line status = "suggest" = pass the review waiting for support  or "review" first step  or "available" last step

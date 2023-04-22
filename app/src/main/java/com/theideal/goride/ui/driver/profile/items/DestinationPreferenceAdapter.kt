@@ -1,14 +1,15 @@
-package com.theideal.goride.ui.driver.home.home_services.work_in_trip
+package com.theideal.goride.ui.driver.profile.items
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
+import com.theideal.goride.R
 import com.theideal.goride.databinding.ItemChooseTripDriverBinding
 import com.theideal.goride.model.TripsLine
 
-class WorkInTripAdapter(private val onClick: OnClickListener) :
-    ListAdapter<TripsLine, WorkInTripAdapter.ViewHolder>(DiffCallBack) {
+class DestinationPreferenceAdapter(private val onClick: OnClickListener) :
+    ListAdapter<TripsLine, DestinationPreferenceAdapter.ViewHolder>(DiffCallBack) {
     object DiffCallBack : DiffUtil.ItemCallback<TripsLine>() {
         override fun areItemsTheSame(oldItem: TripsLine, newItem: TripsLine): Boolean {
             return oldItem.tripsLineId == newItem.tripsLineId
@@ -43,10 +44,21 @@ class WorkInTripAdapter(private val onClick: OnClickListener) :
         holder.bind(position)
         holder.itemView.setOnClickListener {
             onClick.onClick(position)
+            it.isSelected = !it.isSelected
+            if (it.isSelected) {
+                it.setBackgroundResource(R.color.sunset_orange)
+            } else {
+                it.setBackgroundResource(R.color.white)
+            }
         }
     }
 
     class OnClickListener(val clickListener: (tripsLine: TripsLine) -> Unit) {
         fun onClick(tripsLine: TripsLine) = clickListener(tripsLine)
     }
+
+    override fun getItemId(position: Int): Long {
+        return position.toLong()
+    }
+
 }

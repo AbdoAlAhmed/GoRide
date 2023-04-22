@@ -7,17 +7,29 @@ import com.theideal.goride.model.User
 
 class ProfileDriverViewModel(val db: ProfileDriverFirebase) : ViewModel() {
     private val localData = arrayListOf(
-        Setting(nameOfTheSetting = "Setting", label = "")
-        ,
-        Setting(nameOfTheSetting = "Destination Preferences", label = ""),
-        Setting(nameOfTheSetting = "Payment", label = "Under Development ..."),
-        Setting(nameOfTheSetting = "Notifications", label = ""),
-        Setting(nameOfTheSetting = "Help", label = ""),
-        Setting(nameOfTheSetting = "About", label = ""),
-        Setting(nameOfTheSetting = "Privacy Policy", label = ""),
-        Setting(nameOfTheSetting = "Logout", label = "")
+        Setting(nameOfTheSetting = "Setting", label = "", id = 1),
+        Setting(nameOfTheSetting = "Destination Preferences", label = "", id = 2),
+        Setting(nameOfTheSetting = "Payment", label = "Under Development ...", id = 3),
+        Setting(nameOfTheSetting = "Notifications", label = "", id = 4),
+        Setting(nameOfTheSetting = "Help", label = "", id = 5),
+        Setting(nameOfTheSetting = "About", label = "", id = 6),
+        Setting(nameOfTheSetting = "Privacy Policy", label = "", id = 7),
+        Setting(nameOfTheSetting = "Logout", label = "", id = 8)
 
     )
+
+    enum class SettingNavigation(val id: Int) {
+        Null(0),
+        Setting(1),
+        DestinationPreferences(2),
+        Payment(3),
+        Notifications(4),
+        Help(5),
+        About(6),
+        PrivacyPolicy(7),
+        Logout(8)
+    }
+
     private var _profileUser = MutableLiveData<User>()
     val profileUser: LiveData<User>
         get() = _profileUser
@@ -26,10 +38,15 @@ class ProfileDriverViewModel(val db: ProfileDriverFirebase) : ViewModel() {
     val settings: LiveData<List<Setting>>
         get() = _settings
 
+    private val _navTo = MutableLiveData<SettingNavigation>()
+    val navTo: LiveData<SettingNavigation>
+        get() = _navTo
+
 
     init {
         _settings.value = localData
     }
+
     fun getAndUpdateUserInformation(vararg keyValue: String) {
         if (keyValue.size % 2 != 0) {
             throw IllegalArgumentException("keyValue must be even")
@@ -39,4 +56,23 @@ class ProfileDriverViewModel(val db: ProfileDriverFirebase) : ViewModel() {
             }
         }
     }
+
+    fun navigateTo(setting: Setting) {
+        when (setting.id) {
+            1 -> _navTo.value = SettingNavigation.Setting
+            2 -> _navTo.value = SettingNavigation.DestinationPreferences
+            3 -> _navTo.value = SettingNavigation.Payment
+            4 -> _navTo.value = SettingNavigation.Notifications
+            5 -> _navTo.value = SettingNavigation.Help
+            6 -> _navTo.value = SettingNavigation.About
+            7 -> _navTo.value = SettingNavigation.PrivacyPolicy
+            8 -> _navTo.value = SettingNavigation.Logout
+        }
+
+    }
+
+    fun navigateToComplete() {
+        _navTo.value = SettingNavigation.Null
+    }
+
 }

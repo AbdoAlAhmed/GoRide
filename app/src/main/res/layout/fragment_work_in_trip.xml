@@ -5,41 +5,16 @@
 
     <data>
 
-        <variable
-            name="viewModel"
-            type="com.theideal.goride.ui.driver.home.home_services.work_in_trip.WorkInTripFragmentViewModel" />
 
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:weightSum="1"
         tools:context=".ui.driver.home.home_services.work_in_trip.WorkInTripFragment">
 
-        <com.google.android.material.card.MaterialCardView
-            style="@style/CardContainer"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
-
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/rv_trips_line"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    app:bind_data="@{viewModel.tripsLineList}"
-                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                    tools:listitem="@layout/item_choose_trip_driver"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
-        </com.google.android.material.card.MaterialCardView>
-    </androidx.constraintlayout.widget.ConstraintLayout>
+      
+    </LinearLayout>
 </layout>

@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.google.android.material.snackbar.Snackbar
+import com.google.android.material.snackbar.Snackbar.SnackbarLayout
 import com.theideal.goride.databinding.FragmentHomeDriverBinding
 import com.theideal.goride.ui.both.ErrorActivity
 import com.theideal.goride.ui.driver.home.home_services.suggest_trip.SuggestTripsActivity
@@ -37,7 +38,7 @@ class HomeDriverFragment : Fragment() {
         viewModel.navTo.observe(viewLifecycleOwner) {
             when (it) {
                 HomeDriverViewModel.HomeDriverServices.WorkInATaxi -> {
-
+                    viewModel.doneShowingSnackBar()
                 }
                 HomeDriverViewModel.HomeDriverServices.Suggest -> {
                     startActivity(Intent(requireContext(), SuggestTripsActivity::class.java))
@@ -57,8 +58,9 @@ class HomeDriverFragment : Fragment() {
                 }
             }
             viewModel.snackBar.observe(viewLifecycleOwner) { message ->
-                if (message != null) {
-                    Snackbar.make(binding.root, message, Snackbar.LENGTH_SHORT).show()
+                if (message != "") {
+                        Snackbar.make(binding.root, message, Snackbar.LENGTH_LONG).show()
+
                 }
             }
         }

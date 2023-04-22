@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.theideal.goride.databinding.FragmentWorkInTripBinding
+import com.theideal.goride.ui.driver.profile.items.DestinationPreferenceViewModelFactory
 
 class WorkInTripFragment : Fragment() {
     private lateinit var binding: FragmentWorkInTripBinding
@@ -24,20 +25,7 @@ class WorkInTripFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         binding = FragmentWorkInTripBinding.inflate(inflater, container, false)
-        val viewModelFactory =
-            WorkInTripFragmentViewModelFactory(WorkInTripFirebase(), requireActivity().application)
-        viewModel =
-            ViewModelProvider(
-                requireActivity(),
-                viewModelFactory
-            )[WorkInTripFragmentViewModel::class.java]
-        viewModel.userInfo()
-        viewModel.getTripData()
-        binding.viewModel = viewModel
-        binding.lifecycleOwner = this
-        binding.rvTripsLine.adapter = WorkInTripAdapter(WorkInTripAdapter.OnClickListener {
-            viewModel.addAndRemoveTrip(it)
-        })
+
 
 
         return binding.root
