@@ -20,9 +20,9 @@
         <item name="cardPreventCornerOverlap">true</item>
         <item name="cardMaxElevation">4dp</item>
     </style>
-<style name="SnackbarStyle" parent="Widget.MaterialComponents.Snackbar">
-  <item name="android:background">@color/white</item>
-  <item name="android:textColor">@color/black</item>
-  <item name="android:textSize">16sp</item>
-</style>
+    <style name="cardStyle2" parent="Widget.MaterialComponents.CardView">
+        <item name="cardBackgroundColor">@color/white
+        </item>
+    </style>
+
 </resources>

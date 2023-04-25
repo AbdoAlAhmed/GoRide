@@ -2,8 +2,11 @@ package com.theideal.goride.ui.driver.profile.items
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.cardview.widget.CardView
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
+import com.google.android.material.card.MaterialCardView
 import com.theideal.goride.R
 import com.theideal.goride.databinding.ItemChooseTripDriverBinding
 import com.theideal.goride.model.TripsLine
@@ -42,6 +45,7 @@ class DestinationPreferenceAdapter(private val onClick: OnClickListener) :
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val position = getItem(position)
         holder.bind(position)
+        val card = holder.itemView.findViewById<MaterialCardView>(R.id.cardView)
         holder.itemView.setOnClickListener {
             onClick.onClick(position)
             it.isSelected = !it.isSelected

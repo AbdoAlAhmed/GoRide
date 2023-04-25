@@ -72,7 +72,11 @@
     <string name="_add">Add</string>
     <string name="_delete">Delete</string>
     <string name="you_are_working_in_the_following_trips">You are working in the following trips:</string>
-    <string name="choose_the_trip_you_want_to_work_in">Choose the trip you want to work in</string>
+    <string name="choose_the_trip_you_want_to_work_in">Choose the trip you want to work in \n
+        if you choose any one it should be in a different color</string>
+    <string name="are_you_sure_you_want_to_select_those_trips_n_you_can_change_your_selection_later">Are you sure you want to select those trips?
+        \n You can change your selection later.</string>
+    <string name="ok">ok</string>
     <array name="vehicle_type">
         <item>Taxi</item>
         <item>Bus</item>

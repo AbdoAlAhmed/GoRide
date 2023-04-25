@@ -31,22 +31,29 @@ class DestinationPreferenceFirebase : FirebaseAuthModel() {
     }
 
 
-    fun addAndGetTrip(vararg tripIdList: List<String>, callback: (ArrayList<TripsLine>) -> Unit) {
-        val tripsLineList = ArrayList<TripsLine>()
+    fun addAndGetTrip(
+        tripIdList: ArrayList<String> = arrayListOf(),
+        callback: (ArrayList<String>) -> Unit
+    ) {
+        val tripsLineList = ArrayList<String>()
         dbRef.get().addOnSuccessListener { it ->
             it.forEach {
-                val it = it.toObject(TripsLine::class.java)
-                tripsLineList.add(it)
+                val list = it.get("workInLines").toString()
+                tripsLineList.add(list)
             }
             callback(tripsLineList)
             if (tripIdList.isNotEmpty()) {
+                Timber.d("tripIdList is Not Empty: $tripIdList")
                 it.documents[0].reference.set(
-                    hashMapOf(
-                        "WorkInLines" to tripIdList
+                    mapOf(
+                        "workInLines" to tripIdList
                     ), SetOptions.merge()
-                )
+                ).addOnSuccessListener {
+                    Timber.d("WorkInLines added successfully -- 51 -- : $tripIdList")
+                }.addOnFailureListener { e ->
+                    Timber.d("WorkInLines add failed: $e")
+                }
             }
-
         }
     }
 

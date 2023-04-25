@@ -19,41 +19,41 @@ class DestinationPreferenceViewModel(
     private val _tripLineListThatYouWorkOn = MutableLiveData<ArrayList<TripsLine>>()
     val tripLineListThatYouWorkOn: LiveData<ArrayList<TripsLine>>
         get() = _tripLineListThatYouWorkOn
-    private val list = ArrayList<TripsLine>()
+
+    private val _dialog = MutableLiveData<Boolean>()
+    val dialog: LiveData<Boolean>
+        get() = _dialog
+
 
     private val tripList: MutableLiveData<ArrayList<String>> = MutableLiveData()
 
-
     init {
-        Timber.d("DestinationPreferenceViewModel created!")
         db.getTripData {
             _tripsLineListToWorkOnIt.value = it
-            it.forEach {
-                if (it in list) {
-                    _tripLineListThatYouWorkOn.value?.add(it)
-                    Timber.d("_tripLineListThatYouWorkOn: ${_tripLineListThatYouWorkOn.value}")
-                }
-            }
-            Timber.d("tripsLineList: ${_tripsLineListToWorkOnIt.value}")
-        }
-        db.addAndGetTrip {
-            _tripLineListThatYouWorkOn.value = it
-            Timber.d("_tripLineListThatYouWorkOn: ${_tripLineListThatYouWorkOn.value}")
         }
 
+
+
     }
+
+    fun showDialog() {
+        _dialog.value = true
+    }
+
+    fun hideDialog() {
+        _dialog.value = false
+    }
+
 
     fun addTrip() {
         Timber.d("_tripList: ${tripList.value}")
         try {
             db.addAndGetTrip(tripList.value!!) {
-                list.addAll(it)
-                Timber.d("list: $list")
+
             }
         } catch (e: Exception) {
             Timber.d("Exception: $e")
         }
-
 
     }
 
@@ -74,6 +74,7 @@ class DestinationPreferenceViewModel(
             Timber.d("_tripList is null")
             tripList.value = arrayListOf(trip.tripsLineId)
         }
+
 
     }
 }
