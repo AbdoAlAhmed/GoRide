@@ -14,7 +14,7 @@ class ProfileDriverViewModel(val db: ProfileDriverFirebase) : ViewModel() {
         Setting(nameOfTheSetting = "Help", label = "", id = 5),
         Setting(nameOfTheSetting = "About", label = "", id = 6),
         Setting(nameOfTheSetting = "Privacy Policy", label = "", id = 7),
-        Setting(nameOfTheSetting = "Logout", label = "", id = 8)
+        Setting(nameOfTheSetting = "LogOut", label = "", id = 8)
 
     )
 

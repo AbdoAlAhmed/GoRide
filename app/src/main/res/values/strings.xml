@@ -77,6 +77,8 @@
     <string name="are_you_sure_you_want_to_select_those_trips_n_you_can_change_your_selection_later">Are you sure you want to select those trips?
         \n You can change your selection later.</string>
     <string name="ok">ok</string>
+    <string name="you_are_about_to_logout_are_you_sure">You are about to logout. Are you sure?</string>
+    <string name="logout">Logout</string>
     <array name="vehicle_type">
         <item>Taxi</item>
         <item>Bus</item>

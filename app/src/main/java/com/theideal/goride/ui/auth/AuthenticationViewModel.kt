@@ -442,7 +442,7 @@ open class AuthenticationViewModel(private val firebaseAuthModel: FirebaseAuthMo
         }
     }
 
-    fun uploadImage(uri: Uri, imageName: String)  {
+    fun uploadImage(uri: Uri, imageName: String) {
         firebaseAuthModel.uploadImage(uri, imageName) {
             _imageUploadCompleted.value = it
         }
@@ -458,6 +458,12 @@ open class AuthenticationViewModel(private val firebaseAuthModel: FirebaseAuthMo
     fun startUploadImage(imageName: String): Boolean {
         _imageUpload.value = imageName
         return true
+    }
+
+    fun logoutBoth() {
+        firebaseAuthModel.signOut()
+        _isSignInDriver.value = false
+        _isSignInRider.value = false
     }
 
 }
