@@ -466,4 +466,8 @@ open class AuthenticationViewModel(private val firebaseAuthModel: FirebaseAuthMo
         _isSignInRider.value = false
     }
 
+    fun deleteAccount() {
+        firebaseAuthModel.deleteAccount()
+    }
+
 }

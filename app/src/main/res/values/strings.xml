@@ -79,6 +79,9 @@
     <string name="ok">ok</string>
     <string name="you_are_about_to_logout_are_you_sure">You are about to logout. Are you sure?</string>
     <string name="logout">Logout</string>
+    <string name="update">Update</string>
+    <string name="delete_account">Delete Account</string>
+    <string name="are_you_sure_you_want_to_update_your_information">Are you sure you want to update your information?</string>
     <array name="vehicle_type">
         <item>Taxi</item>
         <item>Bus</item>

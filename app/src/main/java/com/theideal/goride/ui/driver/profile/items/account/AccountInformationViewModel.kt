@@ -10,16 +10,40 @@ class AccountInformationViewModel(val db: AccountInformationFirebase) : ViewMode
     private val _user = MutableLiveData<User>()
     val user: LiveData<User>
         get() = _user
+    private val _updateDialog = MutableLiveData<Boolean>()
+    val updateDialog: LiveData<Boolean>
+        get() = _updateDialog
 
 
     init {
-        db.getAndUpdateUserInfoWithUserData {
+
+        db.getAndUpdateUserInfo {
             _user.value = it
+
         }
+        _updateDialog.value = false
     }
 
-    fun getAndUpdateUserInfoWithUserData(u: User) {
+    fun updateDialog() {
+        _updateDialog.value = true
+    }
 
+    fun updateDialogDone() {
+        _updateDialog.value = false
+    }
+
+
+    fun updateUserInfo() {
+        db.getAndUpdateUserInfo(
+            "firstName",
+            user.value?.firstName.toString(),
+            "phone",
+            user.value?.phone.toString(),
+            "password",
+            user.value?.getPassword().toString()
+        ) {
+            _user.value = it
+        }
     }
 
 }

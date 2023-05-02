@@ -232,4 +232,14 @@ open class FirebaseAuthModel : ViewModel() {
     }
 
 
+    fun deleteAccount(){
+        val user = auth.currentUser
+        user!!.delete().addOnSuccessListener {
+            Timber.i("Success")
+        }.addOnFailureListener {
+            Timber.i(it.toString())
+        }
+    }
+
+
 }
