@@ -18,35 +18,16 @@ fun bindDataToRecyclerView(recyclerView: RecyclerView, data: List<Any>?) {
 
 
 @BindingAdapter("set_image")
-fun setImage(view: ImageView, card: CardViewData?) {
-    Glide.with(view.context)
-        .load(card!!.image)
-        .centerCrop()
-        .placeholder(R.drawable.vc_error)
-        .into(view)
-}
-
-@BindingAdapter("set_image_users")
-fun setImage(view: ImageView, user: User?) {
+fun setImage(view: ImageView, image: String?) {
     try {
         Glide.with(view.context)
-            .load(user!!.profileImage)
+            .load(image!!)
             .centerCrop()
             .placeholder(R.drawable.vc_error)
             .into(view)
     } catch (e: Exception) {
-        Timber.e("focus" + e)
+        Timber.e(e)
     }
-
-}
-
-@BindingAdapter("set_image_image_name")
-fun setImageFromUrl(view: ImageView, imageName: String?) {
-    Glide.with(view.context)
-        .load(imageName!!)
-        .centerCrop()
-        .placeholder(R.drawable.vc_error)
-        .into(view)
 }
 
 

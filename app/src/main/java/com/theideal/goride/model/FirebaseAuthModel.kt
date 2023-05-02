@@ -4,6 +4,7 @@ import android.net.Uri
 import androidx.lifecycle.ViewModel
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.SetOptions
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.ktx.storage
 import kotlinx.coroutines.Dispatchers
@@ -82,11 +83,10 @@ open class FirebaseAuthModel : ViewModel() {
 
 
     fun getAndUpdateUserInfo(vararg keyValue: String, callback: (User) -> Unit) {
-        val uid = auth.currentUser?.uid
-        if (uid != null) {
-            Timber.i(uid)
+        if (userId != null) {
+            Timber.i(userId)
             db.collectionGroup("users_info")
-                .whereEqualTo("id", uid)
+                .whereEqualTo("id", userId)
                 .whereNotEqualTo("firstName", "null")
                 .get().addOnSuccessListener {
                     for (document in it) {
@@ -96,6 +96,31 @@ open class FirebaseAuthModel : ViewModel() {
                                 document.reference.update(keyValue[i], keyValue[i + 1])
                             }
                         }
+                        val data = document.toObject(User::class.java)
+                        callback(data)
+                    }
+                }.addOnFailureListener {
+                    Timber.i(it.toString())
+                }
+        }
+    }
+
+    //todo  i'm here now
+    fun getAndUpdateUserInfoWithUserData(
+        user: User = User(),
+        callback: (User) -> Unit,
+    ) {
+        if (userId != null) {
+            Timber.i(userId)
+            db.collectionGroup("users_info")
+                .whereEqualTo("id", userId)
+                .whereNotEqualTo("firstName", "null")
+                .get().addOnSuccessListener {
+                    for (document in it) {
+                        if (user.firstName != "") {
+                            document.reference.set(user, SetOptions.merge())
+                        }
+                        document.reference.set(user, SetOptions.merge())
                         val data = document.toObject(User::class.java)
                         callback(data)
                     }

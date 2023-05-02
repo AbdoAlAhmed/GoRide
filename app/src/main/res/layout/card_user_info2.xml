@@ -42,7 +42,7 @@
                 android:layout_marginEnd="10dp"
                 android:layout_marginBottom="10dp"
                 android:src="@drawable/vc_person"
-                app:set_image_users="@{viewModel.profileUser}" />
+                app:set_image="@{viewModel.profileUser.profileImage}" />
         </RelativeLayout>
     </androidx.cardview.widget.CardView>
 </layout>

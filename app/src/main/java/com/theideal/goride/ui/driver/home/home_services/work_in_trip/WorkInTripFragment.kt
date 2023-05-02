@@ -5,9 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
 import com.theideal.goride.databinding.FragmentWorkInTripBinding
-import com.theideal.goride.ui.driver.profile.items.DestinationPreferenceViewModelFactory
 
 class WorkInTripFragment : Fragment() {
     private lateinit var binding: FragmentWorkInTripBinding

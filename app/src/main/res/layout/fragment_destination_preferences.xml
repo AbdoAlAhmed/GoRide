@@ -7,7 +7,7 @@
 
         <variable
             name="viewModel"
-            type="com.theideal.goride.ui.driver.profile.items.DestinationPreferenceViewModel" />
+            type="com.theideal.goride.ui.driver.profile.items.destination.DestinationPreferenceViewModel" />
 
     </data>
 

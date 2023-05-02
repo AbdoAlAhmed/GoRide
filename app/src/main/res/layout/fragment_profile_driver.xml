@@ -31,6 +31,7 @@
                 android:orientation="vertical"
                 >
                 <include
+                    android:id="@+id/card_user_info"
                     layout="@layout/card_user_info2"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"

@@ -1,4 +1,4 @@
-package com.theideal.goride.ui.driver.profile.items
+package com.theideal.goride.ui.driver.profile.items.destination
 
 import android.app.Application
 import androidx.lifecycle.LiveData

@@ -4,6 +4,9 @@ import android.net.Uri
 import android.os.Parcelable
 import kotlinx.android.parcel.Parcelize
 import timber.log.Timber
+import javax.crypto.Cipher
+import javax.crypto.SecretKey
+import javax.crypto.spec.SecretKeySpec
 
 
 @Parcelize
@@ -23,9 +26,28 @@ data class User(
 
 ) : Parcelable {
     fun getPassword() = password
-    fun setPassword(newPassword: String) {
-        this.password = newPassword
+
+    fun setPassword(password: String) {
+        this.password = password
     }
+
+    // encrypt password before saving to database
+//    fun encryptPassword(password: String, secretKey: SecretKey): ByteArray {
+//        val cipher = Cipher.getInstance("AES")
+//        cipher.init(Cipher.ENCRYPT_MODE, secretKey)
+//        return cipher.doFinal(password.toByteArray(Charsets.UTF_8))
+//    }
+//
+//    fun decryptPassword(encryptedPassword: ByteArray, secretKey: SecretKey): String {
+//        val cipher = Cipher.getInstance("AES")
+//        cipher.init(Cipher.DECRYPT_MODE, secretKey)
+//        val decryptedBytes = cipher.doFinal(encryptedPassword)
+//        return String(decryptedBytes, Charsets.UTF_8)
+//    }
+//    // example
+//    val password2 = "mysecretpassword"
+//    val secretKey = SecretKeySpec("mysecretpassword".toByteArray(), "AES")
+
 
     private val updateStatus: Boolean
         get() = userType.equals("Rider")

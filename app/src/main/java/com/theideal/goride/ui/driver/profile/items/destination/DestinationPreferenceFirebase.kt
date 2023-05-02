@@ -1,4 +1,4 @@
-package com.theideal.goride.ui.driver.profile.items
+package com.theideal.goride.ui.driver.profile.items.destination
 
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.SetOptions

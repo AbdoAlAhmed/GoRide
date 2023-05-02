@@ -1,9 +1,7 @@
-package com.theideal.goride.ui.driver.profile.items
+package com.theideal.goride.ui.driver.profile.items.destination
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.cardview.widget.CardView
-import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import com.google.android.material.card.MaterialCardView

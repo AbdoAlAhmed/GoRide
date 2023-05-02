@@ -2,9 +2,19 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/profile_graph"
-    app:startDestination="@id/destinationPreferencesFragment2">
+    app:startDestination="@id/accountInformationFragment">
     <fragment
         android:id="@+id/destinationPreferencesFragment2"
-        android:name="com.theideal.goride.ui.driver.profile.items.DestinationPreferencesFragment"
+        android:name="com.theideal.goride.ui.driver.profile.items.destination.DestinationPreferencesFragment"
         android:label="DestinationPreferencesFragment" />
+    <fragment
+        android:id="@+id/accountInformationFragment"
+        android:name="com.theideal.goride.ui.driver.profile.items.account.AccountInformationFragment"
+        android:label="AccountInformationFragment" >
+        <action
+            android:id="@+id/action_accountInformationFragment_to_destinationPreferencesFragment"
+            app:destination="@id/destinationPreferencesFragment2"
+            app:popUpTo="@id/accountInformationFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
 </navigation>

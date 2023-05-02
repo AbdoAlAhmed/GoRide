@@ -30,7 +30,7 @@ class ProfileDriverFragment : Fragment() {
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+        savedInstanceState: Bundle?,
     ): View? {
         // Inflate the layout for this fragment
 
@@ -47,18 +47,26 @@ class ProfileDriverFragment : Fragment() {
         binding.rvSettings.adapter = ProfileDriverAdapter(ProfileDriverAdapter.OnClick {
             viewModel.navigateTo(it)
         })
+        val intent = Intent(requireActivity(), ProfileActivity::class.java)
         viewModel.navTo.observe(viewLifecycleOwner) {
             when (it) {
                 ProfileDriverViewModel.SettingNavigation.DestinationPreferences -> {
-                    startActivity(Intent(requireActivity(), ProfileActivity::class.java))
+                    intent.putExtra("Fragment", "DestinationPreferences")
+                    startActivity(intent)
                 }
                 ProfileDriverViewModel.SettingNavigation.Logout -> {
                     logoutDialog()
                 }
+
+
                 else -> {
 
                 }
             }
+        }
+        binding.cardUserInfo.root.setOnClickListener {
+            intent.putExtra("Fragment", "")
+            startActivity(intent)
         }
         return binding.root
 
@@ -74,7 +82,12 @@ class ProfileDriverFragment : Fragment() {
 
             viewModelAuth.logoutBoth()
             requireActivity().apply {
-                startActivity(Intent(this, com.theideal.goride.ui.auth.AuthenticationActivity::class.java))
+                startActivity(
+                    Intent(
+                        this,
+                        com.theideal.goride.ui.auth.AuthenticationActivity::class.java
+                    )
+                )
                 requireActivity().finish()
             }
             dialogCreator.dismiss()
