@@ -21,6 +21,12 @@ class ProfileActivity : AppCompatActivity() {
             "DestinationPreferences" -> {
                 navController.navigate(R.id.action_accountInformationFragment_to_destinationPreferencesFragment)
             }
+            "PrivacyPolicy" -> {
+                navController.navigate(R.id.action_accountInformationFragment_to_privacyPolicyFragment)
+            }
+            "Help" -> {
+                navController.navigate(R.id.action_accountInformationFragment_to_helpFragment)
+            }
             else -> {
 
             }

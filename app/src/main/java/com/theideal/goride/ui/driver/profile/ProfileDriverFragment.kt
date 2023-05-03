@@ -8,7 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import com.theideal.goride.databinding.DialogLogoutBinding
+import com.google.android.material.snackbar.Snackbar
 import com.theideal.goride.databinding.FragmentProfileDriverBinding
 import com.theideal.goride.model.FirebaseAuthModel
 import com.theideal.goride.model.User
@@ -53,15 +53,33 @@ class ProfileDriverFragment : Fragment() {
                 ProfileDriverViewModel.SettingNavigation.DestinationPreferences -> {
                     intent.putExtra("Fragment", "DestinationPreferences")
                     startActivity(intent)
+                    viewModel.navigateToComplete()
                 }
                 ProfileDriverViewModel.SettingNavigation.Logout -> {
                     logoutDialog()
+
+                }
+                ProfileDriverViewModel.SettingNavigation.PrivacyPolicy -> {
+                    intent.putExtra("Fragment", "PrivacyPolicy")
+                    startActivity(intent)
+                    viewModel.navigateToComplete()
+                }
+                ProfileDriverViewModel.SettingNavigation.Help -> {
+                    intent.putExtra("Fragment", "Help")
+                    startActivity(intent)
+                    viewModel.navigateToComplete()
                 }
 
 
                 else -> {
 
                 }
+            }
+        }
+        viewModel.snackBar.observe(viewLifecycleOwner) {
+            if (it != "") {
+                Snackbar.make(binding.root, it, Snackbar.LENGTH_SHORT).show()
+                viewModel.snackBarComplete()
             }
         }
         binding.cardUserInfo.root.setOnClickListener {
@@ -75,11 +93,10 @@ class ProfileDriverFragment : Fragment() {
     private fun logoutDialog() {
         val dialogBuilder = AlertDialog.Builder(requireContext())
         val dialogCreator = dialogBuilder.create()
-        val dialogView = DialogLogoutBinding.inflate(layoutInflater, null, false)
-        dialogCreator.setView(dialogView.root)
-        dialogCreator.show()
-        dialogView.btnLogout.setOnClickListener {
+        dialogCreator.setTitle("Logout")
+        dialogCreator.setMessage("Are you sure you want to logout?")
 
+        dialogCreator.setButton(AlertDialog.BUTTON_POSITIVE, "Logout") { _, _ ->
             viewModelAuth.logoutBoth()
             requireActivity().apply {
                 startActivity(
@@ -92,6 +109,7 @@ class ProfileDriverFragment : Fragment() {
             }
             dialogCreator.dismiss()
         }
+        dialogCreator.show()
     }
 
 }

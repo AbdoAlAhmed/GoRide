@@ -1,5 +1,6 @@
 package com.theideal.goride
 
+import android.text.Html
 import android.view.View
 import android.widget.*
 import androidx.databinding.BindingAdapter
@@ -119,4 +120,9 @@ fun getTextDouble(view: EditText): Double {
 fun getTextDouble2(view: EditText): Double {
     val text = view.text.toString()
     return if (text.isNotEmpty()) text.toDouble() else 0.0
+}
+
+@BindingAdapter("html_text")
+fun setHtmlText(textView: TextView, text: String?) {
+    textView.text = text?.let { Html.fromHtml(text) }
 }

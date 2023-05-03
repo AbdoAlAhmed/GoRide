@@ -46,6 +46,10 @@ open class AuthenticationViewModel(private val firebaseAuthModel: FirebaseAuthMo
     val signWithGoogle: LiveData<Boolean>
         get() = _signWithGoogle
 
+    private val _deleteUserAccountDialog = MutableLiveData<Boolean>()
+    val deleteUserAccountDialog: LiveData<Boolean>
+        get() = _deleteUserAccountDialog
+
 
     // nav
     private val _navToCarInfoFragment = MutableLiveData<Boolean>()
@@ -466,8 +470,18 @@ open class AuthenticationViewModel(private val firebaseAuthModel: FirebaseAuthMo
         _isSignInRider.value = false
     }
 
+    fun deleteUserAccountDialog() {
+        _deleteUserAccountDialog.value = true
+    }
+
+    fun doneDeleteUserAccountDialog() {
+        _deleteUserAccountDialog.value = false
+    }
+
     fun deleteAccount() {
-        firebaseAuthModel.deleteAccount()
+        viewModelScope.launch {
+            firebaseAuthModel.deleteAccount()
+        }
     }
 
 }

@@ -82,6 +82,43 @@
     <string name="update">Update</string>
     <string name="delete_account">Delete Account</string>
     <string name="are_you_sure_you_want_to_update_your_information">Are you sure you want to update your information?</string>
+    <string name="privacy_policy">
+    <![CDATA[
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Privacy Policy</title>
+</head>
+<body>
+  <h2>Privacy Policy for GoRide</h2>
+  <p>At GoRide, one of our main priorities is the privacy of our visitors. This Privacy Policy document contains types of information that is collected and recorded by GoRide and how we use it.</p>
+  <p>If you have additional questions or require more information about our Privacy Policy, do not hesitate to contact us.</p>
+  <h3>Information We Collect</h3>
+  <h4>Personal Information</h4>
+  <p>We do not collect any personal information such as your name, address, phone number, or email address.</p>
+  <h4>Non-personal Information</h4>
+  <p>We may collect non-personal information about you when you use our app. This information may include:</p>
+  <ul>
+    <li>Device information: We may collect information about the type of device you are using to access the app, including the device model, operating system, and mobile network information.</li>
+    <li>Log information: We may collect log information about your use of the app, including the type of browser you are using, access times, pages viewed, and IP address.</li>
+  </ul>
+  <h3>How We Use Your Information</h3>
+  <p>We do not sell, rent, or share your personal information with third parties.</p>
+  <p>The non-personal information we collect may be used to improve our app and to better understand how our users interact with the app.</p>
+  <h3>Security</h3>
+  <p>We take reasonable steps to protect the information we collect from unauthorized access or disclosure.</p>
+  <h3>Changes to this Policy</h3>
+  <p>We may update this Privacy Policy from time to time. We will notify you of any changes by posting the new Privacy Policy on this page.</p>
+  <h3>Contact Us</h3>
+  <p>If you have any questions or concerns about our Privacy Policy, please contact us at AbdoAhmed.bzn@gmail.com .</p>
+</body>
+</html>
+    ]]>
+</string>
+    <string name="subject">subject</string>
+    <string name="message">message</string>
+    <string name="send">send</string>
+
     <array name="vehicle_type">
         <item>Taxi</item>
         <item>Bus</item>

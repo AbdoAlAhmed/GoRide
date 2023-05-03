@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/profile_graph"
     app:startDestination="@id/accountInformationFragment">
     <fragment
@@ -16,5 +17,24 @@
             app:destination="@id/destinationPreferencesFragment2"
             app:popUpTo="@id/accountInformationFragment"
             app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_accountInformationFragment_to_privacyPolicyFragment"
+            app:destination="@id/privacyPolicyFragment"
+            app:popUpTo="@id/accountInformationFragment"
+            app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_accountInformationFragment_to_helpFragment"
+            app:destination="@id/helpFragment"
+            app:popUpTo="@id/accountInformationFragment"
+            app:popUpToInclusive="true" />
     </fragment>
+    <fragment
+        android:id="@+id/privacyPolicyFragment"
+        android:name="com.theideal.goride.ui.driver.profile.items.policy.PrivacyPolicyFragment"
+        android:label="fragment_privacy_policy"
+        tools:layout="@layout/fragment_privacy_policy" />
+    <fragment
+        android:id="@+id/helpFragment"
+        android:name="com.theideal.goride.ui.driver.profile.items.help.HelpFragment"
+        android:label="HelpFragment" />
 </navigation>

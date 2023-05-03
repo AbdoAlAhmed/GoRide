@@ -7,14 +7,12 @@ import com.theideal.goride.model.User
 
 class ProfileDriverViewModel(val db: ProfileDriverFirebase) : ViewModel() {
     private val localData = arrayListOf(
-        Setting(nameOfTheSetting = "Setting", label = "", id = 1),
+        Setting(nameOfTheSetting = "Setting", label = "Unavailable", id = 1),
         Setting(nameOfTheSetting = "Destination Preferences", label = "", id = 2),
         Setting(nameOfTheSetting = "Payment", label = "Under Development ...", id = 3),
-        Setting(nameOfTheSetting = "Notifications", label = "", id = 4),
-        Setting(nameOfTheSetting = "Help", label = "", id = 5),
-        Setting(nameOfTheSetting = "About", label = "", id = 6),
-        Setting(nameOfTheSetting = "Privacy Policy", label = "", id = 7),
-        Setting(nameOfTheSetting = "LogOut", label = "", id = 8)
+        Setting(nameOfTheSetting = "Help", label = "", id = 4),
+        Setting(nameOfTheSetting = "Privacy Policy", label = "", id = 5),
+        Setting(nameOfTheSetting = "LogOut", label = "", id = 6)
 
     )
 
@@ -42,6 +40,10 @@ class ProfileDriverViewModel(val db: ProfileDriverFirebase) : ViewModel() {
     val navTo: LiveData<SettingNavigation>
         get() = _navTo
 
+    private val _snackBar = MutableLiveData<String>()
+    val snackBar: LiveData<String>
+        get() = _snackBar
+
 
     init {
         _settings.value = localData
@@ -59,20 +61,28 @@ class ProfileDriverViewModel(val db: ProfileDriverFirebase) : ViewModel() {
 
     fun navigateTo(setting: Setting) {
         when (setting.id) {
-            1 -> _navTo.value = SettingNavigation.Setting
+            1 -> {
+                _navTo.value = SettingNavigation.Setting
+                _snackBar.value = "Unavailable"
+            }
             2 -> _navTo.value = SettingNavigation.DestinationPreferences
-            3 -> _navTo.value = SettingNavigation.Payment
-            4 -> _navTo.value = SettingNavigation.Notifications
-            5 -> _navTo.value = SettingNavigation.Help
-            6 -> _navTo.value = SettingNavigation.About
-            7 -> _navTo.value = SettingNavigation.PrivacyPolicy
-            8 -> _navTo.value = SettingNavigation.Logout
+            3 -> {
+                _navTo.value = SettingNavigation.Payment
+                _snackBar.value = "Under Development ..."
+            }
+            4 -> _navTo.value = SettingNavigation.Help
+            5 -> _navTo.value = SettingNavigation.PrivacyPolicy
+            6 -> _navTo.value = SettingNavigation.Logout
         }
 
     }
 
     fun navigateToComplete() {
         _navTo.value = SettingNavigation.Null
+    }
+
+    fun snackBarComplete() {
+        _snackBar.value = ""
     }
 
 }

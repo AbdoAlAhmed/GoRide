@@ -16,6 +16,7 @@ open class FirebaseAuthModel : ViewModel() {
     private val db = FirebaseFirestore.getInstance()
     private val dbRef = db.collection("users")
     private val auth = FirebaseAuth.getInstance()
+    val user = auth.currentUser
     val userId = auth.currentUser?.uid
     private val storage = Firebase.storage.reference
 
@@ -232,13 +233,16 @@ open class FirebaseAuthModel : ViewModel() {
     }
 
 
-    fun deleteAccount(){
-        val user = auth.currentUser
-        user!!.delete().addOnSuccessListener {
-            Timber.i("Success")
-        }.addOnFailureListener {
-            Timber.i(it.toString())
+    suspend fun deleteAccount() {
+        Timber.i("delete")
+        withContext(Dispatchers.IO) {
+            try {
+                auth.currentUser?.delete()?.await()
+            } catch (e: Exception) {
+                Timber.i(e.toString())
+            }
         }
+
     }
 
 

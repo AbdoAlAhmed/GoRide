@@ -78,9 +78,6 @@ class DriverInfoFragment : Fragment() {
             }
         }
 
-
-
-
         return binding.root
     }
 

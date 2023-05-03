@@ -10,6 +10,9 @@
             type="com.theideal.goride.ui.driver.profile.items.account.AccountInformationViewModel" />
 
         <variable
+            name="viewModelAuth"
+            type="com.theideal.goride.ui.auth.AuthenticationViewModel" />
+        <variable
             name="user"
             type="com.theideal.goride.model.User" />
     </data>
@@ -112,6 +115,7 @@
                     android:layout_height="wrap_content"
                     android:layout_margin="20dp"
                     android:backgroundTint="@color/red"
+                    android:onClick="@{() -> viewModelAuth.deleteUserAccountDialog()}"
                     android:text="@string/delete_account"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
